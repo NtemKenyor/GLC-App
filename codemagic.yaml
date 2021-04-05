@@ -1,5 +1,5 @@
 - name: iOS test
-    script: |
+    script: 
     xcode-project run-tests \
         --workspace MyAwesomeApp.xcworkspace \
         --scheme MyAwesomeApp \
