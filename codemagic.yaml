@@ -3,8 +3,8 @@ workflows:
     name: ios_workflow
     environment:
       vars:
-        XCODE_WORKSPACE: "MyXcodeWorkspace.xcworkspace"  # PUT YOUR WORKSPACE NAME HERE
-        XCODE_SCHEME: "MyScheme" # PUT THE NAME OF YOUR SCHEME HERE
+        XCODE_WORKSPACE: "fishing.xcworkspace"  # PUT YOUR WORKSPACE NAME HERE
+        XCODE_SCHEME: "fishingScheme" # PUT THE NAME OF YOUR SCHEME HERE
         CODE_SIGN_INDENTITY: "" 
         CODE_SIGNING_REQUIRED: NO 
         CODE_SIGNING_ALLOWED: NO
