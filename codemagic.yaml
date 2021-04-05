@@ -29,13 +29,17 @@ workflows:
           mkdir -p "$PROFILES_HOME"
           PROFILE_PATH="$(mktemp "$PROFILES_HOME"/$(uuidgen).mobileprovision)"
           echo ${FCI_PROVISIONING_PROFILE} | base64 --decode > "$PROFILE_PATH"
-          echo "Saved provisioning profile $PROFILE_PATH"                  
-      - name: Build ipa for distribution
-        script: xcode-project build-ipa --workspace "$XCODE_WORKSPACE" --scheme "$XCODE_SCHEME"
+          echo "Saved provisioning profile $PROFILE_PATH"    
+          
+      - name: iOS test
+        script: |
+        xcode-project run-tests \
+            --workspace "$XCODE_WORKSPACE" \
+            --scheme "$XCODE_SCHEME" \
+            --device "iPhone 11"
+        test_report: build/ios/test/*.xml 
     artifacts:
-      - build/ios/ipa/*.ipa
-      - /tmp/xcodebuild_logs/*.log
-      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+      - build/ios/test/*.xml
     #publishing:
       #app_store_connect:
         #apple_id: your_apple_id@example.com  # PUT YOUR APPLE ID HERE
