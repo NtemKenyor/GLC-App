@@ -1,11 +1,16 @@
-# GLC-App
-The IOS and Android Code Base for the GLC-London
+# GLC
 
+A new Flutter project.
 
-You can run this App on your device by using a code editor and a terminal(Command Line). 
+## Getting Started
 
-1) Clone(Download) the project
-2) Connect a USD cable from your PC to your Phone. (If you do not have an emulator)
-3) Navigator to the location of this project in the terminal
-4) Run the code "flutter run" in your terminal.
-5) You may need to install Flutter, Dart and Sdk's
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+
+For help getting started with Flutter, view our
+[online documentation](https://flutter.dev/docs), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
