@@ -1,4 +1,4 @@
-package com.a1in1.glc
+package com.example.GLC
 
 import io.flutter.embedding.android.FlutterActivity
 
