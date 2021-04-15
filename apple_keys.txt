@@ -13,9 +13,9 @@ SHARED SECRET
 App ID Prefix
 47293PLB36 (Team ID)
 
-App ID:	47293PLB36.com.example.GLC
+App ID:	47293PLB36.com.a1in1.glc
 
 App Specific password
 nrqg-znxn-uaqy-jfla
 
-com.example.GLC
+com.a1in1.glc
