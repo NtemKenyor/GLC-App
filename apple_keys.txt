@@ -1,0 +1,21 @@
+API KEY
+K36KXXQ57H
+
+
+ISSUER ID
+2c6c0d9c-4018-480d-9232-e4ae6b790113
+
+
+SHARED SECRET
+25b79177b486413b98860d729f0aed0e
+
+
+App ID Prefix
+47293PLB36 (Team ID)
+
+App ID:	47293PLB36.com.example.GLC
+
+App Specific password
+nrqg-znxn-uaqy-jfla
+
+com.example.GLC

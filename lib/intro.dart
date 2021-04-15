@@ -1,18 +1,26 @@
 //import 'dart:html';
 
+import 'package:GLC/others/user_part.dart';
 import 'package:flutter/material.dart';
-import 'package:carousel_pro/carousel_pro.dart';
+import 'connect/connect.dart';
+import 'giving/give.dart';
+import 'home_page/home.dart';
+import 'media/media.dart';
+import 'watch/watch.dart';
+import 'others/user_part.dart';
+import 'api/test_sign_up.dart';
+import 'watch/video_player.dart';
 
-void main() {
+/* void main() {
   runApp(MyApp());
-}
+} */
 
-class MyApp extends StatelessWidget {
+class _Intro_MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'GLC App',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -29,13 +37,13 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: first_sides(title: 'The GLC Church'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class first_sides extends StatefulWidget {
+  first_sides({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -52,7 +60,7 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<first_sides> {
   int _counter = 0;
   int _selectedIndex = 0;
 
@@ -66,35 +74,50 @@ class _MyHomePageState extends State<MyHomePage> {
   Color dark_ = Color.fromRGBO(119, 102, 102, 1);
   //Color.fromRGBO(255, 255, 255, 1)
   Color pure_ = Color.fromRGBO(255, 255, 255, 1);
-  
+  Color background_color = Color.fromRGBO(196, 196, 196, 1);
 
   //Color white = Color(0xFF)
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  /* void goto_page(){
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (BuildContext context) => user_connect()
+            )
+        );
+    } */
 
   void _onItemTapped(int where_index){
-    //pass
+    setState(() {
+      if (where_index != 0 ){
+        background_color = Color.fromRGBO(255, 255, 255, 1);
+      }else{
+        background_color = Color.fromRGBO(196, 196, 196, 1);
+      }
+      //background_color = Color.fromRGBO(255, 255, 255, 1);
+      _selectedIndex = where_index;
+      
+    });
   }
   
-  static var picture_timer = Duration(seconds: 8);
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  List<Widget> tabs_show_side = [
+    home_page(),
+    media_page(),
+    //watch_page(),
+    VideoPlayerApp(),
+    give_page(),
+    connect_page(),
+  ];
+
+  /* static var picture_timer = Duration(seconds: 8);
   Widget the_moving_images = new Container(
     child: new Carousel(
       images: [
-        new Image.asset('assets/person_1.png', fit: BoxFit.contain,),
-        new Image.asset('assets/person_2.png', fit: BoxFit.contain),
-        new Image.asset('assets/person_3.png', fit: BoxFit.contain),
-        new Image.asset('assets/fitness.jpg', fit: BoxFit.contain),
-        new Image.asset('assets/blog_person.jpg'),
-        new Image.asset('assets/old_man.jpg'),
+        new Image.asset('assets/person_1.png', width: 500,),
+        new Image.asset('assets/person_2.png', ),
+        new Image.asset('assets/person_3.png', ),
+        new Image.asset('assets/fitness.jpg', ),
+        new Image.asset('assets/blog_person.jpg', ),
+        new AssetImage('assets/old_man.jpg',),
       ],
       autoplayDuration: picture_timer,
       animationCurve: Curves.easeInOutExpo,
@@ -102,12 +125,12 @@ class _MyHomePageState extends State<MyHomePage> {
       dotSpacing: 12.0,
       dotColor: Colors.lightGreenAccent,
       indicatorBgPadding: 2.0,
-      dotBgColor: Colors.blueAccent.withOpacity(0.5),
+      //dotBgColor: Colors.blueAccent.withOpacity(0.5),
       borderRadius: true,
-      boxFit: BoxFit.cover,
+      boxFit: BoxFit.contain,
 
     ),
-  );
+  ); */
 
   @override
   Widget build(BuildContext context) {
@@ -119,186 +142,298 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       backgroundColor: bright_,
+      key: _scaffoldKey,
+      drawer: Drawer(
+          child: Container(
+          //width: 300,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(17)
+          ),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(8.0, 40, 8.0, 10),
+              child: Column(
+                //Navigator.of(context).pop();
+                children: <Widget>[
+                  Padding(
+                  padding: EdgeInsets.fromLTRB(4, 10, 4, 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      IconButton(
+                        icon: Icon(Icons.arrow_back, color: dark_,), 
+                        onPressed: (){
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: <Widget>[
+                            Icon(Icons.do_not_disturb, color: dark_,),
+                            Text("GREAT LIGHT", style: TextStyle(fontSize: 10, color: dark_,),),
+                            Text("CHURCH", style: TextStyle(fontSize: 10, color: dark_,),),
+                          ]
+                        ),
+                      ),
+                      
+                      CircleAvatar(backgroundColor: Colors.white),
+                    ]
+                  ),
+                ),
+
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(1, 10, 1, 10),
+                    child: Container(
+                      child: Row(
+                        //mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          FlatButton.icon(
+                            onPressed: null, 
+                            icon: Container(
+                              decoration: BoxDecoration(
+                                color: bright_,
+                                borderRadius: BorderRadius.circular(12)
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(Icons.home),
+                              )
+                            ), 
+                            label: Text("Home")
+                          ),
+
+                          IconButton(icon: Icon(Icons.arrow_forward_ios, color: bright_,), onPressed: null)
+                        ]
+                      ),
+                    ),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(1, 10, 1, 10),
+                    child: Container(
+                      child: Row(
+                        //mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          FlatButton.icon(
+                            onPressed: null, 
+                            icon: Container(
+                              decoration: BoxDecoration(
+                                color: bright_,
+                                borderRadius: BorderRadius.circular(12)
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(Icons.perm_camera_mic),
+                              )
+                            ), 
+                            label: Text("Media")
+                          ),
+
+                          IconButton(icon: Icon(Icons.arrow_forward_ios, color: bright_,), onPressed: null)
+                        ]
+                      ),
+                    ),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(1, 10, 1, 10),
+                    child: Container(
+                      child: Row(
+                        //mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          FlatButton.icon(
+                            onPressed: null, 
+                            icon: Container(
+                              decoration: BoxDecoration(
+                                color: bright_,
+                                borderRadius: BorderRadius.circular(12)
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(Icons.live_tv),
+                              )
+                            ), 
+                            label: Text("Watch Live")
+                          ),
+
+                          IconButton(icon: Icon(Icons.arrow_forward_ios, color: bright_,), onPressed: null)
+                        ]
+                      ),
+                    ),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(1, 10, 1, 10),
+                    child: Container(
+                      child: Row(
+                        //mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          FlatButton.icon(
+                            onPressed: null, 
+                            icon: Container(
+                              decoration: BoxDecoration(
+                                color: bright_,
+                                borderRadius: BorderRadius.circular(12)
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(Icons.payment),
+                              )
+                            ), 
+                            label: Text("Giving")
+                          ),
+
+                          IconButton(icon: Icon(Icons.arrow_forward_ios, color: bright_,), onPressed: null)
+                        ]
+                      ),
+                    ),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(1, 10, 1, 10),
+                    child: Container(
+                      child: Row(
+                        //mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          FlatButton.icon(
+                            onPressed: null, 
+                            icon: Container(
+                              decoration: BoxDecoration(
+                                color: bright_,
+                                borderRadius: BorderRadius.circular(12)
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(Icons.notifications),
+                              )
+                            ), 
+                            label: Text("Notification")
+                          ),
+
+                          IconButton(icon: Icon(Icons.arrow_forward_ios, color: bright_,), onPressed: null)
+                        ]
+                      ),
+                    ),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(1, 10, 1, 10),
+                    child: Container(
+                      child: Row(
+                        //mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          FlatButton.icon(
+                            onPressed: (){
+                              //_scaffoldKey.currentState.deactivate();
+                              Navigator.of(context).pop();
+
+                              Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context) => test_api()));
+                              //Navigator.of(context).pop();
+                            }, 
+                            icon: Container(
+                              decoration: BoxDecoration(
+                                color: bright_,
+                                borderRadius: BorderRadius.circular(12)
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(Icons.event),
+                              )
+                            ), 
+                            label: Text("Events")
+                          ),
+
+                          IconButton(icon: Icon(Icons.arrow_forward_ios, color: bright_,), onPressed: null)
+                        ]
+                      ),
+                    ),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(1, 10, 1, 10),
+                    child: Container(
+                      child: Row(
+                        //mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          FlatButton.icon(
+                            onPressed: (){
+                              //_scaffoldKey.currentState.deactivate();
+                              Navigator.of(context).pop();
+
+                              Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context) => user_connect()));
+                              //Navigator.of(context).pop();
+                            }
+                              ,
+                            icon: Container(
+                              decoration: BoxDecoration(
+                                color: bright_,
+                                borderRadius: BorderRadius.circular(12)
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(Icons.person_add),
+                              )
+                            ), 
+                            label: Text("Log In / Log Out")
+                          ),
+
+                          IconButton(icon: Icon(Icons.arrow_forward_ios, color: bright_,), onPressed: null)
+                        ]
+                      ),
+                    ),
+                  ),
+                ]
+              ),
+            ),
+          ),
+      ),
       appBar: AppBar(
         //leading: Icon(Icons.menu),
+        automaticallyImplyLeading: false,
         elevation: 0,
-        backgroundColor: bright_,
+        backgroundColor: background_color,
         title: Padding(
           padding: EdgeInsets.fromLTRB(4, 10, 4, 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Icon(Icons.menu),
+              IconButton(
+                icon: Icon(Icons.menu, color: dark_,), 
+                onPressed: (){
+                  //Scaffold.of(context).openDrawer();
+                  _scaffoldKey.currentState.openDrawer();
+                },
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: <Widget>[
-                    Icon(Icons.do_not_disturb),
-                    Text("GREAT LIGHT", style: TextStyle(fontSize: 10),),
-                    Text("CHURCH", style: TextStyle(fontSize: 10),),
+                    Icon(Icons.do_not_disturb, color: dark_,),
+                    Text("GREAT LIGHT", style: TextStyle(fontSize: 10, color: dark_,),),
+                    Text("CHURCH", style: TextStyle(fontSize: 10, color: dark_,),),
                   ]
                 ),
               ),
-              Icon(Icons.person)
+              Icon(Icons.person, color: dark_,)
             ]
           ),
         )
       ),
-      //backgroundColor: yellow,
-      body: ListView(
-        scrollDirection: Axis.vertical,
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.fromLTRB(4, 10, 4, 10),
-            child: Text("Upcoming Events", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
-          ),
 
-        Container(
-          height: 160,
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(5, 7, 5, 7),
-            child: the_moving_images,
-          )
-        ),
-
-            
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(17),
-                color: pure_,
-              ),
-              
-              child: Column(
-                children: <Widget>[
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(23),
-                      color: pure_,
-                    ),
-                    height: 130,
-                    child: Column(
-                      children: <Widget>[
-                        Expanded(
-                          flex: 200, 
-                          child: Text(
-                            "Today's Verse", 
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                          )
-                        ),
-                        Expanded(
-                          flex: 800,
-                            child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                            Expanded(
-                              flex: 250, 
-                              child: Text("I Cor. 10:8 -", 
-                                style: TextStyle(fontWeight: FontWeight.bold,)
-                            )),
-                            Expanded(
-                                flex: 750,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  //crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                
-                                    Expanded(
-                                      flex: 700,
-                                      child: Text("Love never fails, But where there are prophecies, they will cease; where there aretongues, they will be stilled")
-                                    ),
-                                    Expanded(
-                                        flex: 300,
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                          children: <Widget>[
-                                            Expanded(child: 
-                                              FlatButton.icon(
-                                                onPressed: null, 
-                                                icon: Icon(Icons.thumb_up), 
-                                                label: Text("Like")
-                                              )
-                                            ),
-                                            Expanded(child: 
-                                              FlatButton.icon(
-                                                onPressed: null, 
-                                                icon: Icon(Icons.share), 
-                                                label: Text("Share")
-                                              )
-                                            ),
-                                          ]
-                                        ),
-                                    )
-                              ],),
-                            )
-                          ],),
-                        ),
-                        
-                      ],),
-                      ),
-                  
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Divider(thickness: 3, color: red_color,),
-                  SizedBox(
-                    height: 30,
-                  ),
-
-                  Text("Upcoming Events", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
-
-                  Padding(padding: EdgeInsets.all(12),
-                    child: Container(
-                      
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: pure_,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.5),
-                            spreadRadius: 2,
-                            blurRadius: 4,
-                            offset: Offset(0,3),
-                          )
-                        ]
-                      ),
-                      child: Column(children: <Widget>[
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Image.asset("assets/blog_1.png"),
-                        ),
-                        
-
-                        Row(
-                          children: <Widget>[
-                            FlatButton.icon(onPressed: null, icon: Icon(Icons.calendar_today), 
-                              label: Text("Mon, 16 Nov 2020")
-                            ),
-
-                            FlatButton.icon(onPressed: null, icon: Icon(Icons.access_time), 
-                              label: Text("7:00 pm")
-                            ),
-                          ]
-                        ),
-
-                        Row(
-                          children: <Widget>[
-                            FlatButton.icon(onPressed: null, icon: Icon(Icons.send), 
-                              label: Text("Timbuktu, Mali")
-                            ),
-                          ]
-                        )
-                      ],)
-                    ),
-                  )
-                ],
-              ),
-            )         
-        ],
+      body: Container(
+        child: tabs_show_side[_selectedIndex]
       ),
       
     bottomNavigationBar:  BottomNavigationBar(
@@ -309,13 +444,13 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.white,
         title: Text("Home", 
           style: TextStyle(
-            color: (_selectedIndex == 0) ? Colors.white :  Colors.black,
+            color: (_selectedIndex == 0) ? red_color :  Colors.black,
           )
         ),
         icon: Icon(
             Icons.home,
             size: 30,
-            color: (_selectedIndex == 0) ? yellow_ :  Colors.black,
+            color: (_selectedIndex == 0) ? red_color :  Colors.black,
         ),
       ),
 
@@ -323,51 +458,51 @@ class _MyHomePageState extends State<MyHomePage> {
             //backgroundColor: Color.fromRGBO(45, 56, 123, 1.0),
             title: Text("Media", 
             style: TextStyle(
-              color: (_selectedIndex == 1) ? yellow_ :  Colors.black,
+              color: (_selectedIndex == 1) ? red_color :  Colors.black,
             )),
             icon: Icon(
                 Icons.perm_media,
                 size: 30,
-                color: (_selectedIndex == 1) ? yellow_ : Colors.black,
+                color: (_selectedIndex == 1) ? red_color : Colors.black,
             ),
           ),
           BottomNavigationBarItem(
             //backgroundColor: Color.fromRGBO(45, 56, 123, 1.0),
             title: Text("Watch Live", style: TextStyle(
-             color: (_selectedIndex == 2) ? yellow_ :  Colors.black,
+             color: (_selectedIndex == 2) ? red_color :  Colors.black,
             )),
             icon: Icon(
                 Icons.tv,
                 size: 30,
-                color: (_selectedIndex == 2) ? yellow_ :  Colors.black,
+                color: (_selectedIndex == 2) ? red_color :  Colors.black,
             ),
           ),
           BottomNavigationBarItem(
             //backgroundColor: Color.fromRGBO(45, 56, 123, 1.0),
             title: Text("Giving", style: TextStyle(
-              color: (_selectedIndex == 3) ? yellow_ :  Colors.black,
+              color: (_selectedIndex == 3) ? red_color :  Colors.black,
             )),
             icon: Icon(
                 Icons.payment,
                 size: 30,
-                color: (_selectedIndex == 3) ? yellow_ :  Colors.black,
+                color: (_selectedIndex == 3) ? red_color :  Colors.black,
             ),
           ),
 
           BottomNavigationBarItem(
             title: Text("Connect", style: TextStyle(
-              color: (_selectedIndex == 4) ? yellow_ :  Colors.black,
+              color: (_selectedIndex == 4) ? red_color :  Colors.black,
             )),
             icon: Icon(
                 Icons.usb,
                 size: 30,
-                color: (_selectedIndex == 4) ? yellow_ :  Colors.black,
+                color: (_selectedIndex == 4) ? red_color :  Colors.black,
             ),
           ),
 
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: yellow_,
+        selectedItemColor: red_color,
         showUnselectedLabels: true,
         //fixedColor: Colors.blue,
         onTap: _onItemTapped,

@@ -1,8 +1,15 @@
 //import 'dart:html';
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
-
+import 'package:http/http.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
+import 'dart:async';
+import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class home_page extends StatefulWidget {
   home_page({Key key, this.title}) : super(key: key);
@@ -28,6 +35,77 @@ class _MyHomePageState extends State<home_page> {
   //Color.fromRGBO(255, 255, 255, 1)
   Color pure_ = Color.fromRGBO(255, 255, 255, 1);
 
+  String today_verse = "";
+
+  show_today_verse(verse, verse_content){
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(23),
+        color: pure_,
+      ),
+      height: 130,
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            flex: 200, 
+            child: Text(
+              "Today's Verse", 
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            )
+          ),
+          Expanded(
+            flex: 800,
+              child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+              Expanded(
+                flex: 250, 
+                child: Text(verse, 
+                  style: TextStyle(fontWeight: FontWeight.bold,)
+              )),
+              Expanded(
+                  flex: 750,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                  
+                      Expanded(
+                        flex: 700,
+                        child: Text(verse_content)
+                      ),
+                      Expanded(
+                          flex: 300,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Expanded(child: 
+                                FlatButton.icon(
+                                  onPressed: null, 
+                                  icon: Icon(Icons.thumb_up), 
+                                  label: Text("Like")
+                                )
+                              ),
+                              Expanded(child: 
+                                FlatButton.icon(
+                                  onPressed: null, 
+                                  icon: Icon(Icons.share), 
+                                  label: Text("Share")
+                                )
+                              ),
+                            ]
+                          ),
+                      )
+                ],),
+              )
+            ],),
+          ),
+          
+        ],),
+        );
+  }
+
   static var picture_timer = Duration(seconds: 8);
   Widget the_moving_images = new Container(
     child: new Carousel(
@@ -52,6 +130,61 @@ class _MyHomePageState extends State<home_page> {
     ),
   );  
 
+    /* Future<String> get _localPath async{
+      final directory = await getApplicationDocumentsDirectory();
+      return directory.path;
+    }
+
+    void write_to_file(path, write_this) async{
+      var file = await File(path).writeAsString(write_this);
+    }
+
+    Function read_from_file(path){
+      File(path).readAsString().then((String contents) {
+        return contents;
+      });
+    }
+ */
+    /* Future<String> read_from_loc(path) async {
+      return await rootBundle.loadString(path);
+    } */
+Future Todays_verse() async {
+
+  String url = "https://a1in1.com/GLC/todays_verse.php";
+
+
+  return get(url).then((Response response) {
+    final int statusCode = response.statusCode;
+
+    print(statusCode);
+    print(response.headers);
+    print(response.body);
+    
+    if (statusCode < 200 || statusCode > 400) {
+      throw new Exception("Error while fetching data");
+    }else if (response.body != ""){
+      var json_received = json.decode(response.body);
+      print(json_received);
+      if ((response.body).contains("status")){
+        if (json_received["status"] == "true"){
+          print(json_received["msg"]);
+          return show_today_verse(json_received["verse"]["verse"], json_received["verse"]["scripture"]);
+          
+        }else if(json_received["status"] == "false"){
+          setState(() {
+            today_verse = json_received["msg"];
+          });
+        }
+        //display_result(error_gotten);
+        //print(error_gotten);
+      }
+    }else{
+      
+    }
+    
+    //return json_received;
+  });
+}
   @override
   Widget build(BuildContext context) {
     
@@ -87,72 +220,36 @@ class _MyHomePageState extends State<home_page> {
                   SizedBox(
                     height: 30,
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(23),
-                      color: pure_,
+
+          FutureBuilder(
+            future: Todays_verse(),
+            //we pass a BuildContext and an AsyncSnapshot object which is an
+            //Immutable representation of the most recent interaction with
+            //an asynchronous computation.
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Container(
+                  child: snapshot.data,
+                );
+                //show_today_verse(verse, verse_content)
+              } else if (snapshot.hasError) {
+                return new Container(
+                  child: Text(today_verse,
+                    style: TextStyle(
+                      color: Colors.red,
                     ),
-                    height: 130,
-                    child: Column(
-                      children: <Widget>[
-                        Expanded(
-                          flex: 200, 
-                          child: Text(
-                            "Today's Verse", 
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                          )
-                        ),
-                        Expanded(
-                          flex: 800,
-                            child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                            Expanded(
-                              flex: 250, 
-                              child: Text("I Cor. 10:8 -", 
-                                style: TextStyle(fontWeight: FontWeight.bold,)
-                            )),
-                            Expanded(
-                                flex: 750,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  //crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                
-                                    Expanded(
-                                      flex: 700,
-                                      child: Text("Love never fails, But where there are prophecies, they will cease; where there aretongues, they will be stilled")
-                                    ),
-                                    Expanded(
-                                        flex: 300,
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                          children: <Widget>[
-                                            Expanded(child: 
-                                              FlatButton.icon(
-                                                onPressed: null, 
-                                                icon: Icon(Icons.thumb_up), 
-                                                label: Text("Like")
-                                              )
-                                            ),
-                                            Expanded(child: 
-                                              FlatButton.icon(
-                                                onPressed: null, 
-                                                icon: Icon(Icons.share), 
-                                                label: Text("Share")
-                                              )
-                                            ),
-                                          ]
-                                        ),
-                                    )
-                              ],),
-                            )
-                          ],),
-                        ),
-                        
-                      ],),
-                      ),
+                   )
+                );
+              }
+              //return  a circular progress indicator.
+              return CircularProgressIndicator();
+              /* return new Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(image: AssetImage("assets/nuesa_background1.gif"), fit: BoxFit.fill)
+                ),
+              ); */
+            },
+          ),
                   
                   SizedBox(
                     height: 30,
