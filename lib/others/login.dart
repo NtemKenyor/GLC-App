@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:async';
-import 'package:path_provider/path_provider.dart';
+//import 'package:path_provider/path_provider.dart';
 //import 'package:path';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -95,7 +95,7 @@ class _MyHomePageState extends State<log_in> {
   } */
 
   
-  Future<String> get _localPath async{
+/*   Future<String> get _localPath async{
     final directory = await getApplicationDocumentsDirectory();
     return directory.path;
   }
@@ -106,7 +106,7 @@ class _MyHomePageState extends State<log_in> {
 
   Future<String> read_from_assets(path) async {
     return await rootBundle.loadString(path);
-  }
+  } */
 
   void return_back() async {
     String email = email_.text;
@@ -124,7 +124,7 @@ class _MyHomePageState extends State<log_in> {
   
 
   Future userLogin(String url) async {
-  return http.get(url).then((http.Response response) {
+  return http.get(Uri.parse(url)).then((http.Response response) {
     final int statusCode = response.statusCode;
 
     if (statusCode < 200 || statusCode > 400) {

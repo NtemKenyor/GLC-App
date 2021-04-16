@@ -2,20 +2,27 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+//import 'package:http/http.dart';
+//import 'dart:convert';
 
 //void main() => runApp(VideoPlayerApp());
 
 
 class VideoPlayerApp extends StatefulWidget {
-  VideoPlayerApp({Key key}) : super(key: key);
-
+  final String url;
+  VideoPlayerApp({Key key, this.url}) : super(key: key);
+  
   @override
-  _VideoPlayerScreenState createState() => _VideoPlayerScreenState();
+  _VideoPlayerScreenState createState() => _VideoPlayerScreenState(url: url);
 }
 
 class _VideoPlayerScreenState extends State<VideoPlayerApp> {
+  final String url;
+  _VideoPlayerScreenState({this.url});
+
   VideoPlayerController _controller;
   Future<void> _initializeVideoPlayerFuture;
+  String the_video_url = "";
 
   @override
   void initState() {
@@ -23,7 +30,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerApp> {
     // offers several different constructors to play videos from assets, files,
     // or the internet.
     _controller = VideoPlayerController.network(
-      'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
+      url,
     );
 
     // Initialize the controller and store the Future for later use.

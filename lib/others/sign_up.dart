@@ -86,7 +86,7 @@ class _MyHomePageState extends State<sign_up> {
   
 
   Future userRegister(String url) async {
-  return http.get(url).then((http.Response response) {
+  return http.get(Uri.parse(url)).then((http.Response response) {
     final int statusCode = response.statusCode;
 
     if (statusCode < 200 || statusCode > 400) {
