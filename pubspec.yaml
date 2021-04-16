@@ -27,10 +27,19 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.3
-  
+  cupertino_icons: 1.0.2
   #this for the moving images caro... something
-  carousel_pro: ^1.0.0
+  carousel_pro: 1.0.0
+  #Adding web abilities..
+  http: 0.13.1
+  #this dependency dio would help in making Post request like a common html page without json
+  #dio: ^3.0.0
+  #where we can store little value pairs
+  shared_preferences: 2.0.5
+  path_provider: 2.0.1
+  video_player: 2.1.1
+  audioplayers: 0.18.3
+  flutter_downloader: 1.6.0
 
 dev_dependencies:
   flutter_test:
