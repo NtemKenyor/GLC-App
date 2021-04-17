@@ -16,6 +16,7 @@ class user_connect extends StatefulWidget {
 class __ extends State<user_connect> {
   double mr_small = 18;
   double mr_big = 25;
+  Color posColor = Colors.blue[800];
 
   //Color yellow = Color(0xFFC50C);
   Color yellow_ = Color.fromRGBO(255, 197, 12, 1);
@@ -43,6 +44,10 @@ class __ extends State<user_connect> {
           double temp = mr_big;
           mr_big = mr_small;
           mr_small = temp;
+
+          Color upColor = Colors.blue[800];
+          Color inColor = Colors.green[800];
+          posColor = (posColor == upColor) ? inColor : upColor;
         });
       },
       labelColor: Colors.black,
@@ -103,7 +108,7 @@ class __ extends State<user_connect> {
                   child: Container(
                     decoration: BoxDecoration(
                       boxShadow: [BoxShadow(
-                      color: Colors.blue[800], 
+                      color: posColor, 
                       offset: Offset(1, 2), 
                       blurRadius: 3,
                       spreadRadius: 4,          

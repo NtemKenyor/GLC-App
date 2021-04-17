@@ -39,7 +39,7 @@ dependencies:
   path_provider: 2.0.1
   video_player: 2.1.1
   audioplayers: 0.18.3
-  flutter_downloader: 1.6.0
+  flutter_downloader: 1.5.2
 
 dev_dependencies:
   flutter_test:

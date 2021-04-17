@@ -189,7 +189,7 @@ class _MyHomePageState extends State<first_sides> {
                         children: <Widget>[
                           FlatButton.icon(
                             onPressed: (){
-                              _onItemTapped(1);
+                              _onItemTapped(0);
                               Navigator.of(context).pop();
                               /* Navigator.of(context).pop();
 
@@ -225,7 +225,7 @@ class _MyHomePageState extends State<first_sides> {
                         children: <Widget>[
                           FlatButton.icon(
                             onPressed: (){
-                              _onItemTapped(2);
+                              _onItemTapped(1);
                               Navigator.of(context).pop();
                             }, 
                             icon: Container(
@@ -256,7 +256,7 @@ class _MyHomePageState extends State<first_sides> {
                         children: <Widget>[
                           FlatButton.icon(
                             onPressed: (){
-                              _onItemTapped(3);
+                              _onItemTapped(2);
                               Navigator.of(context).pop();
                             }, 
                             icon: Container(
@@ -287,7 +287,7 @@ class _MyHomePageState extends State<first_sides> {
                         children: <Widget>[
                           FlatButton.icon(
                             onPressed: (){
-                              _onItemTapped(4);
+                              _onItemTapped(3);
                               Navigator.of(context).pop();
                             }, 
                             icon: Container(

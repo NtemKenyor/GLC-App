@@ -71,10 +71,22 @@ class _MyHomePageState extends State<log_in> {
     });
   }
 
-  /* add_string_2_SF(key, value) async{
+  add_string_2_SP(key, value) async{
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString(key, value);
-  } */
+  }
+
+  read_from_SP(key) async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String content = pref.getString(key);
+    return content;
+  }
+
+  check_in_SP (key) async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    bool content = pref.containsKey(key);
+    return content;
+  }
 
 /*   Function read_from_file(path){
     File(path).readAsString().then((String contents) {
@@ -109,13 +121,14 @@ class _MyHomePageState extends State<log_in> {
   } */
 
   void return_back() async {
+    display_result("Loading");
     String email = email_.text;
     String password = password_.text;
 
     if(email != "" && password != ""){
 
       String login_endpoint = "https://a1in1.com/GLC/user_log_in.php?password="+password+"&email="+email;
-      userLogin(login_endpoint);
+      userLogin(login_endpoint, email, password);
     }else{
       display_result("All fields are required.");
     }
@@ -123,7 +136,7 @@ class _MyHomePageState extends State<log_in> {
 
   
 
-  Future userLogin(String url) async {
+  Future userLogin(String url, String email, String password) async {
   return http.get(Uri.parse(url)).then((http.Response response) {
     final int statusCode = response.statusCode;
 
@@ -136,6 +149,12 @@ class _MyHomePageState extends State<log_in> {
         if (json_received["status"] == "true"){
           print(json_received["msg"]);
           display_result(json_received["msg"]);
+
+          if(!check_in_SP("email") && !check_in_SP("password")){
+            add_string_2_SP("email", email);
+            add_string_2_SP("password", password);
+          }
+  //add_string_2_SP(key, value)  //read_from_SP(key) //check_in_SP(key)
 
           Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (BuildContext context) => first_sides()));
@@ -215,6 +234,7 @@ class _MyHomePageState extends State<log_in> {
                     the_msg,
                     style: TextStyle(
                       color: Colors.red,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
 

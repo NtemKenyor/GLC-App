@@ -25,7 +25,7 @@ class GLC_events {
       id: jsonData['id'],
       title: jsonData['event'],
       venue: jsonData['venue'],
-      imageUrl: "http://a1in1.com/GLC/images/"+jsonData['image'],
+      imageUrl: "https://a1in1.com/GLC/images/"+jsonData['image'],
       date: jsonData['date'],
       time: jsonData['time'],
     );

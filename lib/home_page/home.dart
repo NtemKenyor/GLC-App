@@ -110,12 +110,12 @@ class _MyHomePageState extends State<home_page> {
   Widget the_moving_images = new Container(
     child: new Carousel(
       images: [
-        new AssetImage('assets/person_1.png'),
-        new AssetImage('assets/person_2.png'),
-        new AssetImage('assets/person_3.png'),
+        new AssetImage('assets/old_man.jpg'),
         new AssetImage('assets/fitness.jpg'),
         new AssetImage('assets/blog_person.jpg'),
-        new AssetImage('assets/old_man.jpg'),
+        new AssetImage('assets/person_1.png'),
+        new AssetImage('assets/person_2.png'),
+        new AssetImage('assets/person_3.png'),  
       ],
       autoplayDuration: picture_timer,
       animationCurve: Curves.easeInOutExpo,

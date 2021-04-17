@@ -98,7 +98,20 @@ class _MyHomePageState extends State<watch_page> {
                 /* decoration: BoxDecoration(
                   image: DecorationImage(image: AssetImage("assets/glc logo 1.png"), fit: BoxFit.fill)
                 ), */
-                child: CircularProgressIndicator(),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children : <Widget>[
+                    CircularProgressIndicator(),
+                    Expanded(
+                      child: Text("Processing, Please Wait.", 
+                      style: TextStyle(
+                        color: Colors.green[800],
+                        fontWeight: FontWeight.w800,
+                      ),
+                      )
+                    )
+                  ]
+                )
               );
             },
           ),
