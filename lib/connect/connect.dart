@@ -49,7 +49,7 @@ class _MyHomePageState extends State<connect_page> {
       labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,),
       tabs: [
       Tab( text: "GLC Chat Room", ),
-      Tab( text: "Coonect"),
+      Tab( text: "Comms"),
     ]);
 
     return DefaultTabController(length: 2,

@@ -128,7 +128,7 @@ class _MyHomePageState extends State<media_page> {
                     children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('Look'+"'s"+ ' Like You do not have an Internat connection- Nuesa-Bot'),
+                          child: Text('Look'+"'s"+ ' Like You do not have an Internet connection-'),
                         ),
                     ],
                   ),
