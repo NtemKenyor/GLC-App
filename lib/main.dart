@@ -55,71 +55,19 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/GLC_building.jpg"), fit: BoxFit.fill
-              )
-            ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Expanded(
-                flex: 2,
-                child: Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      CircleAvatar(
-                        backgroundColor: Colors.blueAccent,
-                        radius: 40.0,
-                        child: Icon(
-                          Icons.book,
-                          color: Colors.black,
-                          size: 50.0,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10.0),
-                      ),
-                      Text(
-                        "GLC London",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24.0,
-                          fontWeight: FontWeight.bold
-                        )
-                      )
-                    ],
-                  ),
+      backgroundColor: Colors.white,
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            Image.asset("assets/glc logo 1.png", width: 185, height: 185,),
 
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      CircularProgressIndicator(backgroundColor: Colors.transparent,),
-                      Padding(padding: EdgeInsets.only(top: 20.0),
-                      ),
-                      Text(" The Great Light Church, London",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                )
-              )
-            ],
-          )
-        ],
+            CircularProgressIndicator(),
+          ],
+        )
       ),
     );
   }

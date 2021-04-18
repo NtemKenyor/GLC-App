@@ -1,10 +1,10 @@
-//import 'dart:html';
+/* //import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart';
-import 'package:dio/dio.dart';
+//import 'package:dio/dio.dart';
 
 class test_api extends StatefulWidget {
   test_api({Key key, this.title}) : super(key: key);
@@ -39,39 +39,7 @@ class _MyHomePageState extends State<test_api> {
   //Color.fromRGBO(255, 255, 255, 1)
   Color pure_ = Color.fromRGBO(255, 255, 255, 1);
 
-  //get createuser_2 => null;
-
-/* void myFunction() async {
-    var data = {};
-    var response = await http.post(URL, headers:headers, body:data);
-    if (response.statusCode == 200) {
-        print(reponse.body);
-    } else {
-       print('A network error occurred');
-    }
-} */
-
-/*   Future createuser(String email, String password) async {
-  //http.Request("POST", Uri(path: "164.90.139.70"));
-  final response = await http.post(
-    Uri.http('164.90.139.70', ''),
-    headers: <String, String>{
-      'Content-Type': 'text/plain',
-    },
-    body: <String, String>{
-      'email': email,
-      'password' : password,
-    },
-  );
-
-  if (response.statusCode == 200) {
-    //return Album.fromJson(jsonDecode(response.body));
-    return (response.body);
-  } else {
-    throw Exception('Failed to create Account.');
-  }
-} */
-
+/* 
 Future create_user(email, password) async{
   var dio = Dio();
   var formdetails = FormData.fromMap({
@@ -92,7 +60,7 @@ Future create_user(email, password) async{
   } else {
     throw Exception('Failed to create Account.');
   }
-}
+} */
 
   @override
   Widget build(BuildContext context) {
@@ -122,3 +90,4 @@ Future create_user(email, password) async{
     );
   }
 }
+ */

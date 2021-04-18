@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:http/http.dart';
-import 'package:path_provider/path_provider.dart';
+//import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'dart:async';
 import 'package:flutter/services.dart';
@@ -110,12 +110,12 @@ class _MyHomePageState extends State<home_page> {
   Widget the_moving_images = new Container(
     child: new Carousel(
       images: [
-        new Image.asset('assets/person_1.png',),
-        new Image.asset('assets/person_2.png', width: double.infinity,),
-        new Image.asset('assets/person_3.png', ),
-        new Image.asset('assets/fitness.jpg', width: double.infinity,),
-        new Image.asset('assets/blog_person.jpg', width: double.infinity,),
-        new Image.asset('assets/old_man.jpg', width: double.infinity,),
+        new AssetImage('assets/person_1.png'),
+        new AssetImage('assets/person_2.png'),
+        new AssetImage('assets/person_3.png'),
+        new AssetImage('assets/fitness.jpg'),
+        new AssetImage('assets/blog_person.jpg'),
+        new AssetImage('assets/old_man.jpg'),
       ],
       autoplayDuration: picture_timer,
       animationCurve: Curves.easeInOutExpo,
@@ -123,12 +123,12 @@ class _MyHomePageState extends State<home_page> {
       dotSpacing: 12.0,
       dotColor: Colors.lightGreenAccent,
       indicatorBgPadding: 2.0,
-      //dotBgColor: Colors.blueAccent.withOpacity(0.5),
+      dotBgColor: Colors.blueAccent.withOpacity(0.5),
       borderRadius: true,
       boxFit: BoxFit.cover,
 
     ),
-  );  
+  );
 
     /* Future<String> get _localPath async{
       final directory = await getApplicationDocumentsDirectory();
@@ -153,7 +153,7 @@ Future Todays_verse() async {
   String url = "https://a1in1.com/GLC/todays_verse.php";
 
 
-  return get(url).then((Response response) {
+  return get(Uri.parse(url)).then((Response response) {
     final int statusCode = response.statusCode;
 
     print(statusCode);

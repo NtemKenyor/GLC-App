@@ -8,8 +8,7 @@ import 'home_page/home.dart';
 import 'media/media.dart';
 import 'watch/watch.dart';
 import 'others/user_part.dart';
-import 'api/test_sign_up.dart';
-import 'watch/video_player.dart';
+import 'events/all_events.dart';
 
 /* void main() {
   runApp(MyApp());
@@ -102,8 +101,8 @@ class _MyHomePageState extends State<first_sides> {
   List<Widget> tabs_show_side = [
     home_page(),
     media_page(),
-    //watch_page(),
-    VideoPlayerApp(),
+    watch_page(),
+    //VideoPlayerApp(),
     give_page(),
     connect_page(),
   ];
@@ -169,12 +168,10 @@ class _MyHomePageState extends State<first_sides> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: <Widget>[
-                            Icon(Icons.do_not_disturb, color: dark_,),
-                            Text("GREAT LIGHT", style: TextStyle(fontSize: 10, color: dark_,),),
-                            Text("CHURCH", style: TextStyle(fontSize: 10, color: dark_,),),
-                          ]
+                        child: Image.asset("assets/glc logo 1.png", 
+                          width: 120, 
+                          height: 55,
+                          color: Colors.black,
                         ),
                       ),
                       
@@ -191,7 +188,15 @@ class _MyHomePageState extends State<first_sides> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           FlatButton.icon(
-                            onPressed: null, 
+                            onPressed: (){
+                              _onItemTapped(1);
+                              Navigator.of(context).pop();
+                              /* Navigator.of(context).pop();
+
+                              Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context) => test_api())); */
+                              //Navigator.of(context).pop();
+                            }, 
                             icon: Container(
                               decoration: BoxDecoration(
                                 color: bright_,
@@ -219,7 +224,10 @@ class _MyHomePageState extends State<first_sides> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           FlatButton.icon(
-                            onPressed: null, 
+                            onPressed: (){
+                              _onItemTapped(2);
+                              Navigator.of(context).pop();
+                            }, 
                             icon: Container(
                               decoration: BoxDecoration(
                                 color: bright_,
@@ -247,7 +255,10 @@ class _MyHomePageState extends State<first_sides> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           FlatButton.icon(
-                            onPressed: null, 
+                            onPressed: (){
+                              _onItemTapped(3);
+                              Navigator.of(context).pop();
+                            }, 
                             icon: Container(
                               decoration: BoxDecoration(
                                 color: bright_,
@@ -275,7 +286,10 @@ class _MyHomePageState extends State<first_sides> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           FlatButton.icon(
-                            onPressed: null, 
+                            onPressed: (){
+                              _onItemTapped(4);
+                              Navigator.of(context).pop();
+                            }, 
                             icon: Container(
                               decoration: BoxDecoration(
                                 color: bright_,
@@ -303,7 +317,10 @@ class _MyHomePageState extends State<first_sides> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           FlatButton.icon(
-                            onPressed: null, 
+                            onPressed: (){
+                              //_onItemTapped(5);
+                              Navigator.of(context).pop();
+                            }, 
                             icon: Container(
                               decoration: BoxDecoration(
                                 color: bright_,
@@ -332,12 +349,9 @@ class _MyHomePageState extends State<first_sides> {
                         children: <Widget>[
                           FlatButton.icon(
                             onPressed: (){
-                              //_scaffoldKey.currentState.deactivate();
                               Navigator.of(context).pop();
-
                               Navigator.of(context).push(MaterialPageRoute(
-                              builder: (BuildContext context) => test_api()));
-                              //Navigator.of(context).pop();
+                              builder: (BuildContext context) => EventsGLCLondon()));
                             }, 
                             icon: Container(
                               decoration: BoxDecoration(
@@ -367,12 +381,10 @@ class _MyHomePageState extends State<first_sides> {
                         children: <Widget>[
                           FlatButton.icon(
                             onPressed: (){
-                              //_scaffoldKey.currentState.deactivate();
                               Navigator.of(context).pop();
 
                               Navigator.of(context).push(MaterialPageRoute(
                               builder: (BuildContext context) => user_connect()));
-                              //Navigator.of(context).pop();
                             }
                               ,
                             icon: Container(
@@ -418,13 +430,15 @@ class _MyHomePageState extends State<first_sides> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Column(
+                child: Image.asset("assets/glc logo 1.png", width: 120, height: 55,),
+                
+                /* Column(
                   children: <Widget>[
                     Icon(Icons.do_not_disturb, color: dark_,),
                     Text("GREAT LIGHT", style: TextStyle(fontSize: 10, color: dark_,),),
                     Text("CHURCH", style: TextStyle(fontSize: 10, color: dark_,),),
                   ]
-                ),
+                ) */
               ),
               Icon(Icons.person, color: dark_,)
             ]

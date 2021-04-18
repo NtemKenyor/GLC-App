@@ -1,6 +1,9 @@
 //import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'dart:convert';
+import 'video_player.dart';
 
 class watch_page extends StatefulWidget {
   watch_page({Key key, this.title}) : super(key: key);
@@ -18,6 +21,36 @@ class watch_page extends StatefulWidget {
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
+}
+
+
+  Future<String> video_source() async {
+    String the_video_url = "";
+    String url_ = "https://a1in1.com/GLC/video_stream.php";
+    return get(Uri.parse(url_)).then((Response response) {
+      final int statusCode = response.statusCode;
+      print(response.body);
+      if (statusCode < 200 || statusCode > 400) {
+        throw new Exception("Error while fetching data");
+      }else if (response.body != ""){
+        var json_received = json.decode(response.body);
+        print(json_received);
+        if ((response.body).contains("status")){
+          if (json_received["status"] == "true"){
+              the_video_url = json_received["video"]["url"];
+              print(the_video_url);
+              return the_video_url;
+          }else if(json_received["status"] == "false"){
+            throw new Exception(" We are facing some challenges.");
+          }
+        }
+      }else{
+        //return the_video_url;
+      }
+      
+      //return json_received;
+    });
+
 }
 
 class _MyHomePageState extends State<watch_page> {
@@ -45,7 +78,33 @@ class _MyHomePageState extends State<watch_page> {
         children: <Widget>[
           Expanded(
             child: Container(
-              child: Image.asset("assets/moving.gif", fit: BoxFit.cover, width: double.infinity, height: double.infinity)
+              child: new FutureBuilder (
+            future: video_source(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                String goto = snapshot.data;
+                return Container(
+                  child: VideoPlayerApp(url: goto,),
+                );
+              } else if (snapshot.hasError) {
+                return new Container(
+                  child: Text("We are Facing some issues. Try Again Later.",
+                    style: TextStyle(color: Colors.red[800], fontWeight: FontWeight.w700,),
+                  ),
+                );
+              }
+              //return  a circular progress indicator.
+              return new Container(
+                /* decoration: BoxDecoration(
+                  image: DecorationImage(image: AssetImage("assets/glc logo 1.png"), fit: BoxFit.fill)
+                ), */
+                child: CircularProgressIndicator(),
+              );
+            },
+          ),
+              
+              
+              //Image.asset("assets/moving.gif", fit: BoxFit.cover, width: double.infinity, height: double.infinity)
             )
           ),
           Row(

@@ -2,9 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-
+import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 
 //Color yellow = Color(0xFFC50C);
   Color yellow_ = Color.fromRGBO(255, 197, 12, 1);
@@ -32,8 +35,8 @@ class Podcast {
     return Podcast(
       pod_name: jsonData['title'],
       date: jsonData['date'],
-      imageUrl: "http://a1in1.com/GLC/images/"+jsonData['image'],
-      listen: "http://a1in1.com/GLC/media_files/"+jsonData['location'],
+      imageUrl: "https://a1in1.com/GLC/images/"+jsonData['image'],
+      listen: "https://a1in1.com/GLC/media_files/"+jsonData['location'],
     );
   }
 }
@@ -76,7 +79,7 @@ class _MyHomePageState extends State<media_page> {
   final jsonEndpoint =
       "https://a1in1.com/GLC/media_files.php";
 
-  final response = await get(jsonEndpoint);
+  final response = await get(Uri.parse(jsonEndpoint));
 
   if (response.statusCode == 200) {
     List nuesa_news = json.decode(response.body);
@@ -157,8 +160,64 @@ class _MyHomePageState extends State<media_page> {
 
 class CustomListView extends StatelessWidget {
   final List<Podcast> spacecrafts;
-
   CustomListView(this.spacecrafts);
+
+  AudioPlayer audioPlayer = AudioPlayer();
+  //AudioPlayer.logEnabled = true;
+  String podUrl;
+   
+   play(podcast_path) async {
+    print("Playing from online media...");
+    int result = await audioPlayer.play(podcast_path);
+    if (result == 1) {
+      // success
+    }
+  }
+
+  playLocal(localPath) async {
+    print("Try to play locally... ");
+    int result = await audioPlayer.play(localPath, isLocal: true);
+    if (result == 1) {
+      // success
+    }
+  }
+  
+  DownloadStuffs(String urlLink, String path) async* {
+    print("Downloading... ");
+    final taskId = await FlutterDownloader.enqueue(
+      url: urlLink,
+      savedDir: path,
+      showNotification: true, // show download progress in status bar (for Android)
+      openFileFromNotification: true, // click on notification to open downloaded file (for Android)
+    );
+  }
+
+  get_location() async {
+    print("Get the Location ready... ");
+    Directory appLocal = await getApplicationDocumentsDirectory();
+    String temppath = appLocal.path;
+
+    Directory appDorDir = await getTemporaryDirectory();
+    String appLoc = appDorDir.path;
+
+    if (await appLocal.exists() ){
+      return temppath;
+    }else{
+      return appLoc;
+    }
+  }
+  
+  void makeHappen(String link){
+    String localPath = get_location();
+    DownloadStuffs(link, localPath);
+    playLocal(localPath);
+  
+  }
+  
+  Widget displayer(test, context){
+    final snackBar = SnackBar(content: Text(test),);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
 
    Widget build(context) {
       return ListView.builder(
@@ -239,13 +298,19 @@ class CustomListView extends StatelessWidget {
                                 ),
 
                                 Expanded(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: <Widget>[
-                                      Icon(Icons.headset, color: yellow_,),
-                                      Text("Listen", maxLines: 1, style: TextStyle(fontWeight: FontWeight.w800)),
-                                    ]
-                                    //trailing: Text("Monday, 21st October"),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      displayer("Processing Audio.", context);
+                                      play(cord.listen);
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: <Widget>[
+                                        Icon(Icons.headset, color: yellow_,),
+                                        Text("Listen", maxLines: 1, style: TextStyle(fontWeight: FontWeight.w800)),
+                                      ]
+                                      //trailing: Text("Monday, 21st October"),
+                                    ),
                                   ),
                                 ),
 
@@ -257,14 +322,45 @@ class CustomListView extends StatelessWidget {
                                     ),
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: <Widget>[
-                                          Icon(Icons.file_download, color: pure_,),
-                                          Text("Donwload", maxLines: 1, style: TextStyle(fontWeight: FontWeight.w800),),
-                                        ]
-                                        //trailing: Text("Monday, 21st October"),
+                                      child: GestureDetector(
+                                        //podUrl = await cord.listen;
+                                        onTap: () async {
+                                          WidgetsFlutterBinding.ensureInitialized();
+                                          await FlutterDownloader.initialize();
+
+                                          Directory just_test = await getApplicationDocumentsDirectory();
+                                          print(just_test);
+
+                                          Directory("/storage/emulated/O/GLC London").createSync(recursive: true);
+                                          Directory saveHere = Directory("/storage/emulated/O/GLC London");
+                                          await FlutterDownloader.enqueue(
+                                            url: cord.listen,
+                                            savedDir: saveHere.path,
+                                            showNotification: true, // show download progress in status bar (for Android)
+                                            openFileFromNotification: true, // click on notification to open downloaded file (for Android)
+                                          );
+                                          displayer("Processing Download.", context);
+                                          /* String localPath = await get_location();
+
+                                          if (localPath != ""){
+                                            //await ;
+                                            if (DownloadStuffs(cord.listen, localPath)){
+                                              await playLocal(localPath);
+                                            }
+                                            
+                                          }
+                                          
+                                          //makeHappen(cord.listen); */
+                                        },
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: <Widget>[
+                                            Icon(Icons.file_download, color: pure_,),
+                                            Text("Donwload", maxLines: 1, style: TextStyle(fontWeight: FontWeight.w800),),
+                                          ]
+                                          //trailing: Text("Monday, 21st October"),
+                                        ),
                                       ),
                                     ),
                                   ),
