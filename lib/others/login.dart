@@ -137,7 +137,7 @@ class _MyHomePageState extends State<log_in> {
   
 
   Future userLogin(String url, String email, String password) async {
-  return http.get(Uri.parse(url)).then((http.Response response) {
+  return http.get(Uri.parse(url)).then((http.Response response) async {
     final int statusCode = response.statusCode;
 
     if (statusCode < 200 || statusCode > 400) {
@@ -149,8 +149,9 @@ class _MyHomePageState extends State<log_in> {
         if (json_received["status"] == "true"){
           print(json_received["msg"]);
           display_result(json_received["msg"]);
-
-          if(!check_in_SP("email") && !check_in_SP("password")){
+          bool email_sta = await check_in_SP("email");
+          bool pass_sta = await check_in_SP("password");
+          if( email_sta == false && pass_sta == false  ){
             add_string_2_SP("email", email);
             add_string_2_SP("password", password);
           }

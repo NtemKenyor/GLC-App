@@ -40,8 +40,26 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   var splashicon = Icons.book;
+  int condition = 0;
   
-
+  user_stands() async {
+    print("here");
+    if(await check_in_SP("email") && await check_in_SP("password")){
+      print("case 1");
+      //userLogin(String url, String email, String password)
+      String password = await read_from_SP("password");
+      String email = await read_from_SP("email");
+      String login_endpoint = "https://a1in1.com/GLC/user_log_in.php?password="+password+"&email="+email;
+      userLogin(login_endpoint, email, password);
+    }else{
+      print("case 2");
+      Timer(
+          Duration(seconds: 7),
+              () => Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (BuildContext context) => user_connect() ))
+      );
+    }
+  }
   //final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   add_string_2_SP(key, value) async{
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -71,11 +89,8 @@ class _SplashScreenState extends State<SplashScreen> {
       var json_received = json.decode(response.body);
       if ((response.body).contains("status")){
         if (json_received["status"] == "true"){
-          Timer(
-              Duration(seconds: 7),
-                  () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (BuildContext context) => first_sides() ))
-          );
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (BuildContext context) => first_sides() ));
         }
       }
     }
@@ -84,30 +99,17 @@ class _SplashScreenState extends State<SplashScreen> {
 
 }
   
-
   @override
-  void initState(){
+  void initState() {
+    user_stands();
     super.initState();
-    if(check_in_SP("email") && check_in_SP("password")){
-      //userLogin(String url, String email, String password)
-      String password = read_from_SP("password");
-      String email = read_from_SP("email");
-      String login_endpoint = "https://a1in1.com/GLC/user_log_in.php?password="+password+"&email="+email;
-      userLogin(login_endpoint, email, password);
-
-    }else{
-      Timer(
-          Duration(seconds: 7),
-              () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (BuildContext context) => user_connect() ))
-      );
-    }
   }
 
    // Timer(Duration(seconds: 5), () => Navigator.of(context).pop('/home'));
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
