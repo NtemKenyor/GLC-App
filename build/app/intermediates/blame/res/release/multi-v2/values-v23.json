@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/incremental/mergeReleaseResources/merged.dir/values-v23/values-v23.xml",
+            "map": [
+                {
+                    "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/7f2d34acb5f2241ca877196d66ca2b23/work-runtime-2.4.0/res/values-v23/values-v23.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,121",
+                        "endColumns": "65,62",
+                        "endOffsets": "116,179"
+                    }
+                }
+            ]
+        }
+    ]
+}
