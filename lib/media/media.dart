@@ -409,7 +409,7 @@ class _CustomListViewState extends State<CustomListView> {
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: <Widget>[
                                                 Icon(Icons.file_download, color: pure_,),
-                                                Text("Donwload", maxLines: 1, style: TextStyle(fontWeight: FontWeight.w800),),
+                                                Text("Download", maxLines: 1, style: TextStyle(fontWeight: FontWeight.w800),),
                                               ]
                                             ),
                                           ),
