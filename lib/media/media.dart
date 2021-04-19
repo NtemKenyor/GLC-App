@@ -128,7 +128,7 @@ class _MyHomePageState extends State<media_page> {
                     children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('Look'+"'s"+ ' Like You do not have an Internat connection- Nuesa-Bot'),
+                          child: Text('Look'+"'s"+ ' Like You do not have an Internet connection-'),
                         ),
                     ],
                   ),
@@ -409,7 +409,7 @@ class _CustomListViewState extends State<CustomListView> {
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: <Widget>[
                                                 Icon(Icons.file_download, color: pure_,),
-                                                Text("Donwload", maxLines: 1, style: TextStyle(fontWeight: FontWeight.w800),),
+                                                Text("Download", maxLines: 1, style: TextStyle(fontWeight: FontWeight.w800),),
                                               ]
                                             ),
                                           ),

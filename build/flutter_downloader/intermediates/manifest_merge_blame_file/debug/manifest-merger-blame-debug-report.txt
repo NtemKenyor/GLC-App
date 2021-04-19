@@ -3,6 +3,10 @@
 3    package="vn.hunghd.flutterdownloader" >
 4
 5    <uses-sdk android:minSdkVersion="16" />
+<<<<<<< HEAD
 5-->/usr/local/android-studio/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_downloader-1.5.2/android/src/main/AndroidManifest.xml
+=======
+5-->/home/charmides/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_downloader-1.5.2/android/src/main/AndroidManifest.xml
+>>>>>>> e98a09aa89130a481672f9a2b7f8bad4f6ec5da8
 6
 7</manifest>

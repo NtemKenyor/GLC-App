@@ -171,7 +171,7 @@ class _MyHomePageState extends State<first_sides> {
                         child: Image.asset("assets/glc logo 1.png", 
                           width: 120, 
                           height: 55,
-                          color: Colors.black,
+                          color: Colors.orange,
                         ),
                       ),
                       

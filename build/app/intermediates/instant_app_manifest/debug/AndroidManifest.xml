@@ -3,7 +3,11 @@
     package="com.a1in1.glc"
     android:targetSandboxVersion="2"
     android:versionCode="1"
+<<<<<<< HEAD
     android:versionName="1.0.1" >
+=======
+    android:versionName="1.0.0" >
+>>>>>>> e98a09aa89130a481672f9a2b7f8bad4f6ec5da8
 
     <uses-sdk
         android:minSdkVersion="16"

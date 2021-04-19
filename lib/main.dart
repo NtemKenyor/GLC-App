@@ -66,6 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
     pref.setString(key, value);
   }
 
+
   read_from_SP(key) async{
     SharedPreferences pref = await SharedPreferences.getInstance();
     String content = pref.getString(key);
@@ -77,6 +78,9 @@ class _SplashScreenState extends State<SplashScreen> {
     bool content = pref.containsKey(key);
     return content;
   }
+
+
+
 
   Future userLogin(String url, String email, String password) async {
   //var whereTo = false;
@@ -127,7 +131,4 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
-
-
-
 

@@ -1,10 +1,17 @@
 {
     "logs": [
         {
+<<<<<<< HEAD
             "outputFile": "/home/kenyor/AndroidStudioProjects/GLC/GLC-App/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-v23/values-v23.xml",
             "map": [
                 {
                     "source": "/home/kenyor/.gradle/caches/transforms-2/files-2.1/69e71d74cf736ec5d57cd1f610c0da2e/work-runtime-2.4.0/res/values-v23/values-v23.xml",
+=======
+            "outputFile": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-v23/values-v23.xml",
+            "map": [
+                {
+                    "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/7f2d34acb5f2241ca877196d66ca2b23/work-runtime-2.4.0/res/values-v23/values-v23.xml",
+>>>>>>> e98a09aa89130a481672f9a2b7f8bad4f6ec5da8
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",

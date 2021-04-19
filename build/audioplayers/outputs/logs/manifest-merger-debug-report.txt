@@ -1,5 +1,6 @@
 -- Merging decision tree log ---
 manifest
+<<<<<<< HEAD
 ADDED from /usr/local/android-studio/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml:1:1-4:35
 INJECTED from /usr/local/android-studio/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml:1:1-4:35
 INJECTED from /usr/local/android-studio/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml:1:1-4:35
@@ -29,3 +30,34 @@ INJECTED from /usr/local/android-studio/flutter/.pub-cache/hosted/pub.dartlang.o
 		INJECTED from /usr/local/android-studio/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml
 		ADDED from /usr/local/android-studio/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml
 		INJECTED from /usr/local/android-studio/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml
+=======
+ADDED from /home/charmides/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml:1:1-4:35
+INJECTED from /home/charmides/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml:1:1-4:35
+INJECTED from /home/charmides/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml:1:1-4:35
+INJECTED from /home/charmides/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml:1:1-4:35
+INJECTED from /home/charmides/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml:1:1-4:35
+INJECTED from /home/charmides/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml:1:1-4:35
+INJECTED from /home/charmides/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml:1:1-4:35
+	package
+		ADDED from /home/charmides/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml:2:5-36
+		INJECTED from /home/charmides/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml
+		INJECTED from /home/charmides/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml
+	android:versionName
+		ADDED from /home/charmides/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml:4:5-32
+		INJECTED from /home/charmides/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml
+		INJECTED from /home/charmides/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/charmides/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml:1:11-69
+	android:versionCode
+		ADDED from /home/charmides/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml:3:5-28
+		INJECTED from /home/charmides/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml
+		INJECTED from /home/charmides/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml
+uses-sdk
+INJECTED from /home/charmides/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /home/charmides/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml
+INJECTED from /home/charmides/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/charmides/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml
+		ADDED from /home/charmides/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml
+		INJECTED from /home/charmides/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml
+>>>>>>> e98a09aa89130a481672f9a2b7f8bad4f6ec5da8

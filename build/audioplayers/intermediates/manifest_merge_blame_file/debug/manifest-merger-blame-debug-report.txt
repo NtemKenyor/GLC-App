@@ -5,6 +5,10 @@
 5    android:versionName="0.1.0" >
 6
 7    <uses-sdk android:minSdkVersion="16" />
+<<<<<<< HEAD
 7-->/usr/local/android-studio/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml
+=======
+7-->/home/charmides/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android/src/main/AndroidManifest.xml
+>>>>>>> e98a09aa89130a481672f9a2b7f8bad4f6ec5da8
 8
 9</manifest>

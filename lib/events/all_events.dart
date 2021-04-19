@@ -165,7 +165,7 @@ class EventsGLCLondon extends StatelessWidget {
               if (snapshot.hasData) {
                 List<GLC_events> spacecrafts = snapshot.data;
                 return Container(
-                    color: Colors.black,
+                    color: Colors.white,
                     child: new CustomListView(spacecrafts));
               } else if (snapshot.hasError) {
                 return new Container(
@@ -173,11 +173,11 @@ class EventsGLCLondon extends StatelessWidget {
                       image: DecorationImage(image: AssetImage("assets/glc logo 1.png"), fit: BoxFit.fill)
                   ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('Look'+"'s"+ ' Like You do not have an Internat connection- Nuesa-Bot'),
+                          child: Text('Look'+"'s"+ ' Like You do not have an Internet connection'),
                         ),
                     ],
                   ),
@@ -186,7 +186,7 @@ class EventsGLCLondon extends StatelessWidget {
               //return  a circular progress indicator.
               return new Container(
                 decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage("assets/nuesa_background1.gif"), fit: BoxFit.fill)
+                  image: DecorationImage(image: AssetImage("assets/nuesa_background1.gif"), fit: BoxFit.contain)
                 ),
               );
             },

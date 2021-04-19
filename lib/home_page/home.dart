@@ -121,9 +121,8 @@ class _MyHomePageState extends State<home_page> {
       animationCurve: Curves.easeInOutExpo,
       dotSize: 3.0,
       dotSpacing: 12.0,
-      dotColor: Colors.lightGreenAccent,
+      dotColor: Colors.orange,
       indicatorBgPadding: 2.0,
-      dotBgColor: Colors.blueAccent.withOpacity(0.5),
       borderRadius: true,
       boxFit: BoxFit.cover,
 

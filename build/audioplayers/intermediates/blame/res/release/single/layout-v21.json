@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/home/charmides/Documents/GLC/GLC-App/build/audioplayers/intermediates/res/merged/release/layout-v21/notification_template_icon_group.xml",
+        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/layout-v21/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "/home/charmides/Documents/GLC/GLC-App/build/audioplayers/intermediates/res/merged/release/layout-v21/notification_action.xml",
+        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/layout-v21/notification_action.xml"
+    },
+    {
+        "merged": "/home/charmides/Documents/GLC/GLC-App/build/audioplayers/intermediates/res/merged/release/layout-v21/notification_template_custom_big.xml",
+        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/layout-v21/notification_template_custom_big.xml"
+    },
+    {
+        "merged": "/home/charmides/Documents/GLC/GLC-App/build/audioplayers/intermediates/res/merged/release/layout-v21/notification_action_tombstone.xml",
+        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/layout-v21/notification_action_tombstone.xml"
+    }
+]
