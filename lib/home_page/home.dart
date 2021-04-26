@@ -1,7 +1,5 @@
 //import 'dart:html';
-
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:http/http.dart';
@@ -9,7 +7,39 @@ import 'package:http/http.dart';
 import 'dart:io';
 import 'dart:async';
 import 'package:flutter/services.dart';
+import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:GLC/others/user_part.dart';
+
+class GLC_events {
+  final int id;
+  final String title, desc, imageUrl, venue, date, endTime, startTime;
+
+  GLC_events({
+    this.id,
+    this.title,
+    this.desc,
+    this.venue,
+    this.imageUrl,
+    this.date,
+    this.endTime,
+    this.startTime
+  });
+
+  factory GLC_events.fromJson(Map<String, dynamic> jsonData) {
+    return GLC_events(
+      id: jsonData['id'],
+      title: jsonData['title'],
+      desc: jsonData['description'],
+      venue: jsonData['location'],
+      imageUrl: jsonData['photo'],
+      date: jsonData['date'],
+      endTime: jsonData['end_time'],
+      startTime: jsonData['start_time'],
+    );
+  }
+}
+
 
 class home_page extends StatefulWidget {
   home_page({Key key, this.title}) : super(key: key);
@@ -34,6 +64,7 @@ class _MyHomePageState extends State<home_page> {
   Color dark_ = Color.fromRGBO(119, 102, 102, 1);
   //Color.fromRGBO(255, 255, 255, 1)
   Color pure_ = Color.fromRGBO(255, 255, 255, 1);
+  Color likeColors = Colors.black;
 
   String today_verse = "";
 
@@ -82,14 +113,21 @@ class _MyHomePageState extends State<home_page> {
                             children: <Widget>[
                               Expanded(child: 
                                 FlatButton.icon(
-                                  onPressed: null, 
-                                  icon: Icon(Icons.thumb_up), 
+                                  onPressed: (){
+                                    setState(() {
+                                      likeColors = Colors.blue;
+                                    });
+                                    //likeFunc ();
+                                  }, 
+                                  icon: Icon(Icons.thumb_up, color: likeColors), 
                                   label: Text("Like")
                                 )
                               ),
                               Expanded(child: 
                                 FlatButton.icon(
-                                  onPressed: null, 
+                                  onPressed: () {
+                                    Share.share(verse_content+ " ("+verse + ") " );
+                                  }, 
                                   icon: Icon(Icons.share), 
                                   label: Text("Share")
                                 )
@@ -104,7 +142,60 @@ class _MyHomePageState extends State<home_page> {
           
         ],),
         );
-  }
+    }
+
+
+Widget upcoming01(imageLink, date, time, venue) {
+      return Padding(
+        padding: EdgeInsets.all(12),
+          child: Container(
+            
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: pure_,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 4,
+                  offset: Offset(0,3),
+                )
+              ]
+            ),
+            child: Column(children: <Widget>[
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.network(imageLink),
+              ),
+              
+
+              Row(
+                children: <Widget>[
+                  FlatButton.icon(onPressed: null, icon: Icon(Icons.calendar_today), 
+                    label: Text(date)
+                  ),
+
+                  FlatButton.icon(onPressed: null, icon: Icon(Icons.access_time), 
+                    label: Text(time)
+                  ),
+                ]
+              ),
+
+              Row(
+                children: <Widget>[
+                  FlatButton.icon(onPressed: null, icon: Icon(Icons.send), 
+                    label: Text(venue)
+                  ),
+                ]
+              )
+            ],)
+          ),
+        );
+    }
+
+/*   shareVerse(){
+    Share.share()
+  } */
 
   static var picture_timer = Duration(seconds: 8);
   Widget the_moving_images = new Container(
@@ -121,73 +212,145 @@ class _MyHomePageState extends State<home_page> {
       animationCurve: Curves.easeInOutExpo,
       dotSize: 3.0,
       dotSpacing: 12.0,
-      dotColor: Colors.lightGreenAccent,
+      dotColor: Colors.orange,
       indicatorBgPadding: 2.0,
-      dotBgColor: Colors.blueAccent.withOpacity(0.5),
       borderRadius: true,
-      boxFit: BoxFit.cover,
+      boxFit: BoxFit.fill,
 
     ),
   );
 
-    /* Future<String> get _localPath async{
-      final directory = await getApplicationDocumentsDirectory();
-      return directory.path;
-    }
 
-    void write_to_file(path, write_this) async{
-      var file = await File(path).writeAsString(write_this);
-    }
+  add_string_2_SP(key, value) async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString(key, value);
+  }
 
-    Function read_from_file(path){
-      File(path).readAsString().then((String contents) {
-        return contents;
+  read_from_SP(key) async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String content = pref.getString(key);
+    return content;
+  }
+
+  check_in_SP (key) async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    bool content = pref.containsKey(key);
+    return content;
+  }
+
+checkers() async {
+  if(await check_in_SP("token") == true){
+    return await read_from_SP("token");
+  }else{
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (BuildContext context) => user_connect() ),
+        (Route<dynamic> route ) => false
+      );
+  }
+}
+
+
+
+
+
+Future upcomingEventsSide() async {
+  String urlToday = "http://164.90.139.70/api/events/upcoming/";
+  //String urlToday = "http://164.90.139.70/api/events/current";
+  String token = "Bearer " + await checkers();
+
+  Response response = await get(
+    Uri.parse(urlToday),
+    headers: {
+      "authorization": token,
+      "accept": "application/json"
+    }
+  );
+  int statusCode = response.statusCode;
+
+  if (statusCode < 200 || statusCode > 400) {
+    throw new Exception("Could not get Upcoming Event");
+  }else{
+    var content = jsonDecode(response.body);
+    print(content);
+    List Event = content["results"];
+
+    //var Event_ = jsonDecode( Event[1]);
+
+    //return upcoming01(Event_["photo"], Event_["date"], Event_["start_time"], Event_["location"]);
+    return Event.map((Event) => new GLC_events.fromJson(Event)).toList();
+  }
+/*   if (response.statusCode == 200){
+    var content = jsonDecode(response.body);
+
+    //if(content["count"] >= 1){
+      print(content);
+      List Event = content["results"];
+
+      var Event_ = jsonDecode( Event[0]);
+      //var firstEvennt  = 
+
+      return upcoming01(Event_["photo"], Event_["date"], Event_["start_time"], Event_["location"]);
+    /* }else{
+      Text("Problwm in connection");
+      setState(() {
+        today_verse = content["msg"];
+      });
+    } */
+    
+  } *//* else{
+    setState(() {
+      today_verse = "could not connect" ;
+    });
+  } */
+}
+
+
+
+
+
+
+
+
+Future Todays_verse() async {
+  //print("enter safe...");
+  //String url = "https://a1in1.com/GLC/todays_verse.php";
+  String urlToday = "http://164.90.139.70/api/today/verse/";
+  String token = "Bearer " + await checkers();
+
+  Response response = await get(
+    Uri.parse(urlToday),
+    headers: {
+      "authorization": token,
+      "accept": "application/json"
+    }
+  );
+
+  if (response.statusCode == 200){
+    var content = jsonDecode(response.body);
+
+    if(content["status"] == "true"){
+      print(content);
+      return show_today_verse(content["bible_verse"], content["msg"]);
+    }else{
+      setState(() {
+        today_verse = content["msg"];
       });
     }
- */
-    /* Future<String> read_from_loc(path) async {
-      return await rootBundle.loadString(path);
-    } */
-Future Todays_verse() async {
-
-  String url = "https://a1in1.com/GLC/todays_verse.php";
-
-
-  return get(Uri.parse(url)).then((Response response) {
-    final int statusCode = response.statusCode;
-
-    print(statusCode);
-    print(response.headers);
-    print(response.body);
     
-    if (statusCode < 200 || statusCode > 400) {
-      throw new Exception("Error while fetching data");
-    }else if (response.body != ""){
-      var json_received = json.decode(response.body);
-      print(json_received);
-      if ((response.body).contains("status")){
-        if (json_received["status"] == "true"){
-          print(json_received["msg"]);
-          return show_today_verse(json_received["verse"]["verse"], json_received["verse"]["scripture"]);
-          
-        }else if(json_received["status"] == "false"){
-          setState(() {
-            today_verse = json_received["msg"];
-          });
-        }
-        //display_result(error_gotten);
-        //print(error_gotten);
-      }
-    }else{
-      
-    }
-    
-    //return json_received;
-  });
+  }else{
+    setState(() {
+      today_verse = "could not connect" ;
+    });
+  }
+  //print(response);
+  //print(response.headers);
+
+  //return response;
 }
+
   @override
   Widget build(BuildContext context) {
-    
+    //Todays_verse();
     return Scaffold(
       backgroundColor: bright_,
       //backgroundColor: yellow,
@@ -221,35 +384,35 @@ Future Todays_verse() async {
                     height: 30,
                   ),
 
-          FutureBuilder(
-            future: Todays_verse(),
-            //we pass a BuildContext and an AsyncSnapshot object which is an
-            //Immutable representation of the most recent interaction with
-            //an asynchronous computation.
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Container(
-                  child: snapshot.data,
-                );
-                //show_today_verse(verse, verse_content)
-              } else if (snapshot.hasError) {
-                return new Container(
-                  child: Text(today_verse,
-                    style: TextStyle(
-                      color: Colors.red,
-                    ),
-                   )
-                );
-              }
-              //return  a circular progress indicator.
-              return CircularProgressIndicator();
-              /* return new Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage("assets/nuesa_background1.gif"), fit: BoxFit.fill)
-                ),
-              ); */
-            },
-          ),
+                  FutureBuilder(
+                    future: Todays_verse(),
+                    //we pass a BuildContext and an AsyncSnapshot object which is an
+                    //Immutable representation of the most recent interaction with
+                    //an asynchronous computation.
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        //var EventList = ;
+                        return Container(
+                          child: snapshot.data,
+                        );
+                      } else if (snapshot.hasError) {
+                        return new Container(
+                          child: Text(today_verse,
+                            style: TextStyle(
+                              color: Colors.red,
+                            ),
+                          )
+                        );
+                      }
+                      //return  a circular progress indicator.
+                      return CircularProgressIndicator();
+                      /* return new Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(image: AssetImage("assets/nuesa_background1.gif"), fit: BoxFit.fill)
+                        ),
+                      ); */
+                    },
+                  ),
                   
                   SizedBox(
                     height: 30,
@@ -261,51 +424,36 @@ Future Todays_verse() async {
 
                   Text("Upcoming Events", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
 
-                  Padding(padding: EdgeInsets.all(12),
-                          child: Container(
-                            
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              color: pure_,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.5),
-                                  spreadRadius: 2,
-                                  blurRadius: 4,
-                                  offset: Offset(0,3),
-                                )
-                              ]
-                            ),
-                            child: Column(children: <Widget>[
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(12),
-                                child: Image.asset("assets/blog_1.png"),
-                              ),
-                              
-
-                              Row(
-                                children: <Widget>[
-                                  FlatButton.icon(onPressed: null, icon: Icon(Icons.calendar_today), 
-                                    label: Text("Mon, 16 Nov 2020")
-                                  ),
-
-                                  FlatButton.icon(onPressed: null, icon: Icon(Icons.access_time), 
-                                    label: Text("7:00 pm")
-                                  ),
-                                ]
-                              ),
-
-                              Row(
-                                children: <Widget>[
-                                  FlatButton.icon(onPressed: null, icon: Icon(Icons.send), 
-                                    label: Text("Timbuktu, Mali")
-                                  ),
-                                ]
-                              )
-                            ],)
-                          ),
-                        ),
                   
+                  FutureBuilder(
+                    future: upcomingEventsSide(),
+                    //we pass a BuildContext and an AsyncSnapshot object which is an
+                    //Immutable representation of the most recent interaction with
+                    //an asynchronous computation.
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        List<GLC_events> EventList =  snapshot.data;
+                        return Container(
+                          child: upcoming01(EventList[0].imageUrl ,EventList[0].date ,EventList[0].startTime, EventList[0].venue),
+                          
+                        );
+                        //show_today_verse(verse, verse_content)
+                      } else if (snapshot.hasError) {
+                        return new Container(
+                          child: Text(
+                            "Could not Load new Upcoming Events",
+                          )
+                        );
+                      }
+                      //return  a circular progress indicator.
+                      return Center(
+                        child: CircularProgressIndicator(
+                          strokeWidth: 4, 
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                    },
+                  ),
 /*  
                   Container(
                     height: MediaQuery.of(context).size.height,

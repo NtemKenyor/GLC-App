@@ -2,12 +2,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 class Post {
   final String email;
-  //final int id;
   final String password;
   final String password2;
 
@@ -72,8 +70,8 @@ class _MyHomePageState extends State<sign_up> {
       passwordRepeat = password_2.text;
       if (password != "" && email != "" && passwordRepeat != ""){
         if (password == passwordRepeat){
-          String signUpURL = "https://a1in1.com/GLC/register_members.php?password="+password+"&email="+email;
-          userRegister(signUpURL);
+          Map mapper = Post(email: email, password: password, password2: passwordRepeat).toMap();
+          userRegister(CREATE_POST_URL, mapper);
         }else{
           display_result(" Passwords do not match. ");
         }
@@ -85,8 +83,11 @@ class _MyHomePageState extends State<sign_up> {
 
   
 
-  Future userRegister(String url) async {
-  return http.get(Uri.parse(url)).then((http.Response response) {
+  Future userRegister(String url, mrMap) async {
+  return http.post(
+    Uri.parse(url), 
+    body: mrMap,
+    ).then((http.Response response) {
     final int statusCode = response.statusCode;
 
     if (statusCode < 200 || statusCode > 400) {

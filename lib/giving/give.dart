@@ -1,6 +1,9 @@
 //import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:GLC/generals.dart';
+import 'dart:convert';
 
 
 class give_page extends StatefulWidget {
@@ -21,6 +24,57 @@ class give_page extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
+show_today_verse(verse, verse_content){
+    return Row(children: <Widget>[
+        Expanded(flex: 350, 
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(verse, style: TextStyle(fontWeight: FontWeight.w500,),),
+          )
+        ),
+        Expanded(flex: 650,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(verse_content, 
+              style: TextStyle(fontWeight: FontWeight.w500,),),
+          )
+        ),
+      ],);
+  }
+
+Future Todays_verse() async {
+  //print("enter safe...");
+  //String url = "https://a1in1.com/GLC/todays_verse.php";
+  String urlToday = "http://164.90.139.70/api/today/verse/";
+  String token = "Bearer " + await read_from_SP("token");
+
+  Response response = await get(
+    Uri.parse(urlToday),
+    headers: {
+      "authorization": token,
+      "accept": "application/json"
+    }
+  );
+
+  String today_verse = " ";
+  int statusCode = response.statusCode;
+  if (statusCode < 200 || statusCode > 400) {
+    throw new Exception("Connection Error...");
+  }else{
+    var content = jsonDecode(response.body);
+
+    if(content["status"] == "true"){
+      print(content);
+      return show_today_verse(content["bible_verse"], content["msg"]);
+    }else{
+      throw new Exception(" Status is not true... Reconnect.");
+    }
+  }
+  print(response);
+  print(response.headers);
+
+  //return response;
+}
 class _MyHomePageState extends State<give_page> {
   int _counter = 0;
   int _selectedIndex = 0;
@@ -35,6 +89,7 @@ class _MyHomePageState extends State<give_page> {
   Color dark_ = Color.fromRGBO(119, 102, 102, 1);
   //Color.fromRGBO(255, 255, 255, 1)
   Color pure_ = Color.fromRGBO(255, 255, 255, 1);
+
 
   @override
   Widget build(BuildContext context) {
@@ -142,22 +197,26 @@ class _MyHomePageState extends State<give_page> {
 
                 Column(
                   children: <Widget>[
-                    Row(children: <Widget>[
-
-                      Expanded(flex: 350, 
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("I Kor. 18:8", style: TextStyle(fontWeight: FontWeight.w500,),),
-                        )
-                      ),
-                      Expanded(flex: 650,
-                       child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("Love never fails. You know the story of adam and eve in the garden of edem. Nothing is free except God's love. So thank him today.", 
-                            style: TextStyle(fontWeight: FontWeight.w500,),),
-                        )
-                      ),
-                    ],),
+                    FutureBuilder(
+            future: Todays_verse(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Container(
+                  child: snapshot.data,
+                );
+                //show_today_verse(verse, verse_content)
+              } else if (snapshot.hasError) {
+                return new Container(
+                  child: Text("Could not connect. Please try again later.",
+                    style: TextStyle(
+                      color: Colors.red,
+                    ),
+                   )
+                );
+              }
+              return CircularProgressIndicator();
+            },
+          ),
 
                     Divider(thickness: 3),
 
