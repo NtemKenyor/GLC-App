@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'connect/connect.dart';
 import 'giving/give.dart';
 import 'home_page/home.dart';
-import 'media/media.dart';
-import 'watch/watch.dart';
+import 'media/media_republic.dart';
 import 'watch/anything_video.dart';
 import 'others/user_part.dart';
 import 'events/all_events.dart';
@@ -103,7 +102,7 @@ class _MyHomePageState extends State<first_sides> {
 
   List<Widget> tabs_show_side = [
     home_page(),
-    media_page(),
+    media_Republic(),
     all_videos(),
     give_page(),
     connect_page(),

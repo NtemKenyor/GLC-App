@@ -7,57 +7,81 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'list_notes.dart';
 
 
+String reply = " ";
 read_from_SP(key) async{
     SharedPreferences pref = await SharedPreferences.getInstance();
     String content = pref.getString(key);
     return content;
   }
 
-Future addUserNotes(context, tit, con) async {
-  if (tit != "" && con != ""){
-    final writer = 'http://164.90.139.70/api/notes/';
-    String token = "Bearer " + await read_from_SP("token");
-    Response response = await post(
-      Uri.parse(writer),
-      headers: {
-        "authorization": token,
-        "accept": "application/json"
-      },
-      body: {
-        "title": tit,
-        "text": con,
-      }
-    );
 
-    int statusCode = response.statusCode;
-    if (statusCode < 200 || statusCode > 400) {
-      throw new Exception("Error while fetching data");
-    }else if (response.body != ""){
-      print(jsonDecode(response.body));
 
-      final snackBar = SnackBar(
-        backgroundColor: Colors.green[600],
-        elevation: 12,
-        duration: Duration(seconds: 9),
-        content: Text("Note Added Successfully. You may need to reload to see new Notes "),
-        //_snackBarDisplayDuration: 
-      );
-      //Navigator.of(context).pop();
-      /* Navigator.of(context).push(MaterialPageRoute(
-      builder: (BuildContext context) => Notes_Pad())); */
-      return Text("The Note was Added Successfully");
-      
-    }
-  }
+
+class Write_note extends StatefulWidget {
+  Write_note({Key key}) : super(key: key);
+
+   @override
+  Write_note_State createState() => Write_note_State();
+  
+
 }
 
-class Write_note extends StatelessWidget {
+
+
+class Write_note_State extends State<Write_note> {
+
+  Future addUserNotes(context, tit, con) async {
+    mr_Change("Connecting");
+    if (tit != "" && con != ""){
+      final writer = 'http://164.90.139.70/api/notes/';
+      String token = "Bearer " + await read_from_SP("token");
+      Response response = await post(
+        Uri.parse(writer),
+        headers: {
+          "authorization": token,
+          "accept": "application/json"
+        },
+        body: {
+          "title": tit,
+          "text": con,
+        }
+      );
+      mr_Change("Writing");
+      int statusCode = response.statusCode;
+      if (statusCode < 200 || statusCode > 400) {
+        reply = "Failed";
+        throw new Exception("Error while fetching data");
+      }else if (response.body != ""){
+        print(jsonDecode(response.body));
+        final theBar = SnackBar(
+          //backgroundColor: Colors.green[600],
+          //elevation: 12,
+          //duration: Duration(seconds: 9),
+          content: Text("Note Added Successfully. You may need to reload to see new Notes "),
+          //_snackBarDisplayDuration: 
+        );
+        ScaffoldMessenger.of(context).showSnackBar(theBar);
+        mr_Change("Successful");
+        return Text("The Note was Added Successfully");
+        
+      }
+    }else{
+      mr_Change("All details should be filled");
+    }
+  }
 
   TextEditingController noteTitle = TextEditingController();
   TextEditingController noteContent = TextEditingController();
+  
+  mr_Change(note){
+    setState(() {
+      reply = note;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return new MaterialApp(
       home: new Scaffold(
         body: new Container(
@@ -102,6 +126,12 @@ class Write_note extends StatelessWidget {
                       addUserNotes(context, noteTitle.text, noteContent.text)
                     },
                   )
+                ),
+              ),
+
+              Text(reply, 
+                style: TextStyle(
+                  color: Colors.green[800],
                 ),
               )
             ],

@@ -3,16 +3,16 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
-import 'streaming_player.dart';
+import 'simple_streamer.dart';
 import 'dart:math';
 import 'package:GLC/generals.dart';
 
 
-class VideoOrg {
+class VideoOrgPulpit {
   final int id;
   final String title, message, url, photo, tv, createdAt, date;
 
-  VideoOrg({
+  VideoOrgPulpit({
     this.id,
     this.title,
     this.message,
@@ -23,8 +23,8 @@ class VideoOrg {
     this.createdAt,
   });
 
-  factory VideoOrg.fromJson(Map<String, dynamic> jsonData) {
-    return VideoOrg(
+  factory VideoOrgPulpit.fromJson(Map<String, dynamic> jsonData) {
+    return VideoOrgPulpit(
       id: jsonData['id'],
       title: jsonData['title'],
       message: jsonData['message'],
@@ -38,8 +38,8 @@ class VideoOrg {
 }
 
 
-class watch_page_live extends StatefulWidget {
-  watch_page_live({Key key, this.title}) : super(key: key);
+class pulpit_Live extends StatefulWidget {
+  pulpit_Live({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -57,8 +57,8 @@ class watch_page_live extends StatefulWidget {
 }
 
   Future video_source() async {
-    String the_video_url = "";
-    String url_ = "http://164.90.139.70/api/content/live_tv/";
+    //String the_video_url = "";
+    String url_ = "http://164.90.139.70/api/content/beyond_the_pulpit/";
     //String url_ = "https://a1in1.com/buye/.php";
     String token = "Bearer " + await read_from_SP("token");
     return get(
@@ -81,7 +81,7 @@ class watch_page_live extends StatefulWidget {
               //print(the_video_url);
               List Event = json_received["results"];
               print("Events stage");
-              return Event.map((Event) => new VideoOrg.fromJson(Event)).toList();
+              return Event.map((Event) => new VideoOrgPulpit.fromJson(Event)).toList();
               //return the_video_url;
           /* }else{
             print("You may need to check the data format of count.");
@@ -100,7 +100,7 @@ class watch_page_live extends StatefulWidget {
 
 }
 
-class _MyHomePageState extends State<watch_page_live> {
+class _MyHomePageState extends State<pulpit_Live> {
   int _counter = 0;
   int _selectedIndex = 0;
 
@@ -129,7 +129,7 @@ class _MyHomePageState extends State<watch_page_live> {
           future: video_source(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              List<VideoOrg> theListedVideo = snapshot.data;
+              List<VideoOrgPulpit> theListedVideo = snapshot.data;
               if (theListedVideo.isEmpty) {
                 return Center(
                   child: Text(" No Live broadcast yet. ",
@@ -137,7 +137,7 @@ class _MyHomePageState extends State<watch_page_live> {
                   ),
                 );
               }else{
-              VideoOrg pickRand = theListedVideo[Random().nextInt(theListedVideo.length)];
+              VideoOrgPulpit pickRand = theListedVideo[Random().nextInt(theListedVideo.length)];
               return new Container(
                 height: MediaQuery.of(context).size.height,
                 child: Column(
@@ -172,10 +172,11 @@ class _MyHomePageState extends State<watch_page_live> {
               );
               }
             } else if (snapshot.hasError) {
+
               return new Container(
                 //height: MediaQuery.of(context).size.height,
                 child: Center(
-                  child: Text(" We Could not connect to the Server. ",
+                  child: Text(" Could not connect to server. ",
                     style: TextStyle(color: Colors.blue[800], fontWeight: FontWeight.w700,),
                   ),
                 ),

@@ -1,12 +1,11 @@
 
 import 'package:flutter/material.dart';
 //import 'glc_room.dart';
-import 'stream_video/watch_stream.dart';
-import 'notes/list_notes.dart';
-import 'beyond_pulpit/beyondPulpit.dart';
+import 'podcast/media.dart';
+import 'videos/watch.dart';
 
-class all_videos extends StatefulWidget {
-  all_videos({Key key, this.title}) : super(key: key);
+class media_Republic extends StatefulWidget {
+  media_Republic({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -20,10 +19,10 @@ class all_videos extends StatefulWidget {
   final String title;
 
   @override
-  _all_videosState createState() => _all_videosState();
+  _MediaReb createState() => _MediaReb();
 }
 
-class _all_videosState extends State<all_videos> {
+class _MediaReb extends State<media_Republic> {
   int _counter = 0;
   int _selectedIndex = 0;
 
@@ -49,12 +48,11 @@ class _all_videosState extends State<all_videos> {
       labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,),
       tabs: [
       //Tab( text: "GLC Chat Room", ),
-      Tab( text: "Live"),
-      Tab( text: "Pulpit"),
-      Tab( text: "Notes"),
+      Tab( text: "Podcast"),
+      Tab( text: "Videos"),
     ]);
 
-    return DefaultTabController(length: 3,
+    return DefaultTabController(length: 2,
         child: Scaffold(
         backgroundColor: pure_,
         appBar: PreferredSize(
@@ -65,7 +63,7 @@ class _all_videosState extends State<all_videos> {
               color: Colors.white70,
               padding: EdgeInsets.all(3),
               child: Card(
-                color: Colors.green[900],
+                color: Colors.blue[900],
                 elevation: 2,
                 child: tab
               ),
@@ -75,9 +73,10 @@ class _all_videosState extends State<all_videos> {
         ),
         body: TabBarView(
           children: <Widget>[
-              watch_page_live(),
-              pulpit_Live(),
-              Notes_Pad(),             
+              media_page(),
+              watch_page(),
+              /* Container(color: Colors.green),
+              Container(color: Colors.yellow), */
           ]
         ),
 
