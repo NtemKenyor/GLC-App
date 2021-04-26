@@ -119,7 +119,7 @@ class CustomListView extends StatelessWidget {
                               Icon(Icons.calendar_today,
                                 color: Colors.amber,
                               ),
-                              Text(each_event.date),
+                              Flexible(child: Text(each_event.date)),
                             ],
                           ),
                         ),
@@ -132,7 +132,9 @@ class CustomListView extends StatelessWidget {
                               Icon(Icons.timer,
                                 color: Colors.amber,
                               ),
-                              Text(each_event.startTime+" - "+ each_event.endTime),
+                              Flexible(
+                                child: Text(each_event.startTime+" - "+ each_event.endTime),
+                              ),
                             ],
                           ),
                         ),
@@ -145,11 +147,10 @@ class CustomListView extends StatelessWidget {
                               Icon(Icons.send,
                                 color: Colors.amber,
                               ),
-                              Text(each_event.venue),
+                              Flexible(child: Text(each_event.venue)),
                             ],
                           ),
                         )
-
                       ]
                     ),
                   ],
@@ -246,7 +247,7 @@ class CustomListView extends StatelessWidget {
 //Future is n object representing a delayed computation.
 Future<List<GLC_events>> GetEventsJson() async {
   //final jsonEndpoint = "https://a1in1.com/GLC/";
-  final enderP = 'http://164.90.139.70/api/events/previous';
+  final enderP = 'http://164.90.139.70/api/events/upcoming/';
   String token = "Bearer " + await read_from_SP("token");
 
   final responseEvents = await get(
@@ -267,9 +268,17 @@ Future<List<GLC_events>> GetEventsJson() async {
   }
     
 }
+class EventsGLCLondon extends StatefulWidget {
+  EventsGLCLondon({Key key}) : super(key: key);
 
+ @override
+  EventsGLCLondonState createState() => EventsGLCLondonState();
 
-class EventsGLCLondon extends StatelessWidget {
+}
+
+class EventsGLCLondonState extends State<EventsGLCLondon> {
+
+  List<GLC_events> eventscarry;
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -293,10 +302,30 @@ class EventsGLCLondon extends StatelessWidget {
               switch (gottenshot.connectionState){
                 case ConnectionState.done:
                 if (gottenshot.data != null) {
-                  List<GLC_events> eventscarry = gottenshot.data;
-                   return Container(
-                      color: Colors.white,
-                      child: new CustomListView(eventscarry));
+                  eventscarry = gottenshot.data;
+                   return RefreshIndicator(
+                     onRefresh: ()  {
+                      return Future.delayed(
+                        Duration(seconds: 3), () async {
+                          var content = await GetEventsJson();
+                          setState(() {
+                            eventscarry = content;
+                          });
+
+                           ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Page Refreshed'),
+                            ),
+                          );
+                          
+                        }
+                      );
+                    },
+                     child: Container(
+                        color: Colors.white,
+                        child: new CustomListView(eventscarry)
+                      ),
+                   );
                 } else if (gottenshot.hasError ) {
                    return new Container(
                     child: Column(

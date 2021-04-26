@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:GLC/media/podcast/media.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
@@ -213,9 +214,15 @@ Future<List<Notes_out>> downloadJSON() async {
   }
 } */
 
+class Notes_Pad extends StatefulWidget {
+  Notes_Pad({Key key}) : super(key: key);
 
+ @override
+  Notes_Pad_State createState() => Notes_Pad_State();
+}
 
-class Notes_Pad extends StatelessWidget {
+class Notes_Pad_State extends State<Notes_Pad> {
+  List<Notes_out> listedData;
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -236,9 +243,32 @@ class Notes_Pad extends StatelessWidget {
               builder: (context, data ){
                 //return overrideSnapshot();
                 print(data.data);
-                List<Notes_out> listedData = data.data;
+                listedData = data.data;
                 if (data.data != null){
-                  return CustomListView( noteList: listedData,);
+                  return RefreshIndicator(
+                    color: pure_,
+                    backgroundColor: Colors.green[800],
+                    onRefresh: ()  {
+                      return Future.delayed(
+                        Duration(seconds: 3), () async {
+                          var content = await downloadJSON();
+                          setState(() {
+                            listedData = content;
+                          });
+
+                           ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Page Refreshed'),
+                            ),
+                          );
+                          
+                        }
+                      );
+                    },
+                    child: Container(
+                      child: CustomListView( noteList: listedData,)
+                    ),
+                  );
                 }else{
                   return CircularProgressIndicator();
                 }

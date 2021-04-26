@@ -102,6 +102,7 @@ Future<List<VideoCast>> video_source() async {
 class _MyHomePageState extends State<watch_page> {
   int _counter = 0;
   int _selectedIndex = 0;
+  List<VideoCast> theList;
 
   //Color yellow = Color(0xFFC50C);
   Color yellow_ = Color.fromRGBO(255, 197, 12, 1);
@@ -129,9 +130,28 @@ class _MyHomePageState extends State<watch_page> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 //String goto = snapshot.data;
-                List<VideoCast> theList = snapshot.data;
-                return Container(
-                  child: VideoListView(thevideoers: theList,)
+                theList = snapshot.data;
+                return RefreshIndicator(
+                  onRefresh: ()  {
+                      return Future.delayed(
+                        Duration(seconds: 3), () async {
+                          var content = await video_source();
+                          setState(() {
+                            theList = content;
+                          });
+
+                           ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Page Refreshed'),
+                            ),
+                          );
+                          
+                        }
+                      );
+                    },
+                  child: Container(
+                    child: VideoListView(thevideoers: theList,)
+                  ),
                 );
               } else if (snapshot.hasError) {
                 return new Container(

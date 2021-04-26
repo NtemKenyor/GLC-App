@@ -65,7 +65,7 @@ class ComsListView extends StatelessWidget {
     );*/
   }
 
-  Widget List_home (Comms each_event, BuildContext context) {
+  Widget List_home (Comms get1Comms, BuildContext context) {
     return  Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -85,16 +85,26 @@ class ComsListView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children : <Widget>[
-            Expanded(child: 
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(get1Comms.title, 
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+              ),
+            ),
+
+            Expanded(
+              child: 
               Padding(
-                padding: EdgeInsets.fromLTRB(20, 10, 10, 15),
-                child:  Text("The grace and mercy of our Lord and saviour Jesus christ rest with you all in the power of the saved Lord. The power of grace."),
+                padding: EdgeInsets.fromLTRB(14, 8, 8, 9),
+                child:  Text(get1Comms.desc),
               )
             ),
 
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text("-GLC(@GreatLightChurch) January 2021"),
+              child: Text(get1Comms.writer + " " + get1Comms.date),
             ),
           ]
         )
@@ -151,6 +161,7 @@ class coonect_page extends StatefulWidget {
 class _MyHomePageState extends State<coonect_page> {
   int _counter = 0;
   int _selectedIndex = 0;
+  List<Comms> commsentry;
 
   //Color yellow = Color(0xFFC50C);
   Color yellow_ = Color.fromRGBO(255, 197, 12, 1);
@@ -178,11 +189,30 @@ class _MyHomePageState extends State<coonect_page> {
           switch (gottenshot.connectionState){
             case ConnectionState.done:
             if (gottenshot.data != null) {
-              List<Comms> commsentry = gottenshot.data;
-                return Container(
-                  color: Colors.white,
-                  child: new ComsListView(commsentry)
-                  );
+              commsentry = gottenshot.data;
+                return RefreshIndicator(
+                  onRefresh: ()  {
+                      return Future.delayed(
+                        Duration(seconds: 3), () async {
+                          var content = await GetEventsJson();
+                          setState(() {
+                            commsentry = content;
+                          });
+
+                           ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Page Refreshed'),
+                            ),
+                          );
+                          
+                        }
+                      );
+                    },
+                  child: Container(
+                    color: Colors.white,
+                    child: new ComsListView(commsentry)
+                    ),
+                );
             } else if (gottenshot.hasError ) {
                 return Center(
                   child: new Container(

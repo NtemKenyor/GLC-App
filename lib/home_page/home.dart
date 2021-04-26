@@ -254,7 +254,7 @@ checkers() async {
 
 
 Future upcomingEventsSide() async {
-  String urlToday = "http://164.90.139.70/api/events/previous";
+  String urlToday = "http://164.90.139.70/api/events/upcoming/";
   //String urlToday = "http://164.90.139.70/api/events/current";
   String token = "Bearer " + await checkers();
 

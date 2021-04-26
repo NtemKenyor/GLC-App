@@ -10,6 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import 'audio.dart';
 import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 //Color yellow = Color(0xFFC50C);
   Color yellow_ = Color.fromRGBO(255, 197, 12, 1);
@@ -117,6 +118,25 @@ Future<List<Podcast>> downloadJSON() async {
   }
 }
 
+  // This is optional. This is not requred always
+  GlobalKey<ScaffoldState> _scaffoldKey;
+
+  // This method will run once widget is loaded
+  // i.e when widget is mounting
+  @override
+  void initState() {
+    _scaffoldKey = GlobalKey();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // disposing states
+    _scaffoldKey?.currentState?.dispose();
+    super.dispose();
+  }
+
+  List<Podcast> spacecrafts;
 
   @override
   Widget build(BuildContext context) {
@@ -140,10 +160,32 @@ Future<List<Podcast>> downloadJSON() async {
             //an asynchronous computation.
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                List<Podcast> spacecrafts = snapshot.data;
-                return Container(
-                    color: Colors.black,
-                    child: new CustomListView(spacecrafts: spacecrafts,));
+                spacecrafts = snapshot.data;
+                return RefreshIndicator(
+                    onRefresh: ()  {
+                      return Future.delayed(
+                        Duration(seconds: 3), () async {
+                          var content = await downloadJSON();
+                          setState(() {
+                            spacecrafts = content;
+                          });
+
+                           ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Page Refreshed'),
+                            ),
+                          );
+
+                        }
+                      );
+                    },
+                    //enablePullUp: true,
+                    //controller: ,
+                    child: Container(
+                      color: Colors.black,
+                      child: new CustomListView(spacecrafts: spacecrafts,)
+                    ),
+                );
               } else if (snapshot.hasError) {
                 return new Container(
                   decoration: BoxDecoration(
@@ -352,7 +394,9 @@ class _CustomListViewState extends State<CustomListView> {
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: <Widget>[
                                           Icon(Icons.calendar_today, color: yellow_,),
-                                          Text(cord.date, maxLines: 1, style: TextStyle(fontWeight: FontWeight.w800)),
+                                          Flexible(
+                                            child: Text(cord.date, maxLines: 1, style: TextStyle(fontWeight: FontWeight.w800))
+                                          ),
                                         ]
                                         //trailing: Text("Monday, 21st October"),
                                       ),
@@ -371,7 +415,9 @@ class _CustomListViewState extends State<CustomListView> {
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           children: <Widget>[
                                             Icon(listenIcon, color: yellow_,),
-                                            Text("Listen", maxLines: 1, style: TextStyle(fontWeight: FontWeight.w800)),
+                                            Flexible(
+                                              child: Text("Listen", maxLines: 1, style: TextStyle(fontWeight: FontWeight.w800))
+                                            ),
                                           ]
                                           //trailing: Text("Monday, 21st October"),
                                         ),
