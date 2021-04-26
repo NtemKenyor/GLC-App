@@ -94,13 +94,14 @@ class _AudioPlayerScreenState extends State<AudioPlayerApp> with SingleTickerPro
 
   @override
   Widget build(BuildContext context) {
-    /* if (audioHttp != ""){
-      play(audioHttp);
-    } */
-    //checkPlay(audioHttp);
-    //print("This is the para: " + audioTitle);
+
+    var theImager =  (audioImage != null) ? Image.network(audioImage, fit: BoxFit.cover,) 
+        : Image.asset("assets/glc logo 1.png", fit: BoxFit.cover,);
+
+    var thebackgrounder = (audioImage != null) ? NetworkImage(audioImage)
+        : AssetImage("assets/glc logo 1.png");
+
     return Scaffold(
-      
       body: Container(
         child: Column(
           children: [
@@ -113,7 +114,13 @@ class _AudioPlayerScreenState extends State<AudioPlayerApp> with SingleTickerPro
                       Container(
                         height: 280,
                         width: double.infinity,
-                        child: Image.network(audioImage, fit: BoxFit.cover,)
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(22),
+                            bottomRight: Radius.circular(22),
+                          )
+                        ),
+                        child: theImager,
                       ),
                       Center(
                         child: Align(
@@ -144,7 +151,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerApp> with SingleTickerPro
                           shape: BoxShape.circle,
                           //borderRadius: BorderRadius.circular(50),
                           image: DecorationImage(
-                            image: NetworkImage(audioImage),
+                            image: thebackgrounder ,
                             fit: BoxFit.cover,
                           ),
                         ),

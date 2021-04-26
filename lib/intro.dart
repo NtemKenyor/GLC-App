@@ -7,8 +7,11 @@ import 'giving/give.dart';
 import 'home_page/home.dart';
 import 'media/media.dart';
 import 'watch/watch.dart';
+import 'watch/anything_video.dart';
 import 'others/user_part.dart';
 import 'events/all_events.dart';
+import 'prayer/prayer_request.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /* void main() {
   runApp(MyApp());
@@ -101,35 +104,76 @@ class _MyHomePageState extends State<first_sides> {
   List<Widget> tabs_show_side = [
     home_page(),
     media_page(),
-    watch_page(),
-    //VideoPlayerApp(),
+    all_videos(),
     give_page(),
     connect_page(),
   ];
 
-  /* static var picture_timer = Duration(seconds: 8);
-  Widget the_moving_images = new Container(
-    child: new Carousel(
-      images: [
-        new Image.asset('assets/person_1.png', width: 500,),
-        new Image.asset('assets/person_2.png', ),
-        new Image.asset('assets/person_3.png', ),
-        new Image.asset('assets/fitness.jpg', ),
-        new Image.asset('assets/blog_person.jpg', ),
-        new AssetImage('assets/old_man.jpg',),
-      ],
-      autoplayDuration: picture_timer,
-      animationCurve: Curves.easeInOutExpo,
-      dotSize: 3.0,
-      dotSpacing: 12.0,
-      dotColor: Colors.lightGreenAccent,
-      indicatorBgPadding: 2.0,
-      //dotBgColor: Colors.blueAccent.withOpacity(0.5),
-      borderRadius: true,
-      boxFit: BoxFit.contain,
+  read_from_SP(key) async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String content = pref.getString(key);
+    return content;
+  }
 
-    ),
-  ); */
+  getMeOut() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    //bool state = await pref.clear();
+    bool state = await pref.remove("email");
+    bool pass = await pref.remove("password");
+    if (state == true && pass == true){
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (BuildContext context) => user_connect() ),
+        (Route<dynamic> route ) => false
+      );
+    }
+  }
+
+  userSide() async {
+    String email_ = await read_from_SP("email");
+    showDialog(
+      context: context, 
+      builder: (BuildContext context){
+        return Scaffold(
+          body: Center(
+            child: Container(
+              height: 220,
+              decoration: BoxDecoration(
+                color: Colors.indigo,
+                borderRadius: BorderRadius.circular(21),
+              ),
+              
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Icon(Icons.person, size: 42,),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text("Hello, You are logged in as " + email_  ,
+                      style: TextStyle(
+                        fontSize: 21,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    padding: EdgeInsets.all(9),
+                    child: TextButton(
+                      onPressed: getMeOut, 
+                      child: Text("Logout"),
+                    ),
+                  )
+                  
+                ]
+              ),
+            ),
+          ),
+        );
+      }
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -318,8 +362,10 @@ class _MyHomePageState extends State<first_sides> {
                         children: <Widget>[
                           FlatButton.icon(
                             onPressed: (){
-                              //_onItemTapped(5);
                               Navigator.of(context).pop();
+                              Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context) => Prayer()));
+                              //Navigator.of(context).pop();
                             }, 
                             icon: Container(
                               decoration: BoxDecoration(
@@ -328,10 +374,10 @@ class _MyHomePageState extends State<first_sides> {
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Icon(Icons.notifications),
+                                child: Icon(Icons.notifications,),
                               )
                             ), 
-                            label: Text("Notification")
+                            label: Text("Prayer Request")
                           ),
 
                           IconButton(icon: Icon(Icons.arrow_forward_ios, color: bright_,), onPressed: null)
@@ -382,7 +428,6 @@ class _MyHomePageState extends State<first_sides> {
                           FlatButton.icon(
                             onPressed: (){
                               Navigator.of(context).pop();
-
                               Navigator.of(context).push(MaterialPageRoute(
                               builder: (BuildContext context) => user_connect()));
                             }
@@ -424,23 +469,18 @@ class _MyHomePageState extends State<first_sides> {
               IconButton(
                 icon: Icon(Icons.menu, color: dark_,), 
                 onPressed: (){
-                  //Scaffold.of(context).openDrawer();
                   _scaffoldKey.currentState.openDrawer();
                 },
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Image.asset("assets/glc logo 1.png", width: 120, height: 55,),
-                
-                /* Column(
-                  children: <Widget>[
-                    Icon(Icons.do_not_disturb, color: dark_,),
-                    Text("GREAT LIGHT", style: TextStyle(fontSize: 10, color: dark_,),),
-                    Text("CHURCH", style: TextStyle(fontSize: 10, color: dark_,),),
-                  ]
-                ) */
               ),
-              Icon(Icons.person, color: dark_,)
+              IconButton(
+                onPressed: ()=> {userSide()},
+                icon: Icon(Icons.person, ),
+                color: dark_,
+              )
             ]
           ),
         )

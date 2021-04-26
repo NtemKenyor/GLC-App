@@ -6,28 +6,33 @@ import 'package:http/http.dart' show get;
 //import 'nuesa_home_model.dart';
 import 'dart:convert';
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:GLC/generals.dart';
 
 class GLC_events {
-  final String id;
-  final String title, imageUrl, venue, date, time;
+  final int id;
+  final String title, desc, imageUrl, venue, date, endTime, startTime;
 
   GLC_events({
     this.id,
     this.title,
+    this.desc,
     this.venue,
     this.imageUrl,
     this.date,
-    this.time
+    this.endTime,
+    this.startTime
   });
 
   factory GLC_events.fromJson(Map<String, dynamic> jsonData) {
     return GLC_events(
       id: jsonData['id'],
-      title: jsonData['event'],
-      venue: jsonData['venue'],
-      imageUrl: "https://a1in1.com/GLC/images/"+jsonData['image'],
+      title: jsonData['title'],
+      desc: jsonData['description'],
+      venue: jsonData['location'],
+      imageUrl: jsonData['photo'],
       date: jsonData['date'],
-      time: jsonData['time'],
+      endTime: jsonData['end_time'],
+      startTime: jsonData['start_time'],
     );
   }
 }
@@ -71,7 +76,92 @@ class CustomListView extends StatelessWidget {
   }
 
   Widget List_home (GLC_events each_event, BuildContext context) {
-    return InkWell(
+    return Container(
+      height: 210,
+      //color: Colors.blue[300],
+      child: Card(
+        elevation: 10,
+        child: Row(
+          children: [
+              Expanded(
+                flex: 400,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.orange,
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(each_event.imageUrl)
+                    )
+                  )
+                  /* child: Image.network(
+                    each_event.imageUrl, 
+                    fit: BoxFit.fitHeight,
+                  ), */
+                ),
+              ),
+
+              Expanded(
+                flex: 600,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(each_event.title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),),
+
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Icon(Icons.calendar_today,
+                                color: Colors.amber,
+                              ),
+                              Text(each_event.date),
+                            ],
+                          ),
+                        ),
+
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Icon(Icons.timer,
+                                color: Colors.amber,
+                              ),
+                              Text(each_event.startTime+" - "+ each_event.endTime),
+                            ],
+                          ),
+                        ),
+
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Icon(Icons.send,
+                                color: Colors.amber,
+                              ),
+                              Text(each_event.venue),
+                            ],
+                          ),
+                        )
+
+                      ]
+                    ),
+                  ],
+                )
+              )
+            ],
+          ),
+      ),
+    );
+    
+    
+    /* InkWell(
       hoverColor: Colors.orange,
       onTap: () {
         //TODO
@@ -85,10 +175,12 @@ class CustomListView extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
+          height: 240,
+          width: double.infinity,
           color: Colors.black,
           child: Card(
               child: Wrap(
-                crossAxisAlignment: WrapCrossAlignment.start,
+                //crossAxisAlignment: WrapCrossAlignment.start,
                 children: <Widget>[
                   Container(
                     width: double.infinity,
@@ -98,7 +190,12 @@ class CustomListView extends StatelessWidget {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Image.network(each_event.imageUrl, height: 100, width: 100),
+                            child: Image.network(
+                              each_event.imageUrl, 
+                              height: 120, 
+                              width: 120,
+                              //fit: BoxFit.contain
+                            ),
                           ),
                           Expanded(
                             child: Column(
@@ -107,7 +204,28 @@ class CustomListView extends StatelessWidget {
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   Flexible(child: Text(each_event.title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),)),
-                                  Flexible(child: Text(each_event.venue+ " "+ each_event.time+ " "+ each_event.date) ),
+                                  
+                                  Flexible(
+                                    child: Column(
+                                      children: <Widget>[
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Icon(Icons.calendar_today,
+                                                color: Colors.amber,
+                                              ),
+                                              Text(each_event.date),
+                                            ],
+                                          ),
+                                        )
+                                      ]
+                                    )
+                                    
+                                    
+                                    //Text(each_event.venue+ " "+ each_event.startTime+ " "+ each_event.date) 
+                                  ),
                                 ]
                             ),
                           ),
@@ -120,25 +238,34 @@ class CustomListView extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ); */
   }
 
 }
 
 //Future is n object representing a delayed computation.
-Future<List<GLC_events>> downloadJSON() async {
-  final jsonEndpoint =
-      "https://a1in1.com/GLC/";
+Future<List<GLC_events>> GetEventsJson() async {
+  //final jsonEndpoint = "https://a1in1.com/GLC/";
+  final enderP = 'http://164.90.139.70/api/events/previous';
+  String token = "Bearer " + await read_from_SP("token");
 
-  final response = await get(Uri.parse(jsonEndpoint));
-
-  if (response.statusCode == 200) {
-    List Events = json.decode(response.body);
-    return Events
-        .map((Events) => new GLC_events.fromJson(Events))
-        .toList();
-  } else
-    throw Exception('We were not able to successfully download the json data.');
+  final responseEvents = await get(
+    Uri.parse(enderP),
+    headers: {
+      "authorization": token,
+      "accept": "application/json"
+    }
+  );
+  int statusCode = responseEvents.statusCode;
+  if (statusCode < 200 || statusCode > 400) {
+    throw Exception('We were not able to successfully download the List of events.');
+  } else {
+    var givenData = json.decode(responseEvents.body);
+    List Events = givenData["results"];
+    //print(Events);
+    return Events.map((Events) => new GLC_events.fromJson(Events)).toList();
+  }
+    
 }
 
 
@@ -149,46 +276,51 @@ class EventsGLCLondon extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.black,
         accentColor: Color(0xFFDBECF1),
-        scaffoldBackgroundColor: Colors.black45,
+        //scaffoldBackgroundColor: Colors.black45,
       ),
       home: new Scaffold(
         //appBar: new AppBar(title: const Text('MySQL Images Text')),
         body: new Center(
           //FutureBuilder is a widget that builds itself based on the latest snapshot
           // of interaction with a Future.
-          child: new FutureBuilder<List<GLC_events>>(
-            future: downloadJSON(),
+          child:  FutureBuilder<List<GLC_events>>(
+            future: GetEventsJson(),
             //we pass a BuildContext and an AsyncSnapshot object which is an
             //Immutable representation of the most recent interaction with
             //an asynchronous computation.
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                List<GLC_events> spacecrafts = snapshot.data;
-                return Container(
-                    color: Colors.white,
-                    child: new CustomListView(spacecrafts));
-              } else if (snapshot.hasError) {
-                return new Container(
-                  decoration: BoxDecoration(
-                      image: DecorationImage(image: AssetImage("assets/glc logo 1.png"), fit: BoxFit.fill)
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('Look'+"'s"+ ' Like You do not have an Internet connection'),
-                        ),
-                    ],
-                  ),
+            builder: (context, gottenshot) {
+              //var constate =  gottenshot.connectionState.done ;
+              switch (gottenshot.connectionState){
+                case ConnectionState.done:
+                if (gottenshot.data != null) {
+                  List<GLC_events> eventscarry = gottenshot.data;
+                   return Container(
+                      color: Colors.white,
+                      child: new CustomListView(eventscarry));
+                } else if (gottenshot.hasError ) {
+                   return new Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'We are facing some challenges.',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                  );
+                }
+                break;
+                default: return new Container(
+                  child: CircularProgressIndicator( strokeWidth: 6.0, backgroundColor: Colors.teal, ),
                 );
               }
-              //return  a circular progress indicator.
-              return new Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage("assets/nuesa_background1.gif"), fit: BoxFit.contain)
-                ),
-              );
+              
             },
           ),
         ),

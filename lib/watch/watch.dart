@@ -4,6 +4,27 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 import 'video_player.dart';
+import 'package:GLC/generals.dart';
+import 'package:video_player/video_player.dart';
+
+class VideoCast {
+  //final String id;
+  final String name, date, watchIt;
+
+  VideoCast({
+    this.name,
+    this.date,
+    this.watchIt,
+  });
+
+  factory VideoCast.fromJson(Map<String, dynamic> jsonData) {
+    return VideoCast(
+      name: jsonData['title'],
+      date: jsonData['date'],
+      watchIt: jsonData['file'],
+    );
+  }
+}
 
 class watch_page extends StatefulWidget {
   watch_page({Key key, this.title}) : super(key: key);
@@ -24,7 +45,32 @@ class watch_page extends StatefulWidget {
 }
 
 
-  Future<String> video_source() async {
+Future<List<VideoCast>> video_source() async {
+  final jsonEndpoint = 'http://164.90.139.70/api/content/videos/';
+  String token = "Bearer " + await read_from_SP("token");
+  Response response = await get(
+    Uri.parse(jsonEndpoint),
+    headers: {
+      "authorization": token,
+      "accept": "application/json"
+    }
+  );
+  int statusCode = response.statusCode;
+  print( jsonDecode(response.body ) );
+  if (statusCode < 200 || statusCode > 400) {
+    print("jobs fix");
+    throw Exception('We were not able to successfully download the json data.');
+  }else {
+    print("here");
+    var content = json.decode(response.body);
+    List videolist = content["results"] as List;
+    return videolist
+        .map((videolist) => new VideoCast.fromJson(videolist))
+        .toList();
+  }
+}
+
+/*   Future<String> video_source() async {
     String the_video_url = "";
     String url_ = "https://a1in1.com/GLC/video_stream.php";
     return get(Uri.parse(url_)).then((Response response) {
@@ -51,7 +97,7 @@ class watch_page extends StatefulWidget {
       //return json_received;
     });
 
-}
+} */
 
 class _MyHomePageState extends State<watch_page> {
   int _counter = 0;
@@ -78,13 +124,14 @@ class _MyHomePageState extends State<watch_page> {
         children: <Widget>[
           Expanded(
             child: Container(
-              child: new FutureBuilder (
+              child: new FutureBuilder<List<VideoCast>> (
             future: video_source(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                String goto = snapshot.data;
+                //String goto = snapshot.data;
+                List<VideoCast> theList = snapshot.data;
                 return Container(
-                  child: VideoPlayerApp(url: goto,),
+                  child: VideoListView(thevideoers: theList,)
                 );
               } else if (snapshot.hasError) {
                 return new Container(
@@ -98,29 +145,29 @@ class _MyHomePageState extends State<watch_page> {
                 /* decoration: BoxDecoration(
                   image: DecorationImage(image: AssetImage("assets/glc logo 1.png"), fit: BoxFit.fill)
                 ), */
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children : <Widget>[
-                    CircularProgressIndicator(),
-                    Expanded(
-                      child: Text("Processing, Please Wait.", 
-                      style: TextStyle(
-                        color: Colors.green[800],
-                        fontWeight: FontWeight.w800,
-                      ),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children : <Widget>[
+                      CircularProgressIndicator(),
+                      Expanded(
+                        child: Text("Processing, Please Wait.", 
+                        style: TextStyle(
+                          color: Colors.green[800],
+                          fontWeight: FontWeight.w800,
+                        ),
+                        )
                       )
-                    )
-                  ]
+                    ]
+                  ),
                 )
               );
             },
           ),
-              
-              
-              //Image.asset("assets/moving.gif", fit: BoxFit.cover, width: double.infinity, height: double.infinity)
             )
           ),
-          Row(
+          
+          /* Row(
             //mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               Expanded(
@@ -147,10 +194,105 @@ class _MyHomePageState extends State<watch_page> {
                 )
               )
             ],
-          )
+          ) */
+
+
         ],
       ),
       )
     );
   }
+}
+
+
+
+
+class VideoListView extends StatefulWidget {
+  VideoListView({Key key, this.title, this.thevideoers}) : super(key: key);
+
+  final String title;
+  final List<VideoCast> thevideoers;
+
+
+  @override
+  _VideoListViewState createState() => _VideoListViewState(thevideoers);
+}
+class _VideoListViewState extends State<VideoListView> {
+      final List<VideoCast> thevideoers;
+      _VideoListViewState(this.thevideoers);
+
+
+      
+ 
+      Widget VideoStructure(url){
+        VideoPlayerController _controller = VideoPlayerController.network(url);
+        Future<void> _initializeVideoPlayerFuture = _controller.initialize();
+        _controller.setLooping(true);
+
+        @override
+          void dispose() {
+            _controller.dispose();
+            super.dispose();
+          } 
+
+        return Container(
+          height: 230,
+          child: //Container(child: new VideoPlayer(_controller)),
+          Stack(
+            children: [
+              //Icon(Icons.play_circle_outline_sharp, size: 60, color: Colors.white,),
+              Center(
+                child: Icon(Icons.play_circle_outline_sharp, size: 60, color: Colors.white,),
+              ),
+              Container(child: new VideoPlayer(_controller)),
+            ],
+          ),
+        );
+
+        
+      }
+
+      Widget List_video (VideoCast theVideo, BuildContext context, int index) {
+            /* VideoPlayerController _controller;
+            Future<void> _initializeVideoPlayerFuture;
+            @override
+            void initState() {
+              _controller = VideoPlayerController.network(theVideo.watchIt,);
+              _initializeVideoPlayerFuture = _controller.initialize();
+              _controller.setLooping(true);
+              super.initState();
+            }
+
+            @override
+            void dispose() {
+              _controller.dispose();
+              super.dispose();
+            } */
+                return GestureDetector(
+                  onTap: () async {
+                    var route = new MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                      new VideoPlayerApp(url: theVideo.watchIt,),
+                    );
+                    Navigator.of(context).push(route);
+                  },
+                  child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        child: VideoStructure(theVideo.watchIt),
+                      ),
+            ),
+        );
+      }
+
+        Widget build(context) {
+          return ListView.builder(
+          itemCount: thevideoers.length,
+          itemBuilder: (context, int currentInd){
+            //listenIcon = (currentInd == playingFrom) ? Icons.pause : Icons.headset;
+            return List_video(thevideoers[currentInd], context, currentInd);
+          },
+        );
+        }
+
 }

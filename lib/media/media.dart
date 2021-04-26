@@ -9,6 +9,8 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:path_provider/path_provider.dart';
 import 'audio.dart';
 import 'dart:io';
+import 'package:GLC/generals.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 //Color yellow = Color(0xFFC50C);
   Color yellow_ = Color.fromRGBO(255, 197, 12, 1);
@@ -36,8 +38,10 @@ class Podcast {
     return Podcast(
       pod_name: jsonData['title'],
       date: jsonData['date'],
-      imageUrl: "https://a1in1.com/GLC/images/"+jsonData['image'],
-      listen: "https://a1in1.com/GLC/media_files/"+jsonData['location'],
+      //imageUrl: "https://a1in1.com/GLC/images/"+jsonData['image'],
+      //listen: "https://a1in1.com/GLC/media_files/"+jsonData['location'],
+      imageUrl: jsonData['photo'],
+      listen: jsonData['audio_file'],
     );
   }
 }
@@ -75,20 +79,43 @@ class _MyHomePageState extends State<media_page> {
   //Color.fromRGBO(255, 255, 255, 1)
   Color pure_ = Color.fromRGBO(255, 255, 255, 1); */
 
+  /* takeHome(){
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (BuildContext context) => user_connect() ),
+        (Route<dynamic> route ) => false
+      );
+  } */
 
-  Future<List<Podcast>> downloadJSON() async {
-  final jsonEndpoint =
-      "https://a1in1.com/GLC/media_files.php";
+  
+  read_from_SP(key) async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String content = pref.getString(key);
+    return content;
+  }
 
-  final response = await get(Uri.parse(jsonEndpoint));
-
-  if (response.statusCode == 200) {
-    List nuesa_news = json.decode(response.body);
+Future<List<Podcast>> downloadJSON() async {
+  final jsonEndpoint = 'http://164.90.139.70/api/content/audios/';
+  String token = "Bearer " + await read_from_SP("token");
+  Response response = await get(
+    Uri.parse(jsonEndpoint),
+    headers: {
+      "authorization": token,
+      "accept": "application/json"
+    }
+  );
+  int statusCode = response.statusCode;
+  print( jsonDecode(response.body ) );
+  if (statusCode < 200 || statusCode > 400) {
+    print("jobs fix");
+    throw Exception('We were not able to successfully download the json data.');
+  }else {
+    print("here");
+    var content = json.decode(response.body);
+    List nuesa_news = content["results"] as List;
     return nuesa_news
         .map((nuesa_news) => new Podcast.fromJson(nuesa_news))
         .toList();
-  } else
-    throw Exception('We were not able to successfully download the json data.');
+  }
 }
 
 
@@ -107,7 +134,7 @@ class _MyHomePageState extends State<media_page> {
             ),
             Expanded(
               //flex: 900,
-              child: new FutureBuilder<List<Podcast>>(
+              child: FutureBuilder<List<Podcast>>(
             future: downloadJSON(),
             //we pass a BuildContext and an AsyncSnapshot object which is an
             //Immutable representation of the most recent interaction with
@@ -128,7 +155,7 @@ class _MyHomePageState extends State<media_page> {
                     children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('Look'+"'s"+ ' Like You do not have an Internet connection-'),
+                          child: Text('We are having some problems connecting to the server'),
                         ),
                     ],
                   ),
@@ -267,42 +294,43 @@ class _CustomListViewState extends State<CustomListView> {
       }
 
       Widget List_home (Podcast cord, BuildContext context, int index) {
-        return GestureDetector(
-          onTap: () async {
-            var route = new MaterialPageRoute(
-              builder: (BuildContext context) =>
-              new AudioPlayerApp(audioUrl: cord.listen, audioTitle: cord.pod_name, audioImage: cord.imageUrl, ),
-            );
-            Navigator.of(context).push(route);
-          },
-          child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                //child: Text("Hello Guys")
-                height: 160,
-                color: pure_,
-                child: Column(
-                  //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(8, 1, 8, 12),
-                      child: Divider(thickness: 2, height: 3, color: dark_,),
-                    ),
+        var theImager =  (cord.imageUrl != null) ? Image.network(cord.imageUrl, fit: BoxFit.cover, height: double.infinity,) 
+        : Image.asset("assets/glc logo 1.png", fit: BoxFit.cover, height: double.infinity,);
 
-                    Expanded(
-                        child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            flex: 400,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(12),
-                                  child: Image.network(cord.imageUrl, 
-                                    fit: BoxFit.cover,
-                                    height: double.infinity,
-                                  )
+                return GestureDetector(
+                  onTap: () async {
+                    var route = new MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                      new AudioPlayerApp(audioUrl: cord.listen, audioTitle: cord.pod_name, audioImage: cord.imageUrl, ),
+                    );
+                    Navigator.of(context).push(route);
+                  },
+                  child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        //child: Text("Hello Guys")
+                        height: 160,
+                        color: pure_,
+                        child: Column(
+                          //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(8, 1, 8, 12),
+                              child: Divider(thickness: 2, height: 3, color: dark_,),
+                            ),
+        
+                            Expanded(
+                                child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    flex: 400,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(12),
+                                          child: theImager,
                                 ),
                                 //child: Image.asset("assets/blog_person.jpg", fit: BoxFit.fitHeight,)
                               ),
@@ -359,12 +387,12 @@ class _CustomListViewState extends State<CustomListView> {
                                         ),
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
-                                          child: InkWell(
+                                          child: GestureDetector(
                                             //podUrl = await cord.listen;
-                                            hoverColor: Colors.green[800],
+                                            //hoverColor: Colors.green[800],
                                             onTap: () async {
-                                              //WidgetsFlutterBinding.ensureInitialized();
-                                              //await FlutterDownloader.initialize();
+                                              WidgetsFlutterBinding.ensureInitialized();
+                                              await FlutterDownloader.initialize();
 
                                               /* Directory just_test = await getApplicationDocumentsDirectory();
                                               print(just_test); */

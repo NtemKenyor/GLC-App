@@ -22,8 +22,8 @@ class Post {
   factory Post.fromJson(Map json) {
     return Post(
       //userId: json['userId'],
-      email: json['email'],
-      password: json['password'],
+      //email: json['email'],
+      //password: json['password'],
       token: json['token'],
       refresh_token: json['refresh'],
     );
@@ -127,8 +127,8 @@ class _MyHomePageState extends State<log_in> {
 
     if(email != "" && password != ""){
 
-      String login_endpoint = "https://a1in1.com/GLC/user_log_in.php?password="+password+"&email="+email;
-      userLogin(login_endpoint, email, password);
+      //String login_endpoint = "https://a1in1.com/GLC/user_log_in.php?password="+password+"&email="+email;
+      userLogin(Login_url, email, password);
     }else{
       display_result("All fields are required.");
     }
@@ -137,9 +137,13 @@ class _MyHomePageState extends State<log_in> {
   
 
   Future userLogin(String url, String email, String password) async {
-  return http.get(Uri.parse(url)).then((http.Response response) async {
+    Map maper = Post(email: email, password: password).toMap();
+  return http.post(
+    Uri.parse(url),
+    body: maper,
+  ).then((http.Response response) async {
     final int statusCode = response.statusCode;
-
+    
     if (statusCode < 200 || statusCode > 400) {
       throw new Exception("Error while fetching data");
     }else if (response.body != ""){
@@ -154,6 +158,8 @@ class _MyHomePageState extends State<log_in> {
           if( email_sta == false && pass_sta == false  ){
             add_string_2_SP("email", email);
             add_string_2_SP("password", password);
+            add_string_2_SP("token", json_received["token"]);
+            add_string_2_SP("refreshToken", json_received["refresh"]);
           }
   //add_string_2_SP(key, value)  //read_from_SP(key) //check_in_SP(key)
 
@@ -169,8 +175,6 @@ class _MyHomePageState extends State<log_in> {
     }else{
       display_result("Connection Problem: Try Again later.");
     }
-    
-    
     //return json_received;
   });
 }
