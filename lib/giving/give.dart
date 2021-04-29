@@ -45,7 +45,7 @@ show_today_verse(verse, verse_content){
 Future Todays_verse() async {
   //print("enter safe...");
   //String url = "https://a1in1.com/GLC/todays_verse.php";
-  String urlToday = "http://164.90.139.70/api/today/verse/";
+  String urlToday = "https://app.glclondon.church/api/today/verse/";
   String token = "Bearer " + await read_from_SP("token");
 
   Response response = await get(

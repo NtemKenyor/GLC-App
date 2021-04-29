@@ -254,8 +254,8 @@ checkers() async {
 
 
 Future upcomingEventsSide() async {
-  String urlToday = "http://164.90.139.70/api/events/upcoming/";
-  //String urlToday = "http://164.90.139.70/api/events/current";
+  String urlToday = "https://app.glclondon.church/api/events/upcoming/";
+  //String urlToday = "https://app.glclondon.church/api/events/current";
   String token = "Bearer " + await checkers();
 
   Response response = await get(
@@ -314,7 +314,7 @@ Future upcomingEventsSide() async {
 Future Todays_verse() async {
   //print("enter safe...");
   //String url = "https://a1in1.com/GLC/todays_verse.php";
-  String urlToday = "http://164.90.139.70/api/today/verse/";
+  String urlToday = "https://app.glclondon.church/api/today/verse/";
   String token = "Bearer " + await checkers();
 
   Response response = await get(
@@ -433,10 +433,24 @@ Future Todays_verse() async {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         List<GLC_events> EventList =  snapshot.data;
-                        return Container(
-                          child: upcoming01(EventList[0].imageUrl ,EventList[0].date ,EventList[0].startTime, EventList[0].venue),
-                          
-                        );
+
+                        if ( EventList.isNotEmpty ){
+                          return Container(
+                            child: upcoming01(EventList[0].imageUrl ,EventList[0].date ,EventList[0].startTime, EventList[0].venue),
+                          );
+                        }else{
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "No Upcoming Events for Now",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue[900],
+                              ),
+                            ),
+                          );
+                        }
+                        
                         //show_today_verse(verse, verse_content)
                       } else if (snapshot.hasError) {
                         return new Container(

@@ -117,7 +117,7 @@ class ComsListView extends StatelessWidget {
 
 Future<List<Comms>> GetEventsJson() async {
   //final jsonEndpoint = "https://a1in1.com/GLC/";
-  final enderP = 'http://164.90.139.70/api/GLC/connect';
+  final enderP = 'https://app.glclondon.church/api/GLC/connect';
   String token = "Bearer " + await read_from_SP("token");
 
   final responseEvents = await get(

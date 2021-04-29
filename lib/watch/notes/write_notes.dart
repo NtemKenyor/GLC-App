@@ -33,7 +33,7 @@ class Write_note_State extends State<Write_note> {
   Future addUserNotes(context, tit, con) async {
     mr_Change("Connecting");
     if (tit != "" && con != ""){
-      final writer = 'http://164.90.139.70/api/notes/';
+      final writer = 'https://app.glclondon.church/api/notes/';
       String token = "Bearer " + await read_from_SP("token");
       Response response = await post(
         Uri.parse(writer),

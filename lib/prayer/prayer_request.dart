@@ -17,7 +17,7 @@ Future makePrayerRequest(context, tit, con) async {
   //print("contains not content unseen");
   if (tit != "" && con != ""){
     print("contains");
-    final writer = 'http://164.90.139.70/api/prayer/request/';
+    final writer = 'https://app.glclondon.church/api/prayer/request/';
     String token = "Bearer " + await read_from_SP("token");
 
     String email = await read_from_SP("email");

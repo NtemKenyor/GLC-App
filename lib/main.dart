@@ -71,7 +71,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   var splashicon = Icons.book;
   int condition = 0;
-  static final Login_url = 'http://164.90.139.70/api/auth/login/';
+  static final Login_url = 'https://app.glclondon.church/api/auth/login/';
   
   user_stands() async {
     print("here");

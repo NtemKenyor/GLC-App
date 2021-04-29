@@ -178,7 +178,7 @@ class _MyHomePageState extends State<log_in> {
     //return json_received;
   });
 }
- static final Login_url = 'http://164.90.139.70/api/auth/login/';
+ static final Login_url = 'https://app.glclondon.church/api/auth/login/';
   TextEditingController email_ = TextEditingController();
   TextEditingController password_ = TextEditingController();
 

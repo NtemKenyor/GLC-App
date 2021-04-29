@@ -46,7 +46,7 @@ class watch_page extends StatefulWidget {
 
 
 Future<List<VideoCast>> video_source() async {
-  final jsonEndpoint = 'http://164.90.139.70/api/content/videos/';
+  final jsonEndpoint = 'https://app.glclondon.church/api/content/videos/';
   String token = "Bearer " + await read_from_SP("token");
   Response response = await get(
     Uri.parse(jsonEndpoint),

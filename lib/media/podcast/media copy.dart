@@ -93,7 +93,7 @@ class _MyHomePageState extends State<media_page> {
   }
 
 Future<List<Podcast>> downloadJSON() async {
-  final jsonEndpoint = 'http://164.90.139.70/api/content/audios/';
+  final jsonEndpoint = 'https://app.glclondon.church/api/content/audios/';
   String token = "Bearer " + await read_from_SP("token");
   Response response = await get(
     Uri.parse(jsonEndpoint),

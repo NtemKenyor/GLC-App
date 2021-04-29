@@ -155,7 +155,7 @@ class CustomListView extends StatelessWidget {
 } */
 
 Future<List<Notes_out>> downloadJSON() async {
-  final jsonEndpoint = 'http://164.90.139.70/api/notes';
+  final jsonEndpoint = 'https://app.glclondon.church/api/notes';
   String token = "Bearer " + await read_from_SP("token");
   Response response = await get(
     Uri.parse(jsonEndpoint),
@@ -189,7 +189,7 @@ Future<List<Notes_out>> downloadJSON() async {
 
 /* Future<List<Notes_out>> downloadJSON() async {
 
-  final jsonEndpoint = 'http://164.90.139.70/api/notes/';
+  final jsonEndpoint = 'https://app.glclondon.church/api/notes/';
   String token = "Bearer " + await read_from_SP("token");
 
   final response = await get(

@@ -247,7 +247,7 @@ class CustomListView extends StatelessWidget {
 //Future is n object representing a delayed computation.
 Future<List<GLC_events>> GetEventsJson() async {
   //final jsonEndpoint = "https://a1in1.com/GLC/";
-  final enderP = 'http://164.90.139.70/api/events/upcoming/';
+  final enderP = 'https://app.glclondon.church/api/events/upcoming/';
   String token = "Bearer " + await read_from_SP("token");
 
   final responseEvents = await get(

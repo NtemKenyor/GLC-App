@@ -114,7 +114,7 @@ class _MyHomePageState extends State<sign_up> {
   });
 }
 
-  static final CREATE_POST_URL = 'http://164.90.139.70/api/auth/register/';
+  static final CREATE_POST_URL = 'https://app.glclondon.church/api/auth/register/';
   TextEditingController emailer = TextEditingController();
   TextEditingController password_1 = TextEditingController();
   TextEditingController password_2 = TextEditingController();
