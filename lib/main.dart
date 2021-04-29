@@ -124,7 +124,8 @@ divert() {
     final int statusCode = response.statusCode;
     
     if (statusCode < 200 || statusCode > 400) {
-      throw new Exception("Error while fetching data");
+      divert();
+      //throw new Exception("Error while fetching data");
     }else if (response.body != ""){
       var json_received = jsonDecode(response.body);
       print(json_received);

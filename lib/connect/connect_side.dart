@@ -19,7 +19,7 @@ class Comms {
   factory Comms.fromJson(Map<String, dynamic> jsonData) {
     return Comms(
       title: jsonData['title'],
-      desc: jsonData['description'],
+      desc: jsonData['desc'],
       writer: jsonData['writer'],
       date: jsonData['date'],
     );

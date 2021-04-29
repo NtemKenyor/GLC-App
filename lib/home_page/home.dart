@@ -67,6 +67,10 @@ class _MyHomePageState extends State<home_page> {
   Color likeColors = Colors.black;
 
   String today_verse = "";
+  List defaultImgs = [
+    new AssetImage('assets/glc logo 1.jpg'),
+    new AssetImage('assets/glc logo 1.png'),
+  ];
 
   show_today_verse(verse, verse_content){
     return Container(
@@ -198,16 +202,18 @@ Widget upcoming01(imageLink, date, time, venue) {
   } */
 
   static var picture_timer = Duration(seconds: 8);
-  Widget the_moving_images = new Container(
+  Widget the_moving_images(imgArried) {
+    return new Container(
     child: new Carousel(
-      images: [
+      images: imgArried,
+      /* images: [
         new AssetImage('assets/old_man.jpg'),
         new AssetImage('assets/fitness.jpg'),
         new AssetImage('assets/blog_person.jpg'),
         new AssetImage('assets/person_1.png'),
         new AssetImage('assets/person_2.png'),
-        new AssetImage('assets/person_3.png'),  
-      ],
+        new AssetImage('assets/person_3.png'),
+      ], */
       autoplayDuration: picture_timer,
       animationCurve: Curves.easeInOutExpo,
       dotSize: 3.0,
@@ -219,6 +225,7 @@ Widget upcoming01(imageLink, date, time, venue) {
 
     ),
   );
+  } 
 
 
   add_string_2_SP(key, value) async{
@@ -250,7 +257,33 @@ checkers() async {
 }
 
 
+Future carouselLoader() async {
+  String urlToday = "https://app.glclondon.church/api/content/carousel/";
+  //String urlToday = "https://app.glclondon.church/api/events/current";
+  String token = "Bearer " + await checkers();
 
+  Response response = await get(
+    Uri.parse(urlToday),
+    headers: {
+      "authorization": token,
+      "accept": "application/json"
+    }
+  );
+  int statusCode = response.statusCode;
+
+  if (statusCode < 200 || statusCode > 400) {
+    throw new Exception("Could not fetch carousel");
+  }else{
+    var content = jsonDecode(response.body);
+    //print(content);
+    if (content["status"] == "true"){
+      List listedImg = content["photos"] as List;
+      return listedImg;
+    }else{
+      throw new Exception("Could not fetch any image");
+    }
+  }
+}
 
 
 Future upcomingEventsSide() async {
@@ -342,10 +375,6 @@ Future Todays_verse() async {
       today_verse = "could not connect" ;
     });
   }
-  //print(response);
-  //print(response.headers);
-
-  //return response;
 }
 
   @override
@@ -362,14 +391,58 @@ Future Todays_verse() async {
             child: Text("Upcoming Events", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
           ),
 
-        Container(
+
+          FutureBuilder(
+            future: carouselLoader(),
+            //we pass a BuildContext and an AsyncSnapshot object which is an
+            //Immutable representation of the most recent interaction with
+            //an asynchronous computation.
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List imageList = snapshot.data;
+                List netAsset = [];
+                for (var img in imageList) {
+                  netAsset.add( new NetworkImage(img));
+                }
+                return Container(
+                  height: 160,
+                  width: double.infinity,
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(5, 7, 5, 7),
+                    child: the_moving_images(netAsset),
+                  )
+                );
+              } else if (snapshot.hasError) {
+                return new Container(
+                  height: 160,
+                  width: double.infinity,
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(5, 7, 5, 7),
+                    child: the_moving_images(defaultImgs),
+                  )
+                );
+              }
+              //return  a circular progress indicator.
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(child: CircularProgressIndicator()),
+                  ),
+                ],
+              );
+            },
+          ),
+
+        /* Container(
           height: 160,
           width: double.infinity,
           child: Padding(
             padding: EdgeInsets.fromLTRB(5, 7, 5, 7),
-            child: the_moving_images,
+            child: the_moving_images(),
           )
-        ),
+        ), */
 
             
             Container(
@@ -405,12 +478,10 @@ Future Todays_verse() async {
                         );
                       }
                       //return  a circular progress indicator.
-                      return CircularProgressIndicator();
-                      /* return new Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(image: AssetImage("assets/nuesa_background1.gif"), fit: BoxFit.fill)
-                        ),
-                      ); */
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CircularProgressIndicator(),
+                      );
                     },
                   ),
                   
