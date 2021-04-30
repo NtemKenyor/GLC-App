@@ -42,11 +42,4 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 </dict>
-<!-- the new line -->
-<key>NSAppTransportSecurity</key>
-<dict>
-   <key>NSAllowsArbitraryLoads</key>
-<true/>
-</dict>
-<!-- ends here -->
 </plist>
