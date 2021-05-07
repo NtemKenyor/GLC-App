@@ -120,6 +120,18 @@ androidx/core/R.java
  androidx.core.R$styleable
 io/flutter/plugins/GeneratedPluginRegistrant.java
  io.flutter.plugins.GeneratedPluginRegistrant
+androidx/activity/R.java
+ androidx.activity.R
+ androidx.activity.R$attr
+ androidx.activity.R$color
+ androidx.activity.R$dimen
+ androidx.activity.R$drawable
+ androidx.activity.R$id
+ androidx.activity.R$integer
+ androidx.activity.R$layout
+ androidx.activity.R$string
+ androidx.activity.R$style
+ androidx.activity.R$styleable
 com/a1in1/glc/R.java
  com.a1in1.glc.R
  com.a1in1.glc.R$anim
@@ -136,18 +148,6 @@ com/a1in1/glc/R.java
  com.a1in1.glc.R$style
  com.a1in1.glc.R$styleable
  com.a1in1.glc.R$xml
-androidx/activity/R.java
- androidx.activity.R
- androidx.activity.R$attr
- androidx.activity.R$color
- androidx.activity.R$dimen
- androidx.activity.R$drawable
- androidx.activity.R$id
- androidx.activity.R$integer
- androidx.activity.R$layout
- androidx.activity.R$string
- androidx.activity.R$style
- androidx.activity.R$styleable
 com/google/android/exoplayer2/source/dash/R.java
  com.google.android.exoplayer2.source.dash.R
 io/flutter/plugins/videoplayer/R.java
@@ -162,6 +162,8 @@ io/flutter/plugins/videoplayer/R.java
  io.flutter.plugins.videoplayer.R$string
  io.flutter.plugins.videoplayer.R$style
  io.flutter.plugins.videoplayer.R$styleable
+androidx/sqlite/db/R.java
+ androidx.sqlite.db.R
 androidx/work/R.java
  androidx.work.R
  androidx.work.R$attr
@@ -175,8 +177,6 @@ androidx/work/R.java
  androidx.work.R$string
  androidx.work.R$style
  androidx.work.R$styleable
-androidx/sqlite/db/R.java
- androidx.sqlite.db.R
 androidx/lifecycle/service/R.java
  androidx.lifecycle.service.R
 androidx/versionedparcelable/R.java
@@ -211,7 +211,44 @@ androidx/core/ktx/R.java
  androidx.core.ktx.R$string
  androidx.core.ktx.R$style
  androidx.core.ktx.R$styleable
+io/flutter/plugins/webviewflutter/R.java
+ io.flutter.plugins.webviewflutter.R
+ io.flutter.plugins.webviewflutter.R$attr
+ io.flutter.plugins.webviewflutter.R$color
+ io.flutter.plugins.webviewflutter.R$dimen
+ io.flutter.plugins.webviewflutter.R$drawable
+ io.flutter.plugins.webviewflutter.R$id
+ io.flutter.plugins.webviewflutter.R$integer
+ io.flutter.plugins.webviewflutter.R$layout
+ io.flutter.plugins.webviewflutter.R$string
+ io.flutter.plugins.webviewflutter.R$style
+ io.flutter.plugins.webviewflutter.R$styleable
 androidx/lifecycle/viewmodel/R.java
  androidx.lifecycle.viewmodel.R
+io/flutter/plugins/share/R.java
+ io.flutter.plugins.share.R
+ io.flutter.plugins.share.R$attr
+ io.flutter.plugins.share.R$color
+ io.flutter.plugins.share.R$dimen
+ io.flutter.plugins.share.R$drawable
+ io.flutter.plugins.share.R$id
+ io.flutter.plugins.share.R$integer
+ io.flutter.plugins.share.R$layout
+ io.flutter.plugins.share.R$string
+ io.flutter.plugins.share.R$style
+ io.flutter.plugins.share.R$styleable
+ io.flutter.plugins.share.R$xml
+androidx/webkit/R.java
+ androidx.webkit.R
+ androidx.webkit.R$attr
+ androidx.webkit.R$color
+ androidx.webkit.R$dimen
+ androidx.webkit.R$drawable
+ androidx.webkit.R$id
+ androidx.webkit.R$integer
+ androidx.webkit.R$layout
+ androidx.webkit.R$string
+ androidx.webkit.R$style
+ androidx.webkit.R$styleable
 androidx/lifecycle/viewmodel/savedstate/R.java
  androidx.lifecycle.viewmodel.savedstate.R

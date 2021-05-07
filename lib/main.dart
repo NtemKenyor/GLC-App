@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:GLC/ui/intro_screen/intro_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'intro.dart';
@@ -7,7 +8,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 
-void main() => runApp(MyApp());
+void main() => runApp(MaterialApp(
+  debugShowCheckedModeBanner: false,
+  home: IntroductionScreen(),));
 
 
 class Post {

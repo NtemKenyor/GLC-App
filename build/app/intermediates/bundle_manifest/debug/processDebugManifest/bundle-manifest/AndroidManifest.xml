@@ -2,11 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.a1in1.glc"
     android:versionCode="1"
-    android:versionName="1.0.0" >
+    android:versionName="1.0.3" >
 
     <uses-sdk
         android:minSdkVersion="16"
-        android:targetSdkVersion="28" />
+        android:targetSdkVersion="30" />
     <!--
          Flutter needs it to communicate with the running application
          to allow setting breakpoints, to provide hot reload, etc.
@@ -27,8 +27,9 @@
         android:name="io.flutter.app.FlutterApplication"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:debuggable="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="GLC" >
+        android:icon="@mipmap/launcher_icon"
+        android:label="GLC"
+        android:usesCleartextTraffic="true" >
         <activity
             android:name="com.a1in1.glc.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -71,6 +72,15 @@
             android:name="flutterEmbedding"
             android:value="2" />
 
+        <provider
+            android:name="io.flutter.plugins.share.ShareFileProvider"
+            android:authorities="com.a1in1.glc.flutter.share_provider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/flutter_share_file_paths" />
+        </provider>
         <provider
             android:name="androidx.work.impl.WorkManagerInitializer"
             android:authorities="com.a1in1.glc.workmanager-init"

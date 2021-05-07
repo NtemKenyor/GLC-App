@@ -1,186 +1,210 @@
 [
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/drawable-mdpi-v4_notification_bg_low_pressed.9.png.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/drawable-mdpi-v4/notification_bg_low_pressed.9.png"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_notification_bg_normal_pressed.9.png.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\drawable-hdpi-v4\\notification_bg_normal_pressed.9.png"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_normal.9.png.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/drawable-hdpi-v4/notification_bg_normal.9.png"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\xml_flutter_share_file_paths.xml.flat",
+        "source": "C:\\newFlutterProjects\\GLC-App\\build\\share\\intermediates\\packaged_res\\debug\\xml\\flutter_share_file_paths.xml"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/xml_provider_paths.xml.flat",
-        "source": "/home/charmides/Documents/GLC/GLC-App/build/flutter_downloader/intermediates/packaged_res/debug/xml/provider_paths.xml"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_launcher_icon.png.flat",
+        "source": "C:\\newFlutterProjects\\GLC-App\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\launcher_icon.png"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/drawable-xhdpi-v4_notification_bg_low_pressed.9.png.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/drawable-xhdpi-v4/notification_bg_low_pressed.9.png"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_notification_bg_low_pressed.9.png.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\drawable-mdpi-v4\\notification_bg_low_pressed.9.png"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/drawable-hdpi-v4_notify_panel_notification_icon_bg.png.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/drawable-hdpi-v4/notify_panel_notification_icon_bg.png"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_notification_bg_normal.9.png.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\drawable-xhdpi-v4\\notification_bg_normal.9.png"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/layout_notification_template_part_chronometer.xml.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/layout/notification_template_part_chronometer.xml"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\anim_fragment_close_enter.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\ca252be8e6c814c4da1013378a06094d\\fragment-1.2.5\\res\\anim\\fragment_close_enter.xml"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/drawable-v21_notification_action_background.xml.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/drawable-v21/notification_action_background.xml"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_notification_bg_normal_pressed.9.png.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\drawable-xhdpi-v4\\notification_bg_normal_pressed.9.png"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/layout-v21_notification_template_custom_big.xml.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/layout-v21/notification_template_custom_big.xml"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher.png.flat",
+        "source": "C:\\newFlutterProjects\\GLC-App\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/layout_notification_template_icon_group.xml.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/layout/notification_template_icon_group.xml"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "C:\\newFlutterProjects\\GLC-App\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/drawable_notification_tile_bg.xml.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/drawable/notification_tile_bg.xml"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\layout_notification_template_part_time.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\layout\\notification_template_part_time.xml"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/anim_fragment_fade_enter.xml.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/45c47ebf3bb0d6aeabb54495b1b11bef/fragment-1.2.5/res/anim/fragment_fade_enter.xml"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_launcher_icon.png.flat",
+        "source": "C:\\newFlutterProjects\\GLC-App\\android\\app\\src\\main\\res\\mipmap-xhdpi\\launcher_icon.png"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/layout_notification_action.xml.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/layout/notification_action.xml"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-hdpi_launcher_icon.png.flat",
+        "source": "C:\\newFlutterProjects\\GLC-App\\android\\app\\src\\main\\res\\mipmap-hdpi\\launcher_icon.png"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/drawable-xhdpi-v4_notify_panel_notification_icon_bg.png.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/drawable-xhdpi-v4/notify_panel_notification_icon_bg.png"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\anim_fragment_open_exit.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\ca252be8e6c814c4da1013378a06094d\\fragment-1.2.5\\res\\anim\\fragment_open_exit.xml"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/anim_fragment_close_exit.xml.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/45c47ebf3bb0d6aeabb54495b1b11bef/fragment-1.2.5/res/anim/fragment_close_exit.xml"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_notification_bg_low_normal.9.png.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\drawable-xhdpi-v4\\notification_bg_low_normal.9.png"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher.png.flat",
-        "source": "/home/charmides/Documents/GLC/GLC-App/android/app/src/main/res/mipmap-mdpi/ic_launcher.png"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\layout_custom_dialog.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\layout\\custom_dialog.xml"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/drawable_notification_icon_background.xml.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/drawable/notification_icon_background.xml"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\xml_provider_paths.xml.flat",
+        "source": "C:\\newFlutterProjects\\GLC-App\\build\\flutter_downloader\\intermediates\\packaged_res\\debug\\xml\\provider_paths.xml"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/anim_fragment_open_exit.xml.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/45c47ebf3bb0d6aeabb54495b1b11bef/fragment-1.2.5/res/anim/fragment_open_exit.xml"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "C:\\newFlutterProjects\\GLC-App\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/layout-v21_notification_action_tombstone.xml.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/layout-v21/notification_action_tombstone.xml"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\anim_fragment_fast_out_extra_slow_in.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\ca252be8e6c814c4da1013378a06094d\\fragment-1.2.5\\res\\anim\\fragment_fast_out_extra_slow_in.xml"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/anim-v21_fragment_fast_out_extra_slow_in.xml.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/45c47ebf3bb0d6aeabb54495b1b11bef/fragment-1.2.5/res/anim-v21/fragment_fast_out_extra_slow_in.xml"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\drawable_notification_icon_background.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\drawable\\notification_icon_background.xml"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/anim_fragment_fade_exit.xml.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/45c47ebf3bb0d6aeabb54495b1b11bef/fragment-1.2.5/res/anim/fragment_fade_exit.xml"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_notification_bg_normal.9.png.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\drawable-mdpi-v4\\notification_bg_normal.9.png"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/drawable-mdpi-v4_notification_bg_normal.9.png.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/drawable-mdpi-v4/notification_bg_normal.9.png"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\layout_notification_template_icon_group.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\layout\\notification_template_icon_group.xml"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/drawable_notification_bg.xml.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/drawable/notification_bg.xml"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_notify_panel_notification_icon_bg.png.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\drawable-xhdpi-v4\\notify_panel_notification_icon_bg.png"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_low_pressed.9.png.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/drawable-hdpi-v4/notification_bg_low_pressed.9.png"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\drawable_notification_tile_bg.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\drawable\\notification_tile_bg.xml"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/anim_fragment_open_enter.xml.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/45c47ebf3bb0d6aeabb54495b1b11bef/fragment-1.2.5/res/anim/fragment_open_enter.xml"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\layout-v21_notification_action.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\layout-v21\\notification_action.xml"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/drawable_notification_bg_low.xml.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/drawable/notification_bg_low.xml"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\layout-v21_notification_action_tombstone.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\layout-v21\\notification_action_tombstone.xml"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/layout_notification_action_tombstone.xml.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/layout/notification_action_tombstone.xml"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\layout-v21_notification_template_custom_big.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\layout-v21\\notification_template_custom_big.xml"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/drawable-mdpi-v4_notification_bg_normal_pressed.9.png.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/drawable-mdpi-v4/notification_bg_normal_pressed.9.png"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-mdpi_launcher_icon.png.flat",
+        "source": "C:\\newFlutterProjects\\GLC-App\\android\\app\\src\\main\\res\\mipmap-mdpi\\launcher_icon.png"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/layout-v21_notification_action.xml.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/layout-v21/notification_action.xml"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\layout_notification_template_part_chronometer.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\layout\\notification_template_part_chronometer.xml"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_normal_pressed.9.png.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/drawable-hdpi-v4/notification_bg_normal_pressed.9.png"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\anim_fragment_close_exit.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\ca252be8e6c814c4da1013378a06094d\\fragment-1.2.5\\res\\anim\\fragment_close_exit.xml"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/drawable_launch_background.xml.flat",
-        "source": "/home/charmides/Documents/GLC/GLC-App/android/app/src/main/res/drawable/launch_background.xml"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_notification_bg_low_pressed.9.png.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\drawable-xhdpi-v4\\notification_bg_low_pressed.9.png"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_low_normal.9.png.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/drawable-hdpi-v4/notification_bg_low_normal.9.png"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\layout-v21_notification_template_icon_group.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\layout-v21\\notification_template_icon_group.xml"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/drawable-mdpi-v4_notify_panel_notification_icon_bg.png.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/drawable-mdpi-v4/notify_panel_notification_icon_bg.png"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_notification_bg_normal.9.png.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\drawable-hdpi-v4\\notification_bg_normal.9.png"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/mipmap-hdpi_ic_launcher.png.flat",
-        "source": "/home/charmides/Documents/GLC/GLC-App/android/app/src/main/res/mipmap-hdpi/ic_launcher.png"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_launcher_icon.png.flat",
+        "source": "C:\\newFlutterProjects\\GLC-App\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\launcher_icon.png"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/drawable-xhdpi-v4_notification_bg_low_normal.9.png.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/drawable-xhdpi-v4/notification_bg_low_normal.9.png"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\layout-v16_notification_template_custom_big.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\layout-v16\\notification_template_custom_big.xml"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/drawable-xhdpi-v4_notification_bg_normal_pressed.9.png.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/drawable-xhdpi-v4/notification_bg_normal_pressed.9.png"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_notification_bg_normal_pressed.9.png.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\drawable-mdpi-v4\\notification_bg_normal_pressed.9.png"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/mipmap-xxhdpi_ic_launcher.png.flat",
-        "source": "/home/charmides/Documents/GLC/GLC-App/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "C:\\newFlutterProjects\\GLC-App\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/drawable-mdpi-v4_notification_bg_low_normal.9.png.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/drawable-mdpi-v4/notification_bg_low_normal.9.png"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\anim_fragment_fade_exit.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\ca252be8e6c814c4da1013378a06094d\\fragment-1.2.5\\res\\anim\\fragment_fade_exit.xml"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/layout_notification_template_part_time.xml.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/layout/notification_template_part_time.xml"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\drawable_notification_bg_low.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\drawable\\notification_bg_low.xml"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/anim_fragment_fast_out_extra_slow_in.xml.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/45c47ebf3bb0d6aeabb54495b1b11bef/fragment-1.2.5/res/anim/fragment_fast_out_extra_slow_in.xml"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\drawable-v21_notification_action_background.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\drawable-v21\\notification_action_background.xml"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/layout-v21_notification_template_icon_group.xml.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/layout-v21/notification_template_icon_group.xml"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\anim_fragment_open_enter.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\ca252be8e6c814c4da1013378a06094d\\fragment-1.2.5\\res\\anim\\fragment_open_enter.xml"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/anim_fragment_close_enter.xml.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/45c47ebf3bb0d6aeabb54495b1b11bef/fragment-1.2.5/res/anim/fragment_close_enter.xml"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\drawable_notification_bg.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\drawable\\notification_bg.xml"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/drawable-xhdpi-v4_notification_bg_normal.9.png.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/drawable-xhdpi-v4/notification_bg_normal.9.png"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_notification_bg_low_normal.9.png.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\drawable-mdpi-v4\\notification_bg_low_normal.9.png"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/layout-v16_notification_template_custom_big.xml.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/layout-v16/notification_template_custom_big.xml"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher.png.flat",
+        "source": "C:\\newFlutterProjects\\GLC-App\\android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/layout_custom_dialog.xml.flat",
-        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/418d7e19b3549abf4c35ed581927974b/core-1.6.0-alpha02/res/layout/custom_dialog.xml"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\anim-v21_fragment_fast_out_extra_slow_in.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\ca252be8e6c814c4da1013378a06094d\\fragment-1.2.5\\res\\anim-v21\\fragment_fast_out_extra_slow_in.xml"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/mipmap-xxxhdpi_ic_launcher.png.flat",
-        "source": "/home/charmides/Documents/GLC/GLC-App/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_notification_bg_low_pressed.9.png.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\drawable-hdpi-v4\\notification_bg_low_pressed.9.png"
     },
     {
-        "merged": "/home/charmides/Documents/GLC/GLC-App/build/app/intermediates/res/merged/debug/mipmap-xhdpi_ic_launcher.png.flat",
-        "source": "/home/charmides/Documents/GLC/GLC-App/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\drawable_launch_background.xml.flat",
+        "source": "C:\\newFlutterProjects\\GLC-App\\android\\app\\src\\main\\res\\drawable\\launch_background.xml"
+    },
+    {
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\layout_notification_action.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\layout\\notification_action.xml"
+    },
+    {
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\anim_fragment_fade_enter.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\ca252be8e6c814c4da1013378a06094d\\fragment-1.2.5\\res\\anim\\fragment_fade_enter.xml"
+    },
+    {
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_notify_panel_notification_icon_bg.png.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\drawable-mdpi-v4\\notify_panel_notification_icon_bg.png"
+    },
+    {
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\layout_notification_action_tombstone.xml.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\layout\\notification_action_tombstone.xml"
+    },
+    {
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_notify_panel_notification_icon_bg.png.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\drawable-hdpi-v4\\notify_panel_notification_icon_bg.png"
+    },
+    {
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\app\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_notification_bg_low_normal.9.png.flat",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\8afeb1f87905bb787ac469662120a594\\core-1.6.0-alpha03\\res\\drawable-hdpi-v4\\notification_bg_low_normal.9.png"
     }
 ]

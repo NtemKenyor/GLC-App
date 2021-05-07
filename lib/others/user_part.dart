@@ -1,4 +1,5 @@
 
+import 'package:GLC/utils/pallet.dart';
 import 'package:flutter/material.dart';
 import 'sign_up.dart';
 import 'login.dart';
@@ -35,7 +36,7 @@ class __ extends State<user_connect> {
     mr_big = temp;
 
   } */
-  
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     final tab = TabBar(
@@ -44,6 +45,7 @@ class __ extends State<user_connect> {
           double temp = mr_big;
           mr_big = mr_small;
           mr_small = temp;
+          currentIndex =unused;
 
           Color upColor = Colors.blue[800];
           Color inColor = Colors.green[800];
@@ -51,69 +53,39 @@ class __ extends State<user_connect> {
         });
       },
       labelColor: Colors.black,
+        indicatorColor: Pallet.primaryColor,
       //indicatorColor: dark_,
       //unselectedLabelColor: Colors.black,
       labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,),
       tabs: [
       Tab( 
-        child: Text("Sign Up", style: TextStyle(fontWeight: FontWeight.bold, fontSize: mr_big),),
-        
+        child: Text("Sign Up", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: currentIndex !=0 ? Colors.grey: null),),
       ),
       Tab( 
-        child: Text("Log in", style: TextStyle(fontWeight: FontWeight.bold, fontSize: mr_small),),
+        child: Text("Log in", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: currentIndex ==0 ? Colors.grey:null),),
       )
     ]);
 
     return DefaultTabController(length: 2,
-        child: Scaffold(
-        //backgroundColor: Color(0xFEFEFEFE),
-        backgroundColor: Color(0xFEFEFEFE),
-        appBar: 
-        
-        PreferredSize(
-          child: Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                height: 100,
-                padding: EdgeInsets.all(7),
-                child: IconButton(
-                  icon: Icon(Icons.arrow_back), iconSize: 27,
-                  onPressed: (){
-                    Navigator.of(context).pop();
-                  },
-                )
-              ),
-            ),
-          ), 
-          preferredSize: Size(double.infinity, 80),
-        ),
-        body: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Expanded(
-                flex: 1500,
-                child: Container(
+        child: SafeArea(
+          child: Scaffold(
+          backgroundColor: Color(0xFEFEFEFE),
+          body: Container(
+            padding:EdgeInsets.all(20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(
+                  height: 50,
+                ),
+                Container(
                   padding: EdgeInsets.all(7),
                   child: tab,
                 ),
-              ),
-
-              Expanded(
-                flex: 8500,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 1.0, 20.0, 2),
+                SizedBox(height: 10,),
+                SizedBox(height: 10,),
+                Expanded(
                   child: Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [BoxShadow(
-                      color: posColor, 
-                      offset: Offset(1, 2), 
-                      blurRadius: 3,
-                      spreadRadius: 4,          
-                    )],
-                    ) ,
                     child: TabBarView(
                       children: <Widget>[
                         sign_up(),
@@ -122,11 +94,11 @@ class __ extends State<user_connect> {
                       ),
                   ),
                 ),
-              ),
-            ]
+              ]
+            )
           )
-        )        
       ),
+        ),
     );
   }
 }
