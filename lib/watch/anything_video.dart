@@ -81,22 +81,7 @@ class _all_videosState extends State<all_videos> {
           ]
         ),
 
-       /*  bottomNavigationBar: PreferredSize(
-          child: Padding(
-            padding: const EdgeInsets.all(1.0),
-            child: Container(
-              height: 60,
-              color: Colors.white70,
-              padding: EdgeInsets.all(3),
-              child: Card(
-                color: Colors.green[900],
-                elevation: 2,
-                child: tab
-              ),
-            ),
-          ), 
-          preferredSize: Size(double.infinity, 80),
-        ), */
+
         
         
       ),

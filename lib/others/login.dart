@@ -43,8 +43,8 @@ class Post {
   }
 }
 
-class log_in extends StatefulWidget {
-  log_in({Key key, this.title}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  LoginPage({Key key, this.title}) : super(key: key);
 
   final String title;
 
@@ -52,7 +52,7 @@ class log_in extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<log_in> {
+class _MyHomePageState extends State<LoginPage> {
   int _counter = 0;
   int _selectedIndex = 0;
 
@@ -172,7 +172,7 @@ class _MyHomePageState extends State<log_in> {
             //add_string_2_SP(key, value)  //read_from_SP(key) //check_in_SP(key)
 
             Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (BuildContext context) => first_sides()));
+                builder: (BuildContext context) => HomePage()));
           } else if (json_received["status"] == "false") {
             print(json_received["msg"]);
             display_result(json_received["msg"]);
@@ -196,110 +196,116 @@ class _MyHomePageState extends State<log_in> {
   Widget build(BuildContext context) {
     return Scaffold(
       //backgroundColor: bright_,
-      body: Container(
+        body: Container(
           width: double.infinity,
           decoration:
           BoxDecoration(color: pure_, borderRadius: BorderRadius.circular(15)),
           child: Center(
             child: ListView(
               children: <Widget>[
-            Column(children: <Widget>[
-              SizedBox(
-              height: 10,
-            ),
-            Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Text("Sign in to continue",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 18, color: Colors.grey))),
-            SizedBox(
-              height: 20,
-            ),
-            TextFormField(
-                maxLines: 1,
-                controller: email_,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                    suffixIcon: Icon(Icons.person_outline,
-                        color: Colors.grey.shade400),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide: BorderSide(color: Colors.grey.shade400)),
-                    hintText: "Email",
-                    hintStyle: TextStyle(color: Colors.grey.shade400))),
-            SizedBox(
-              height: 20,
-            ),
-            TextFormField(
-                maxLines: 1,
-                controller: password_,
-                keyboardType: TextInputType.visiblePassword,
-                decoration: InputDecoration(
-                    suffixIcon: Icon(Icons.remove_red_eye,
-                        color: Colors.grey.shade400),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide: BorderSide(color: Colors.grey.shade400)),
-                    hintText: "Password",
-                    hintStyle: TextStyle(color: Colors.grey.shade400))),
-            Text(
-              the_msg,
-              style: TextStyle(
-                color: Colors.red,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-           Row(
-             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-             children: [
-               Row(
-                 mainAxisSize: MainAxisSize.max,
-                 children: [
-                   Checkbox(
-                     value: keepMeLoggedIn,
-                     onChanged: (newValue) {
-                       setState(() {
-                         keepMeLoggedIn = newValue;
-                       });
-                     },
-                   ),
-                   Text('Keep Me Logged In')
+                Column(children: <Widget>[
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Text("Sign in to continue",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 18, color: Colors.grey))),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                      maxLines: 1,
+                      controller: email_,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                          suffixIcon: Icon(Icons.person_outline,
+                              color: Colors.grey.shade400),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                              borderSide: BorderSide(
+                                  color: Colors.grey.shade400)),
+                          hintText: "Email",
+                          hintStyle: TextStyle(color: Colors.grey.shade400))),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                      maxLines: 1,
+                      controller: password_,
+                      keyboardType: TextInputType.visiblePassword,
+                      decoration: InputDecoration(
+                          suffixIcon: Icon(Icons.remove_red_eye,
+                              color: Colors.grey.shade400),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                              borderSide: BorderSide(
+                                  color: Colors.grey.shade400)),
+                          hintText: "Password",
+                          hintStyle: TextStyle(color: Colors.grey.shade400))),
+                  Text(
+                    the_msg,
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Checkbox(
+                            value: keepMeLoggedIn,
+                            onChanged: (newValue) {
+                              setState(() {
+                                keepMeLoggedIn = newValue;
+                              });
+                            },
+                          ),
+                          Text('Keep Me Logged In', style:TextStyle(color:Colors.grey, fontSize:12))
 
-                 ],
-               ),
-               Text("Forgot Password?",style:TextStyle(color:Pallet.primaryColor, fontSize: 14, fontWeight: FontWeight.w700))
-             ],
-           ),
+                        ],
+                      ),
+                      Text("Forgot Password?", style: TextStyle(
+                          color: Pallet.primaryColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700))
+                    ],
+                  ),
 
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 20),
-            padding: EdgeInsets.all(5),
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: Pallet.primaryColor,
-            ),
-            child: FlatButton(
-                onPressed: return_back,
-                child: Text(
-                  "LOG IN",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w800,
-                      color: Colors.white,
-                      fontSize: 16),
-                )),
-          )
-          ]),
-      ],
-    ),)
-    ,
-    )
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 20),
+                    padding: EdgeInsets.all(5),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: Pallet.primaryColor,
+                    ),
+                    child: FlatButton(
+                        onPressed: return_back,
+                        child: Text(
+                          "LOG IN",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w800,
+                              color: Colors.white,
+                              fontSize: 16),
+                        )),
+                  )
+                ]),
+              ],
+
+            ),)
+          ,
+        )
     );
   }
 }

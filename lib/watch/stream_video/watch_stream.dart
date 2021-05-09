@@ -185,16 +185,15 @@ class _MyHomePageState extends State<watch_page_live> {
             return new Container(
               child: Center(
                 child: Column(
+                  mainAxisSize:MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children : <Widget>[
                     CircularProgressIndicator(),
-                    Expanded(
-                      child: Text("Processing, Please Wait.", 
-                      style: TextStyle(
-                        color: Colors.green[800],
-                        fontWeight: FontWeight.w800,
-                      ),
-                      )
+                    Text("Processing, Please Wait.",
+                    style: TextStyle(
+                      color: Colors.green[800],
+                      fontWeight: FontWeight.w800,
+                    ),
                     )
                   ]
                 ),

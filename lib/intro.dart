@@ -1,11 +1,11 @@
 //import 'dart:html';
 
-import 'package:GLC/others/user_part.dart';
+import 'package:GLC/others/user_part.dart' hide user_connect;
 import 'package:flutter/material.dart';
 import 'connect/connect.dart';
-import 'giving/give.dart';
+import 'ui/donations/screens/giving_page.dart';
 import 'home_page/home.dart';
-import 'media/media_republic.dart';
+import 'package:GLC/ui/media/media_republic.dart';
 import 'watch/anything_video.dart';
 import 'others/user_part.dart';
 import 'events/all_events.dart';
@@ -38,22 +38,13 @@ class _Intro_MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: first_sides(title: 'The GLC Church'),
+      home: HomePage(title: 'The GLC Church'),
     );
   }
 }
 
-class first_sides extends StatefulWidget {
-  first_sides({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
+class HomePage extends StatefulWidget {
+  HomePage({Key key, this.title}) : super(key: key);
 
   final String title;
 
@@ -61,7 +52,7 @@ class first_sides extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<first_sides> {
+class _MyHomePageState extends State<HomePage> {
   int _counter = 0;
   int _selectedIndex = 0;
 
@@ -77,13 +68,6 @@ class _MyHomePageState extends State<first_sides> {
   Color pure_ = Color.fromRGBO(255, 255, 255, 1);
   Color background_color = Color.fromRGBO(196, 196, 196, 1);
 
-  //Color white = Color(0xFF)
-  /* void goto_page(){
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (BuildContext context) => user_connect()
-            )
-        );
-    } */
 
   void _onItemTapped(int where_index){
     setState(() {
@@ -105,7 +89,7 @@ class _MyHomePageState extends State<first_sides> {
     media_Republic(),
     all_videos(),
     give_page(),
-    connect_page(),
+    ConnectPage(),
   ];
 
   read_from_SP(key) async{

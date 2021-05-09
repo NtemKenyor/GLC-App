@@ -88,8 +88,8 @@ class __ extends State<user_connect> {
                   child: Container(
                     child: TabBarView(
                       children: <Widget>[
-                        sign_up(),
-                        log_in(),
+                        SignUpPage(),
+                        LoginPage(),
                         ]
                       ),
                   ),

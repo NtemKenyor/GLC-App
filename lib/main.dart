@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:GLC/ui/intro_screen/intro_screen.dart';
+import 'package:GLC/ui/intro_screen/screens/intro_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'intro.dart';
@@ -7,10 +7,17 @@ import 'others/user_part.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
+var isFirstTime;
+void main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  var prefs = await SharedPreferences.getInstance();
+  var boolKey = 'isFirstTime';
+  isFirstTime = prefs.getBool(boolKey) ?? true;
 
-void main() => runApp(MaterialApp(
-  debugShowCheckedModeBanner: false,
-  home: IntroductionScreen(),));
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: !isFirstTime ? MyApp(): IntroductionScreen(prefs, boolKey),));
+}
 
 
 class Post {
@@ -46,18 +53,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'GLC London',
-      theme: ThemeData(
-        primaryColor: Color(0xFF3eBACE),
-        accentColor: Color(0xFFDBECF1),
-        scaffoldBackgroundColor: Color(0xFF3F5F7),
-      ),
-      home: SplashScreen(),
-      /* routes: <String, WidgetBuilder>{
-        '/home': (BuildContext context) => MyHomePage(title: 'Uniuyo Nuesa')
-      }, */
-    );
+    return SplashScreen();
   }
 }
 
@@ -150,7 +146,7 @@ divert() {
   //add_string_2_SP(key, value)  //read_from_SP(key) //check_in_SP(key)
 
           Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (BuildContext context) => first_sides()));
+            builder: (BuildContext context) => HomePage()));
         }else if(json_received["status"] == "false"){
           print(json_received["msg"]);
           divert();

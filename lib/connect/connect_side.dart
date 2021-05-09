@@ -1,5 +1,6 @@
 //import 'dart:html';
 
+import 'package:GLC/utils/pallet.dart';
 import 'package:flutter/material.dart';
 import 'package:GLC/generals.dart';
 import 'package:http/http.dart';
@@ -57,60 +58,55 @@ class ComsListView extends StatelessWidget {
         ]
     );
 
-    /* return ListView.builder(
-      itemCount: spacecrafts.length,
-      itemBuilder: (context, int currentIndex) {
-        return List_home(spacecrafts[currentIndex], context);
-      },
-    );*/
   }
 
   Widget List_home (Comms get1Comms, BuildContext context) {
     return  Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        decoration: BoxDecoration(
-          color: Colors.red.withOpacity(0.2),
-          //borderRadius: BorderRadius.circular(12),
-          //would drop an error...
-          border: Border(
-            left: BorderSide(
-              color: Color.fromRGBO(241, 89, 34, 1),
-              width: 5,
-            )
+          decoration: BoxDecoration(
+            color: Colors.red.withOpacity(0.2),
+            //borderRadius: BorderRadius.circular(12),
+            //would drop an error...
+            border: Border(
+                left: BorderSide(
+                  color: Color.fromRGBO(241, 89, 34, 1),
+                  width: 5,
+                )
+            ),
+
           ),
+          height: 130,
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children : <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(get1Comms.title,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
 
-        ),
-        height: 130,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children : <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(get1Comms.title, 
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-              ),
-            ),
+                Expanded(
+                    child:
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(14, 8, 8, 9),
+                      child:  Text(get1Comms.desc),
+                    )
+                ),
 
-            Expanded(
-              child: 
-              Padding(
-                padding: EdgeInsets.fromLTRB(14, 8, 8, 9),
-                child:  Text(get1Comms.desc),
-              )
-            ),
-
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(get1Comms.writer + " " + get1Comms.date),
-            ),
-          ]
-        )
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(get1Comms.writer + " " + get1Comms.date),
+                ),
+              ]
+          )
       ),
     );
   }
+
 
 }
 
@@ -140,17 +136,8 @@ Future<List<Comms>> GetEventsJson() async {
 }
 
 
-class coonect_page extends StatefulWidget {
-  coonect_page({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
+class ConnectScreen extends StatefulWidget {
+  ConnectScreen({Key key, this.title}) : super(key: key);
 
   final String title;
 
@@ -158,7 +145,7 @@ class coonect_page extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<coonect_page> {
+class _MyHomePageState extends State<ConnectScreen> {
   int _counter = 0;
   int _selectedIndex = 0;
   List<Comms> commsentry;
@@ -245,47 +232,3 @@ class _MyHomePageState extends State<coonect_page> {
   }
 }
 
-/* 
-Widget theExchanger(){
-  return ListView.builder(
-          //scrollDirection: Axis.vertical,
-          itemCount: 7,
-          itemBuilder: (BuildContext context, int){
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.red.withOpacity(0.2),
-                  //borderRadius: BorderRadius.circular(12),
-                  //would drop an error...
-                  border: Border(
-                    left: BorderSide(
-                      color: red_color,
-                      width: 5,
-                    )
-                  ),
-
-                ),
-                height: 130,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children : <Widget>[
-                    Expanded(child: 
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(20, 10, 10, 15),
-                        child:  Text("The grace and mercy of our Lord and saviour Jesus christ rest with you all in the power of the saved Lord. The power of grace."),
-                      )
-                    ),
-
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("-GLC(@GreatLightChurch) January 2021"),
-                    ),
-                  ]
-                )
-              ),
-            );
-          }
-        );
-
-} */

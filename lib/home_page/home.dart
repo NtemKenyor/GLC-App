@@ -1,5 +1,9 @@
 //import 'dart:html';
 import 'dart:convert';
+import 'package:GLC/home_page/model/event_model.dart';
+import 'package:GLC/home_page/upcoming_widget.dart';
+import 'package:GLC/utils/constants.dart';
+import 'package:GLC/utils/pallet.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:http/http.dart';
@@ -11,34 +15,7 @@ import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:GLC/others/user_part.dart';
 
-class GLC_events {
-  final int id;
-  final String title, desc, imageUrl, venue, date, endTime, startTime;
 
-  GLC_events({
-    this.id,
-    this.title,
-    this.desc,
-    this.venue,
-    this.imageUrl,
-    this.date,
-    this.endTime,
-    this.startTime
-  });
-
-  factory GLC_events.fromJson(Map<String, dynamic> jsonData) {
-    return GLC_events(
-      id: jsonData['id'],
-      title: jsonData['title'],
-      desc: jsonData['description'],
-      venue: jsonData['location'],
-      imageUrl: jsonData['photo'],
-      date: jsonData['date'],
-      endTime: jsonData['end_time'],
-      startTime: jsonData['start_time'],
-    );
-  }
-}
 
 
 class home_page extends StatefulWidget {
@@ -153,7 +130,6 @@ Widget upcoming01(imageLink, date, time, venue) {
       return Padding(
         padding: EdgeInsets.all(12),
           child: Container(
-            
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               color: pure_,
@@ -171,8 +147,6 @@ Widget upcoming01(imageLink, date, time, venue) {
                 borderRadius: BorderRadius.circular(12),
                 child: Image.network(imageLink),
               ),
-              
-
               Row(
                 children: <Widget>[
                   FlatButton.icon(onPressed: null, icon: Icon(Icons.calendar_today), 
@@ -204,6 +178,9 @@ Widget upcoming01(imageLink, date, time, venue) {
   static var picture_timer = Duration(seconds: 8);
   Widget the_moving_images(imgArried) {
     return new Container(
+      decoration:BoxDecoration(
+        borderRadius:BorderRadius.all(Radius.circular(20))
+      ),
     child: new Carousel(
       images: imgArried,
       /* images: [
@@ -307,34 +284,9 @@ Future upcomingEventsSide() async {
     print(content);
     List Event = content["results"];
 
-    //var Event_ = jsonDecode( Event[1]);
-
-    //return upcoming01(Event_["photo"], Event_["date"], Event_["start_time"], Event_["location"]);
-    return Event.map((Event) => new GLC_events.fromJson(Event)).toList();
+    return Event.map((Event) => new EventModel.fromJson(Event)).toList();
   }
-/*   if (response.statusCode == 200){
-    var content = jsonDecode(response.body);
 
-    //if(content["count"] >= 1){
-      print(content);
-      List Event = content["results"];
-
-      var Event_ = jsonDecode( Event[0]);
-      //var firstEvennt  = 
-
-      return upcoming01(Event_["photo"], Event_["date"], Event_["start_time"], Event_["location"]);
-    /* }else{
-      Text("Problwm in connection");
-      setState(() {
-        today_verse = content["msg"];
-      });
-    } */
-    
-  } *//* else{
-    setState(() {
-      today_verse = "could not connect" ;
-    });
-  } */
 }
 
 
@@ -379,225 +331,149 @@ Future Todays_verse() async {
 
   @override
   Widget build(BuildContext context) {
-    //Todays_verse();
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: bright_,
+      backgroundColor: Pallet.white,
       //backgroundColor: yellow,
-      body: ListView(
-        scrollDirection: Axis.vertical,
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.fromLTRB(4, 10, 4, 10),
-            child: Text("Upcoming Events", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
-          ),
+      body: Padding(
+        padding:EdgeInsets.all(10),
+        child: ListView(
+          children: <Widget>[
+            FutureBuilder(
+              future: carouselLoader(),
 
-
-          FutureBuilder(
-            future: carouselLoader(),
-            //we pass a BuildContext and an AsyncSnapshot object which is an
-            //Immutable representation of the most recent interaction with
-            //an asynchronous computation.
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                List imageList = snapshot.data;
-                List netAsset = [];
-                for (var img in imageList) {
-                  netAsset.add( new NetworkImage(img));
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  List imageList = snapshot.data;
+                  List netAsset = [];
+                  for (var img in imageList) {
+                    netAsset.add( new NetworkImage(img));
+                  }
+                  return Container(
+                    height: size.height/3,
+                    width: double.infinity,
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(5, 7, 5, 7),
+                      child: the_moving_images(netAsset),
+                    )
+                  );
+                } else if (snapshot.hasError) {
+                  return new Container(
+                    height: 160,
+                    width: double.infinity,
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(5, 7, 5, 7),
+                      child: the_moving_images(defaultImgs),
+                    )
+                  );
                 }
-                return Container(
-                  height: 160,
-                  width: double.infinity,
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(5, 7, 5, 7),
-                    child: the_moving_images(netAsset),
-                  )
+                //return  a circular progress indicator.
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(child: CircularProgressIndicator()),
+                    ),
+                  ],
                 );
-              } else if (snapshot.hasError) {
-                return new Container(
-                  height: 160,
-                  width: double.infinity,
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(5, 7, 5, 7),
-                    child: the_moving_images(defaultImgs),
-                  )
-                );
-              }
-              //return  a circular progress indicator.
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Center(child: CircularProgressIndicator()),
-                  ),
-                ],
-              );
-            },
-          ),
+              },
+            ),
 
-        /* Container(
-          height: 160,
-          width: double.infinity,
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(5, 7, 5, 7),
-            child: the_moving_images(),
-          )
-        ), */
 
-            
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(17),
-                color: pure_,
-              ),
-              
-              child: Column(
-                children: <Widget>[
-                  SizedBox(
-                    height: 30,
-                  ),
 
-                  FutureBuilder(
-                    future: Todays_verse(),
-                    //we pass a BuildContext and an AsyncSnapshot object which is an
-                    //Immutable representation of the most recent interaction with
-                    //an asynchronous computation.
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        //var EventList = ;
-                        return Container(
-                          child: snapshot.data,
-                        );
-                      } else if (snapshot.hasError) {
-                        return new Container(
-                          child: Text(today_verse,
-                            style: TextStyle(
-                              color: Colors.red,
-                            ),
-                          )
-                        );
-                      }
-                      //return  a circular progress indicator.
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: CircularProgressIndicator(),
-                      );
-                    },
-                  ),
-                  
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Divider(thickness: 3, color: red_color,),
-                  SizedBox(
-                    height: 30,
-                  ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(17),
+                  color: pure_,
+                ),
 
-                  Text("Upcoming Events", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Row(
+                      children: [
+                        Icon(Icons.home_outlined,color:Pallet.primaryColor),
+                        SizedBox(width: 10,),
+                        Text(Constants.dummyAddress, style:TextStyle(color:Pallet.textLight)),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
 
-                  
-                  FutureBuilder(
-                    future: upcomingEventsSide(),
-                    //we pass a BuildContext and an AsyncSnapshot object which is an
-                    //Immutable representation of the most recent interaction with
-                    //an asynchronous computation.
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        List<GLC_events> EventList =  snapshot.data;
+                    Align(
+                      alignment:Alignment.topLeft,
+                        child: Text("Upcoming Events", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),)),
 
-                        if ( EventList.isNotEmpty ){
-                          return Container(
-                            child: upcoming01(EventList[0].imageUrl ,EventList[0].date ,EventList[0].startTime, EventList[0].venue),
-                          );
-                        }else{
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              "No Upcoming Events for Now",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.blue[900],
+                    FutureBuilder(
+                      future: upcomingEventsSide(),
+                      //we pass a BuildContext and an AsyncSnapshot object which is an
+                      //Immutable representation of the most recent interaction with
+                      //an asynchronous computation.
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          List<EventModel> EventList =  snapshot.data;
+
+                          if ( EventList.isNotEmpty ){
+                            return SizedBox(
+                              height: 370,
+                              width: double.infinity,
+                              child: EventWidget(EventList)
+                              //upcoming01(EventList[0].imageUrl ,EventList[0].date ,EventList[0].startTime, EventList[0].venue),
+                            );
+                          }else{
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "No Upcoming Events for Now",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue[900],
+                                ),
                               ),
-                            ),
+                            );
+                          }
+
+                          //show_today_verse(verse, verse_content)
+                        } else if (snapshot.hasError) {
+                          return new Container(
+                            child: Text(
+                              "Could not Load new Upcoming Events",
+                            )
                           );
                         }
-                        
-                        //show_today_verse(verse, verse_content)
-                      } else if (snapshot.hasError) {
-                        return new Container(
-                          child: Text(
-                            "Could not Load new Upcoming Events",
-                          )
-                        );
-                      }
-                      //return  a circular progress indicator.
-                      return Center(
-                        child: CircularProgressIndicator(
-                          strokeWidth: 4, 
-                          backgroundColor: Colors.green,
-                        ),
-                      );
-                    },
-                  ),
-/*  
-                  Container(
-                    height: MediaQuery.of(context).size.height,
-                    child: ListView.builder(
-                      itemCount: 7,
-                      itemBuilder: (context, int){
-                        return Padding(padding: EdgeInsets.all(12),
-                          child: Container(
-                            
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              color: pure_,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.5),
-                                  spreadRadius: 2,
-                                  blurRadius: 4,
-                                  offset: Offset(0,3),
-                                )
-                              ]
-                            ),
-                            child: Column(children: <Widget>[
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(12),
-                                child: Image.asset("assets/blog_1.png"),
-                              ),
-                              
-
-                              Row(
-                                children: <Widget>[
-                                  FlatButton.icon(onPressed: null, icon: Icon(Icons.calendar_today), 
-                                    label: Text("Mon, 16 Nov 2020")
-                                  ),
-
-                                  FlatButton.icon(onPressed: null, icon: Icon(Icons.access_time), 
-                                    label: Text("7:00 pm")
-                                  ),
-                                ]
-                              ),
-
-                              Row(
-                                children: <Widget>[
-                                  FlatButton.icon(onPressed: null, icon: Icon(Icons.send), 
-                                    label: Text("Timbuktu, Mali")
-                                  ),
-                                ]
-                              )
-                            ],)
+                        //return  a circular progress indicator.
+                        return Center(
+                          child: CircularProgressIndicator(
+                            strokeWidth: 4,
+                            backgroundColor: Colors.green,
                           ),
                         );
-                      }
+                      },
                     ),
-                  ), */ 
-                ],
+                  ],
+                ),
               ),
-            ), 
-        ],
+          ],
+        ),
       ),
      
     );
+  }
+
+  Widget EventWidget(List<EventModel> eventList){
+   return  ListView.builder(
+       shrinkWrap:true,
+       scrollDirection: Axis.horizontal,
+       itemCount: eventList.length,
+       padding: EdgeInsets.only(top: 20),
+       itemBuilder: (context, index)=>
+           UpcomingWidget(
+             event: eventList[index]
+           )
+   );
   }
 }

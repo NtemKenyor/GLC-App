@@ -43,6 +43,7 @@ dependencies:
   flutter_downloader: 1.5.2
   youtube_player_flutter: 6.1.1
   share: 2.0.1
+  intl:
   #pull_to_refresh: 1.6.5
 
   

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:GLC/home_page/model/event_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' show get;
 //import 'details_onNusea_news.dart';
@@ -8,37 +9,9 @@ import 'dart:convert';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:GLC/generals.dart';
 
-class GLC_events {
-  final int id;
-  final String title, desc, imageUrl, venue, date, endTime, startTime;
-
-  GLC_events({
-    this.id,
-    this.title,
-    this.desc,
-    this.venue,
-    this.imageUrl,
-    this.date,
-    this.endTime,
-    this.startTime
-  });
-
-  factory GLC_events.fromJson(Map<String, dynamic> jsonData) {
-    return GLC_events(
-      id: jsonData['id'],
-      title: jsonData['title'],
-      desc: jsonData['description'],
-      venue: jsonData['location'],
-      imageUrl: jsonData['photo'],
-      date: jsonData['date'],
-      endTime: jsonData['end_time'],
-      startTime: jsonData['start_time'],
-    );
-  }
-}
 
 class CustomListView extends StatelessWidget {
-  final List<GLC_events> spacecrafts;
+  final List<EventModel> spacecrafts;
 
   CustomListView(this.spacecrafts);
 
@@ -75,7 +48,7 @@ class CustomListView extends StatelessWidget {
     );*/
   }
 
-  Widget List_home (GLC_events each_event, BuildContext context) {
+  Widget List_home (EventModel each_event, BuildContext context) {
     return Container(
       height: 210,
       //color: Colors.blue[300],
@@ -245,7 +218,7 @@ class CustomListView extends StatelessWidget {
 }
 
 //Future is n object representing a delayed computation.
-Future<List<GLC_events>> GetEventsJson() async {
+Future<List<EventModel>> GetEventsJson() async {
   //final jsonEndpoint = "https://a1in1.com/GLC/";
   final enderP = 'https://app.glclondon.church/api/events/upcoming/';
   String token = "Bearer " + await read_from_SP("token");
@@ -264,7 +237,7 @@ Future<List<GLC_events>> GetEventsJson() async {
     var givenData = json.decode(responseEvents.body);
     List Events = givenData["results"];
     //print(Events);
-    return Events.map((Events) => new GLC_events.fromJson(Events)).toList();
+    return Events.map((Events) => new EventModel.fromJson(Events)).toList();
   }
     
 }
@@ -278,7 +251,7 @@ class EventsGLCLondon extends StatefulWidget {
 
 class EventsGLCLondonState extends State<EventsGLCLondon> {
 
-  List<GLC_events> eventscarry;
+  List<EventModel> eventscarry;
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -292,7 +265,7 @@ class EventsGLCLondonState extends State<EventsGLCLondon> {
         body: new Center(
           //FutureBuilder is a widget that builds itself based on the latest snapshot
           // of interaction with a Future.
-          child:  FutureBuilder<List<GLC_events>>(
+          child:  FutureBuilder<List<EventModel>>(
             future: GetEventsJson(),
             //we pass a BuildContext and an AsyncSnapshot object which is an
             //Immutable representation of the most recent interaction with

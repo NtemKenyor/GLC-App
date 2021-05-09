@@ -31,8 +31,8 @@ class Post {
   }
 }
 
-class sign_up extends StatefulWidget {
-  sign_up({Key key, this.title}) : super(key: key);
+class SignUpPage extends StatefulWidget {
+  SignUpPage({Key key, this.title}) : super(key: key);
 
   final String title;
 
@@ -40,7 +40,7 @@ class sign_up extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<sign_up> {
+class _MyHomePageState extends State<SignUpPage> {
   int _counter = 0;
   int _selectedIndex = 0;
 
@@ -122,6 +122,7 @@ class _MyHomePageState extends State<sign_up> {
 
   static final CREATE_POST_URL =
       'https://app.glclondon.church/api/auth/register/';
+  TextEditingController nameController = TextEditingController();
   TextEditingController emailer = TextEditingController();
   TextEditingController password_1 = TextEditingController();
   TextEditingController password_2 = TextEditingController();
@@ -149,7 +150,7 @@ class _MyHomePageState extends State<sign_up> {
               SizedBox(height: 10,),
               TextFormField(
                   maxLines: 1,
-                  controller: emailer,
+                  controller: nameController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                       suffixIcon: Icon(Icons.person_outline,
@@ -260,7 +261,7 @@ class _MyHomePageState extends State<sign_up> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                           image: DecorationImage(
-                        image: AssetImage("assets/prayer.jpg"),
+                        image: AssetImage("assets/google_logo.jpg"),
                         fit: BoxFit.cover,
                       )),
                     ),
@@ -278,7 +279,7 @@ class _MyHomePageState extends State<sign_up> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                           image: DecorationImage(
-                        image: AssetImage("assets/prayer.jpg"),
+                        image: AssetImage("assets/facebook_logo.png"),
                         fit: BoxFit.cover,
                       )),
                     ),
