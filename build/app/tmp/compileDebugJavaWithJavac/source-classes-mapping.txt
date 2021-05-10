@@ -1,15 +1,3 @@
-io/flutter/plugins/pathprovider/R.java
- io.flutter.plugins.pathprovider.R
- io.flutter.plugins.pathprovider.R$attr
- io.flutter.plugins.pathprovider.R$color
- io.flutter.plugins.pathprovider.R$dimen
- io.flutter.plugins.pathprovider.R$drawable
- io.flutter.plugins.pathprovider.R$id
- io.flutter.plugins.pathprovider.R$integer
- io.flutter.plugins.pathprovider.R$layout
- io.flutter.plugins.pathprovider.R$string
- io.flutter.plugins.pathprovider.R$style
- io.flutter.plugins.pathprovider.R$styleable
 io/flutter/plugins/sharedpreferences/R.java
  io.flutter.plugins.sharedpreferences.R
  io.flutter.plugins.sharedpreferences.R$attr
@@ -24,16 +12,32 @@ io/flutter/plugins/sharedpreferences/R.java
  io.flutter.plugins.sharedpreferences.R$styleable
 com/google/android/exoplayer2/source/smoothstreaming/R.java
  com.google.android.exoplayer2.source.smoothstreaming.R
+androidx/vectordrawable/R.java
+ androidx.vectordrawable.R
+ androidx.vectordrawable.R$attr
+ androidx.vectordrawable.R$color
+ androidx.vectordrawable.R$dimen
+ androidx.vectordrawable.R$drawable
+ androidx.vectordrawable.R$id
+ androidx.vectordrawable.R$integer
+ androidx.vectordrawable.R$layout
+ androidx.vectordrawable.R$string
+ androidx.vectordrawable.R$style
+ androidx.vectordrawable.R$styleable
 androidx/lifecycle/livedata/core/R.java
  androidx.lifecycle.livedata.core.R
-com/google/android/exoplayer2/extractor/R.java
- com.google.android.exoplayer2.extractor.R
-com/google/android/exoplayer2/core/R.java
- com.google.android.exoplayer2.core.R
-androidx/lifecycle/livedata/R.java
- androidx.lifecycle.livedata.R
-androidx/lifecycle/R.java
- androidx.lifecycle.R
+androidx/appcompat/resources/R.java
+ androidx.appcompat.resources.R
+ androidx.appcompat.resources.R$attr
+ androidx.appcompat.resources.R$color
+ androidx.appcompat.resources.R$dimen
+ androidx.appcompat.resources.R$drawable
+ androidx.appcompat.resources.R$id
+ androidx.appcompat.resources.R$integer
+ androidx.appcompat.resources.R$layout
+ androidx.appcompat.resources.R$string
+ androidx.appcompat.resources.R$style
+ androidx.appcompat.resources.R$styleable
 androidx/arch/core/R.java
  androidx.arch.core.R
 androidx/fragment/R.java
@@ -51,61 +55,8 @@ androidx/fragment/R.java
  androidx.fragment.R$styleable
 androidx/savedstate/R.java
  androidx.savedstate.R
-androidx/customview/R.java
- androidx.customview.R
- androidx.customview.R$attr
- androidx.customview.R$color
- androidx.customview.R$dimen
- androidx.customview.R$drawable
- androidx.customview.R$id
- androidx.customview.R$integer
- androidx.customview.R$layout
- androidx.customview.R$string
- androidx.customview.R$style
- androidx.customview.R$styleable
-com/a1in1/glc/BuildConfig.java
- com.a1in1.glc.BuildConfig
-androidx/loader/R.java
- androidx.loader.R
- androidx.loader.R$attr
- androidx.loader.R$color
- androidx.loader.R$dimen
- androidx.loader.R$drawable
- androidx.loader.R$id
- androidx.loader.R$integer
- androidx.loader.R$layout
- androidx.loader.R$string
- androidx.loader.R$style
- androidx.loader.R$styleable
-vn/hunghd/flutterdownloader/R.java
- vn.hunghd.flutterdownloader.R
- vn.hunghd.flutterdownloader.R$anim
- vn.hunghd.flutterdownloader.R$attr
- vn.hunghd.flutterdownloader.R$bool
- vn.hunghd.flutterdownloader.R$color
- vn.hunghd.flutterdownloader.R$dimen
- vn.hunghd.flutterdownloader.R$drawable
- vn.hunghd.flutterdownloader.R$id
- vn.hunghd.flutterdownloader.R$integer
- vn.hunghd.flutterdownloader.R$layout
- vn.hunghd.flutterdownloader.R$string
- vn.hunghd.flutterdownloader.R$style
- vn.hunghd.flutterdownloader.R$styleable
- vn.hunghd.flutterdownloader.R$xml
-xyz/luan/audioplayers/R.java
- xyz.luan.audioplayers.R
- xyz.luan.audioplayers.R$attr
- xyz.luan.audioplayers.R$color
- xyz.luan.audioplayers.R$dimen
- xyz.luan.audioplayers.R$drawable
- xyz.luan.audioplayers.R$id
- xyz.luan.audioplayers.R$integer
- xyz.luan.audioplayers.R$layout
- xyz.luan.audioplayers.R$string
- xyz.luan.audioplayers.R$style
- xyz.luan.audioplayers.R$styleable
-com/google/android/exoplayer2/source/hls/R.java
- com.google.android.exoplayer2.source.hls.R
+androidx/interpolator/R.java
+ androidx.interpolator.R
 androidx/core/R.java
  androidx.core.R
  androidx.core.R$attr
@@ -118,8 +69,6 @@ androidx/core/R.java
  androidx.core.R$string
  androidx.core.R$style
  androidx.core.R$styleable
-io/flutter/plugins/GeneratedPluginRegistrant.java
- io.flutter.plugins.GeneratedPluginRegistrant
 androidx/activity/R.java
  androidx.activity.R
  androidx.activity.R$attr
@@ -132,22 +81,6 @@ androidx/activity/R.java
  androidx.activity.R$string
  androidx.activity.R$style
  androidx.activity.R$styleable
-com/a1in1/glc/R.java
- com.a1in1.glc.R
- com.a1in1.glc.R$anim
- com.a1in1.glc.R$attr
- com.a1in1.glc.R$bool
- com.a1in1.glc.R$color
- com.a1in1.glc.R$dimen
- com.a1in1.glc.R$drawable
- com.a1in1.glc.R$id
- com.a1in1.glc.R$integer
- com.a1in1.glc.R$layout
- com.a1in1.glc.R$mipmap
- com.a1in1.glc.R$string
- com.a1in1.glc.R$style
- com.a1in1.glc.R$styleable
- com.a1in1.glc.R$xml
 com/google/android/exoplayer2/source/dash/R.java
  com.google.android.exoplayer2.source.dash.R
 io/flutter/plugins/videoplayer/R.java
@@ -162,41 +95,22 @@ io/flutter/plugins/videoplayer/R.java
  io.flutter.plugins.videoplayer.R$string
  io.flutter.plugins.videoplayer.R$style
  io.flutter.plugins.videoplayer.R$styleable
-androidx/sqlite/db/R.java
- androidx.sqlite.db.R
-androidx/work/R.java
- androidx.work.R
- androidx.work.R$attr
- androidx.work.R$bool
- androidx.work.R$color
- androidx.work.R$dimen
- androidx.work.R$drawable
- androidx.work.R$id
- androidx.work.R$integer
- androidx.work.R$layout
- androidx.work.R$string
- androidx.work.R$style
- androidx.work.R$styleable
-androidx/lifecycle/service/R.java
- androidx.lifecycle.service.R
+androidx/drawerlayout/R.java
+ androidx.drawerlayout.R
+ androidx.drawerlayout.R$attr
+ androidx.drawerlayout.R$color
+ androidx.drawerlayout.R$dimen
+ androidx.drawerlayout.R$drawable
+ androidx.drawerlayout.R$id
+ androidx.drawerlayout.R$integer
+ androidx.drawerlayout.R$layout
+ androidx.drawerlayout.R$string
+ androidx.drawerlayout.R$style
+ androidx.drawerlayout.R$styleable
 androidx/versionedparcelable/R.java
  androidx.versionedparcelable.R
-androidx/viewpager/R.java
- androidx.viewpager.R
- androidx.viewpager.R$attr
- androidx.viewpager.R$color
- androidx.viewpager.R$dimen
- androidx.viewpager.R$drawable
- androidx.viewpager.R$id
- androidx.viewpager.R$integer
- androidx.viewpager.R$layout
- androidx.viewpager.R$string
- androidx.viewpager.R$style
- androidx.viewpager.R$styleable
-com/google/android/exoplayer2/common/R.java
- com.google.android.exoplayer2.common.R
-androidx/room/R.java
- androidx.room.R
+androidx/multidex/R.java
+ androidx.multidex.R
 androidx/sqlite/db/framework/R.java
  androidx.sqlite.db.framework.R
 androidx/core/ktx/R.java
@@ -238,6 +152,188 @@ io/flutter/plugins/share/R.java
  io.flutter.plugins.share.R$style
  io.flutter.plugins.share.R$styleable
  io.flutter.plugins.share.R$xml
+io/flutter/plugins/pathprovider/R.java
+ io.flutter.plugins.pathprovider.R
+ io.flutter.plugins.pathprovider.R$attr
+ io.flutter.plugins.pathprovider.R$color
+ io.flutter.plugins.pathprovider.R$dimen
+ io.flutter.plugins.pathprovider.R$drawable
+ io.flutter.plugins.pathprovider.R$id
+ io.flutter.plugins.pathprovider.R$integer
+ io.flutter.plugins.pathprovider.R$layout
+ io.flutter.plugins.pathprovider.R$string
+ io.flutter.plugins.pathprovider.R$style
+ io.flutter.plugins.pathprovider.R$styleable
+androidx/cursoradapter/R.java
+ androidx.cursoradapter.R
+com/google/android/exoplayer2/extractor/R.java
+ com.google.android.exoplayer2.extractor.R
+com/google/android/exoplayer2/core/R.java
+ com.google.android.exoplayer2.core.R
+androidx/swiperefreshlayout/R.java
+ androidx.swiperefreshlayout.R
+ androidx.swiperefreshlayout.R$attr
+ androidx.swiperefreshlayout.R$color
+ androidx.swiperefreshlayout.R$dimen
+ androidx.swiperefreshlayout.R$drawable
+ androidx.swiperefreshlayout.R$id
+ androidx.swiperefreshlayout.R$integer
+ androidx.swiperefreshlayout.R$layout
+ androidx.swiperefreshlayout.R$string
+ androidx.swiperefreshlayout.R$style
+ androidx.swiperefreshlayout.R$styleable
+androidx/appcompat/R.java
+ androidx.appcompat.R
+ androidx.appcompat.R$anim
+ androidx.appcompat.R$attr
+ androidx.appcompat.R$bool
+ androidx.appcompat.R$color
+ androidx.appcompat.R$dimen
+ androidx.appcompat.R$drawable
+ androidx.appcompat.R$id
+ androidx.appcompat.R$integer
+ androidx.appcompat.R$interpolator
+ androidx.appcompat.R$layout
+ androidx.appcompat.R$string
+ androidx.appcompat.R$style
+ androidx.appcompat.R$styleable
+androidx/lifecycle/livedata/R.java
+ androidx.lifecycle.livedata.R
+androidx/lifecycle/R.java
+ androidx.lifecycle.R
+androidx/customview/R.java
+ androidx.customview.R
+ androidx.customview.R$attr
+ androidx.customview.R$color
+ androidx.customview.R$dimen
+ androidx.customview.R$drawable
+ androidx.customview.R$id
+ androidx.customview.R$integer
+ androidx.customview.R$layout
+ androidx.customview.R$string
+ androidx.customview.R$style
+ androidx.customview.R$styleable
+com/a1in1/glc/BuildConfig.java
+ com.a1in1.glc.BuildConfig
+io/github/ponnamkarthik/toast/fluttertoast/R.java
+ io.github.ponnamkarthik.toast.fluttertoast.R
+ io.github.ponnamkarthik.toast.fluttertoast.R$attr
+ io.github.ponnamkarthik.toast.fluttertoast.R$color
+ io.github.ponnamkarthik.toast.fluttertoast.R$dimen
+ io.github.ponnamkarthik.toast.fluttertoast.R$drawable
+ io.github.ponnamkarthik.toast.fluttertoast.R$id
+ io.github.ponnamkarthik.toast.fluttertoast.R$integer
+ io.github.ponnamkarthik.toast.fluttertoast.R$layout
+ io.github.ponnamkarthik.toast.fluttertoast.R$string
+ io.github.ponnamkarthik.toast.fluttertoast.R$style
+ io.github.ponnamkarthik.toast.fluttertoast.R$styleable
+androidx/loader/R.java
+ androidx.loader.R
+ androidx.loader.R$attr
+ androidx.loader.R$color
+ androidx.loader.R$dimen
+ androidx.loader.R$drawable
+ androidx.loader.R$id
+ androidx.loader.R$integer
+ androidx.loader.R$layout
+ androidx.loader.R$string
+ androidx.loader.R$style
+ androidx.loader.R$styleable
+vn/hunghd/flutterdownloader/R.java
+ vn.hunghd.flutterdownloader.R
+ vn.hunghd.flutterdownloader.R$anim
+ vn.hunghd.flutterdownloader.R$attr
+ vn.hunghd.flutterdownloader.R$bool
+ vn.hunghd.flutterdownloader.R$color
+ vn.hunghd.flutterdownloader.R$dimen
+ vn.hunghd.flutterdownloader.R$drawable
+ vn.hunghd.flutterdownloader.R$id
+ vn.hunghd.flutterdownloader.R$integer
+ vn.hunghd.flutterdownloader.R$layout
+ vn.hunghd.flutterdownloader.R$string
+ vn.hunghd.flutterdownloader.R$style
+ vn.hunghd.flutterdownloader.R$styleable
+ vn.hunghd.flutterdownloader.R$xml
+xyz/luan/audioplayers/R.java
+ xyz.luan.audioplayers.R
+ xyz.luan.audioplayers.R$attr
+ xyz.luan.audioplayers.R$color
+ xyz.luan.audioplayers.R$dimen
+ xyz.luan.audioplayers.R$drawable
+ xyz.luan.audioplayers.R$id
+ xyz.luan.audioplayers.R$integer
+ xyz.luan.audioplayers.R$layout
+ xyz.luan.audioplayers.R$string
+ xyz.luan.audioplayers.R$style
+ xyz.luan.audioplayers.R$styleable
+com/google/android/exoplayer2/source/hls/R.java
+ com.google.android.exoplayer2.source.hls.R
+io/flutter/plugins/GeneratedPluginRegistrant.java
+ io.flutter.plugins.GeneratedPluginRegistrant
+com/a1in1/glc/R.java
+ com.a1in1.glc.R
+ com.a1in1.glc.R$anim
+ com.a1in1.glc.R$attr
+ com.a1in1.glc.R$bool
+ com.a1in1.glc.R$color
+ com.a1in1.glc.R$dimen
+ com.a1in1.glc.R$drawable
+ com.a1in1.glc.R$id
+ com.a1in1.glc.R$integer
+ com.a1in1.glc.R$interpolator
+ com.a1in1.glc.R$layout
+ com.a1in1.glc.R$menu
+ com.a1in1.glc.R$mipmap
+ com.a1in1.glc.R$string
+ com.a1in1.glc.R$style
+ com.a1in1.glc.R$styleable
+ com.a1in1.glc.R$xml
+androidx/sqlite/db/R.java
+ androidx.sqlite.db.R
+androidx/work/R.java
+ androidx.work.R
+ androidx.work.R$attr
+ androidx.work.R$bool
+ androidx.work.R$color
+ androidx.work.R$dimen
+ androidx.work.R$drawable
+ androidx.work.R$id
+ androidx.work.R$integer
+ androidx.work.R$layout
+ androidx.work.R$string
+ androidx.work.R$style
+ androidx.work.R$styleable
+androidx/lifecycle/service/R.java
+ androidx.lifecycle.service.R
+androidx/viewpager/R.java
+ androidx.viewpager.R
+ androidx.viewpager.R$attr
+ androidx.viewpager.R$color
+ androidx.viewpager.R$dimen
+ androidx.viewpager.R$drawable
+ androidx.viewpager.R$id
+ androidx.viewpager.R$integer
+ androidx.viewpager.R$layout
+ androidx.viewpager.R$string
+ androidx.viewpager.R$style
+ androidx.viewpager.R$styleable
+com/google/android/exoplayer2/common/R.java
+ com.google.android.exoplayer2.common.R
+androidx/room/R.java
+ androidx.room.R
+androidx/browser/R.java
+ androidx.browser.R
+ androidx.browser.R$attr
+ androidx.browser.R$color
+ androidx.browser.R$dimen
+ androidx.browser.R$drawable
+ androidx.browser.R$id
+ androidx.browser.R$integer
+ androidx.browser.R$layout
+ androidx.browser.R$string
+ androidx.browser.R$style
+ androidx.browser.R$styleable
+ androidx.browser.R$xml
 androidx/webkit/R.java
  androidx.webkit.R
  androidx.webkit.R$attr
@@ -250,5 +346,34 @@ androidx/webkit/R.java
  androidx.webkit.R$string
  androidx.webkit.R$style
  androidx.webkit.R$styleable
+com/pichillilorenzo/flutter_inappwebview/R.java
+ com.pichillilorenzo.flutter_inappwebview.R
+ com.pichillilorenzo.flutter_inappwebview.R$anim
+ com.pichillilorenzo.flutter_inappwebview.R$attr
+ com.pichillilorenzo.flutter_inappwebview.R$bool
+ com.pichillilorenzo.flutter_inappwebview.R$color
+ com.pichillilorenzo.flutter_inappwebview.R$dimen
+ com.pichillilorenzo.flutter_inappwebview.R$drawable
+ com.pichillilorenzo.flutter_inappwebview.R$id
+ com.pichillilorenzo.flutter_inappwebview.R$integer
+ com.pichillilorenzo.flutter_inappwebview.R$interpolator
+ com.pichillilorenzo.flutter_inappwebview.R$layout
+ com.pichillilorenzo.flutter_inappwebview.R$menu
+ com.pichillilorenzo.flutter_inappwebview.R$string
+ com.pichillilorenzo.flutter_inappwebview.R$style
+ com.pichillilorenzo.flutter_inappwebview.R$styleable
+ com.pichillilorenzo.flutter_inappwebview.R$xml
 androidx/lifecycle/viewmodel/savedstate/R.java
  androidx.lifecycle.viewmodel.savedstate.R
+androidx/vectordrawable/animated/R.java
+ androidx.vectordrawable.animated.R
+ androidx.vectordrawable.animated.R$attr
+ androidx.vectordrawable.animated.R$color
+ androidx.vectordrawable.animated.R$dimen
+ androidx.vectordrawable.animated.R$drawable
+ androidx.vectordrawable.animated.R$id
+ androidx.vectordrawable.animated.R$integer
+ androidx.vectordrawable.animated.R$layout
+ androidx.vectordrawable.animated.R$string
+ androidx.vectordrawable.animated.R$style
+ androidx.vectordrawable.animated.R$styleable

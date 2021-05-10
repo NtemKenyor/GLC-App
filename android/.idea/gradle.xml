@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
@@ -11,6 +12,8 @@
           <set>
             <option value="C:/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-0.18.3/android" />
             <option value="C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_downloader-1.5.2/android" />
+            <option value="C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.3.2/android" />
+            <option value="C:/flutter/.pub-cache/hosted/pub.dartlang.org/fluttertoast-7.1.8/android" />
             <option value="C:/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.1/android" />
             <option value="C:/flutter/.pub-cache/hosted/pub.dartlang.org/share-2.0.1/android" />
             <option value="C:/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-2.0.5/android" />

@@ -6,6 +6,8 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="android/app" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-176063960/audioplayers.iml" filepath="$PROJECT_DIR$/.idea/modules/-176063960/audioplayers.iml" group="android/audioplayers" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/2144225370/flutter_downloader.iml" filepath="$PROJECT_DIR$/.idea/modules/2144225370/flutter_downloader.iml" group="android/flutter_downloader" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/704844740/flutter_inappwebview.iml" filepath="$PROJECT_DIR$/.idea/modules/704844740/flutter_inappwebview.iml" group="android/flutter_inappwebview" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1712976821/fluttertoast.iml" filepath="$PROJECT_DIR$/.idea/modules/1712976821/fluttertoast.iml" group="android/fluttertoast" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/376911842/path_provider.iml" filepath="$PROJECT_DIR$/.idea/modules/376911842/path_provider.iml" group="android/path_provider" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-222886666/share.iml" filepath="$PROJECT_DIR$/.idea/modules/-222886666/share.iml" group="android/share" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1283553665/shared_preferences.iml" filepath="$PROJECT_DIR$/.idea/modules/-1283553665/shared_preferences.iml" group="android/shared_preferences" />

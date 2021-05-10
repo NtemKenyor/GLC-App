@@ -1,4 +1,5 @@
 
+import 'package:GLC/utils/pallet.dart';
 import 'package:flutter/material.dart';
 //import 'glc_room.dart';
 import 'stream_video/watch_stream.dart';
@@ -38,37 +39,60 @@ class _all_videosState extends State<all_videos> {
   //Color.fromRGBO(255, 255, 255, 1)
   Color pure_ = Color.fromRGBO(255, 255, 255, 1);
 
-  
+ var  currentTabIndex = 0;
   
   @override
   Widget build(BuildContext context) {
     final tab = TabBar(
-      labelColor: red_color,
-      //indicatorColor: dark_,
-      unselectedLabelColor: Colors.white,
-      labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,),
+        onTap: (index){
+          setState(() {
+            currentTabIndex = index;
+          });
+        },
+        indicatorColor: Colors.white,
+        labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,),
       tabs: [
       //Tab( text: "GLC Chat Room", ),
-      Tab( text: "Live"),
-      Tab( text: "Pulpit"),
-      Tab( text: "Notes"),
+        Tab( child: Container(
+            padding: EdgeInsets.all(10),
+            alignment: Alignment.center,
+            height: double.infinity,
+            width: double.infinity,
+            child:Text("Live", style:TextStyle(color:currentTabIndex== 0? Colors.white:Colors.grey)), decoration:BoxDecoration(
+          color:currentTabIndex==0? Colors.black54:null,
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        )),),
+        Tab( child: Container(
+            padding: EdgeInsets.all(10),
+            alignment: Alignment.center,
+            height: double.infinity,
+            width: double.infinity,
+            child:Text("Pulpit", style:TextStyle(color:currentTabIndex== 1? Colors.white:Colors.grey)), decoration:BoxDecoration(
+          color:currentTabIndex==1? Colors.black54:null,
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        )),),
+        Tab( child: Container(
+            alignment: Alignment.center,
+            height: double.infinity,
+            width: double.infinity,
+            child:Text("Notes", style:TextStyle(color:currentTabIndex== 2? Colors.white:Colors.grey)), decoration:BoxDecoration(
+          color:currentTabIndex== 2? Colors.black54:null,
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        )),),
     ]);
 
     return DefaultTabController(length: 3,
         child: Scaffold(
-        backgroundColor: pure_,
+        backgroundColor: Pallet.white,
         appBar: PreferredSize(
           child:  Padding(
-            padding: const EdgeInsets.all(1.0),
+            padding: const EdgeInsets.symmetric(vertical:1),
             child: Container(
+              margin:EdgeInsets.symmetric(vertical: 10),
               height: 60,
-              color: Colors.white70,
+              color: Colors.white,
               padding: EdgeInsets.all(3),
-              child: Card(
-                color: Colors.green[900],
-                elevation: 2,
-                child: tab
-              ),
+              child: tab,
             ),
           ),  
           preferredSize: Size(double.infinity, 80),

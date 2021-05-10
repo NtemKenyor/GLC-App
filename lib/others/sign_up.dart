@@ -1,9 +1,12 @@
 //import 'dart:html';
 import 'dart:convert';
+import 'package:GLC/others/user_part.dart';
 import 'package:GLC/utils/pallet.dart';
+import 'package:GLC/utils/widgets/toast_message.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:GLC/utils/extensions.dart';
 
 class Post {
   final String email;
@@ -71,9 +74,9 @@ class _MyHomePageState extends State<SignUpPage> {
 
   void return_back() async {
     String email, password, passwordRepeat;
-    email = emailer.text;
-    password = password_1.text;
-    passwordRepeat = password_2.text;
+    email = emailController.text;
+    password = passwordController.text;
+    passwordRepeat = confirmPasswordController.text;
     if (password != "" && email != "" && passwordRepeat != "") {
       if (password == passwordRepeat) {
         Map mapper =
@@ -123,9 +126,18 @@ class _MyHomePageState extends State<SignUpPage> {
   static final CREATE_POST_URL =
       'https://app.glclondon.church/api/auth/register/';
   TextEditingController nameController = TextEditingController();
-  TextEditingController emailer = TextEditingController();
-  TextEditingController password_1 = TextEditingController();
-  TextEditingController password_2 = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+
+  final FocusNode myFocusNodePasswordLogin = FocusNode();
+  bool _obscureTextSignUp = true;
+
+  void _toggleLogin() {
+    setState(() {
+      _obscureTextSignUp = !_obscureTextSignUp;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +177,7 @@ class _MyHomePageState extends State<SignUpPage> {
               ),
               TextFormField(
                   maxLines: 1,
-                  controller: emailer,
+                  controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                       suffixIcon:
@@ -181,7 +193,9 @@ class _MyHomePageState extends State<SignUpPage> {
               ),
               TextFormField(
                   maxLines: 1,
-                  controller: password_1,
+                  obscureText: _obscureTextSignUp,
+                  focusNode: myFocusNodePasswordLogin,
+                  controller: passwordController,
                   keyboardType: TextInputType.visiblePassword,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -189,15 +203,25 @@ class _MyHomePageState extends State<SignUpPage> {
                           borderSide: BorderSide(color: Colors.grey.shade400)),
                       hintText: "Password",
                       hintStyle: TextStyle(color: Colors.grey.shade400),
-                      suffixIcon: Icon(Icons.remove_red_eye,
-                          color: Colors.grey.shade400))),
+                      suffixIcon: GestureDetector(
+                        onTap: _toggleLogin,
+                        child: Icon(
+                          _obscureTextSignUp
+                              ? Icons.remove_red_eye
+                              : Icons.remove_red_eye,
+                          color: Colors.grey.shade400
+                          ,
+                        ),
+                      ))),
               SizedBox(
                 height: 10,
               ),
 
               TextField(
                   maxLines: 1,
-                  controller: password_2,
+                  obscureText: _obscureTextSignUp,
+                  focusNode: myFocusNodePasswordLogin,
+                  controller: confirmPasswordController,
                   keyboardType: TextInputType.visiblePassword,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -205,13 +229,24 @@ class _MyHomePageState extends State<SignUpPage> {
                           borderSide: BorderSide(color: Colors.grey.shade400)),
                       hintText: " Repeat Password",
                       hintStyle: TextStyle(color: Colors.grey.shade400),
-                      suffixIcon: Icon(Icons.remove_red_eye,
-                          color: Colors.grey.shade400))),
+                      suffixIcon: GestureDetector(
+                        onTap: _toggleLogin,
+                        child: Icon(
+                          _obscureTextSignUp
+                              ? Icons.remove_red_eye
+                              : Icons.remove_red_eye,
+                          color: Colors.grey.shade400
+                          ,
+                        ),
+                      ))),
 
-              Text(
+              (the_msg=="Loading")? Padding(
+                  padding:EdgeInsets.all(20),
+                  child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Pallet.primaryColor))):Text(
                 the_msg,
                 style: TextStyle(
                   color: Colors.red,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
 
@@ -226,7 +261,17 @@ class _MyHomePageState extends State<SignUpPage> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: FlatButton(
-                    onPressed: return_back,
+                    onPressed: (){
+                      if(!emailController.text.isValidEmail){
+                        flutterToast("Please Enter a valid Email", true);
+                      }else if(passwordController.text.length<= 5){
+                        flutterToast("Password length must be up to 6 characters", true);
+                      }else if(passwordController.text != confirmPasswordController.text){
+                        flutterToast("Password and Confirm Password do not match", true);
+                      }else{
+                        return_back();
+                      }
+                    },
                     child: Text(
                       "SIGN UP",
                       style: TextStyle(
@@ -248,44 +293,44 @@ class _MyHomePageState extends State<SignUpPage> {
               SizedBox(
                 height: 20,
               ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  InkWell(
-                    onTap: (){
-
-                    },
-                    child: Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          image: DecorationImage(
-                        image: AssetImage("assets/google_logo.jpg"),
-                        fit: BoxFit.cover,
-                      )),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  InkWell(
-                    onTap: (){
-
-                    },
-                    child: Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          image: DecorationImage(
-                        image: AssetImage("assets/facebook_logo.png"),
-                        fit: BoxFit.cover,
-                      )),
-                    ),
-                  )
-                ],
-              ),
+              // Row(
+              //   mainAxisSize: MainAxisSize.min,
+              //   children: [
+              //     InkWell(
+              //       onTap: (){
+              //
+              //       },
+              //       child: Container(
+              //         height: 50,
+              //         width: 50,
+              //         decoration: BoxDecoration(
+              //             borderRadius: BorderRadius.all(Radius.circular(10)),
+              //             image: DecorationImage(
+              //           image: AssetImage("assets/google_logo.jpg"),
+              //           fit: BoxFit.cover,
+              //         )),
+              //       ),
+              //     ),
+              //     SizedBox(
+              //       width: 20,
+              //     ),
+              //     InkWell(
+              //       onTap: (){
+              //
+              //       },
+              //       child: Container(
+              //         height: 50,
+              //         width: 50,
+              //         decoration: BoxDecoration(
+              //             borderRadius: BorderRadius.all(Radius.circular(10)),
+              //             image: DecorationImage(
+              //           image: AssetImage("assets/facebook_logo.png"),
+              //           fit: BoxFit.cover,
+              //         )),
+              //       ),
+              //     )
+              //   ],
+              // ),
 
               SizedBox(height:20,),
               Padding(

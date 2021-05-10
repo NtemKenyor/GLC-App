@@ -21,6 +21,7 @@ class NotesListItem extends StatelessWidget {
               var route = new MaterialPageRoute(
                         builder: (BuildContext context) =>
                         Display_content(note.title, note.content, note.createDate, note.upDated));
+              Navigator.of(context).push(route);
             },
             child: Container(
               padding:EdgeInsets.symmetric(horizontal: 20),

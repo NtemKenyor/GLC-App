@@ -1,11 +1,16 @@
+import 'package:GLC/ui/donations/data/payment_utils.dart';
+import 'package:GLC/ui/donations/screens/payment_web_page.dart';
 import 'package:GLC/ui/donations/widgets/giving_bottomsheet.dart';
 import 'package:GLC/utils/pallet.dart';
+import 'package:GLC/utils/widgets/toast_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:GLC/generals.dart';
 import 'dart:convert';
 import 'dart:math' as math;
+
+import 'package:provider/provider.dart';
 
 class give_page extends StatefulWidget {
   give_page({Key key, this.title}) : super(key: key);
@@ -101,7 +106,7 @@ class _MyHomePageState extends State<give_page> {
   //Color.fromRGBO(255, 255, 255, 1)
   Color pure_ = Color.fromRGBO(255, 255, 255, 1);
 
-  bool isChecked = false;
+  bool isChecked = true;
   String selectedGivingType;
 
   List<String> givingList = ['Seed', 'Tithe', 'Offering'];
@@ -116,6 +121,8 @@ class _MyHomePageState extends State<give_page> {
 
   @override
   Widget build(BuildContext context) {
+    final _paymentProvider = Provider.of<PaymentProvider>(context);
+    _paymentProvider.getUserEmail();
     return Scaffold(
         backgroundColor: pure_,
         body: ListView(scrollDirection: Axis.vertical, children: <Widget>[
@@ -160,7 +167,7 @@ class _MyHomePageState extends State<give_page> {
                     });
                   },
                 ),
-                Text('Lorem Ipsum dolar sit amet, consector dolor sit amet',
+                Text('I am a UK taxpayer so please treat this donations under the gift aid scheme until otherwise notified',
                     style: TextStyle(
                         color: Colors.grey.shade600,
                         fontSize: 14,
@@ -177,7 +184,7 @@ class _MyHomePageState extends State<give_page> {
               child: Column(
                 children: [
                   InkWell(
-                    onTap: () => showGivingBottomSheet(givingList),
+                    onTap: () => showGivingBottomSheet(givingList, context),
                     child: Material(
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                       elevation: 2,
@@ -223,12 +230,14 @@ class _MyHomePageState extends State<give_page> {
                             WhitelistingTextInputFormatter(RegExp("[0-9]")),
                           ],
                           maxLines: 1,
-                          controller: amountController,
+                          controller: amountController,onChanged: (val){
+                            _paymentProvider.setAmount(val);
+                      },
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                               prefixIcon: Padding(
                                   padding: EdgeInsets.all(14),
-                                  child: Text("\$",
+                                  child: Text("£",
                                       style: TextStyle(
                                           fontSize: 18, color: Colors.grey))),
                               border: InputBorder.none,
@@ -253,7 +262,16 @@ class _MyHomePageState extends State<give_page> {
                       color: Pallet.primaryColor,
                     ),
                     child: FlatButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if(hasData){
+                            var route = new MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    OnlinePaymentPage(paymentLink: _paymentProvider.paymentUrl,));
+                            Navigator.of(context).push(route);
+                          }else{
+                           flutterToast("Oops, Please fill all the fields", true);
+                          }
+                        },
                         child: Text(
                           "GIVE",
                           style: TextStyle(
@@ -267,7 +285,17 @@ class _MyHomePageState extends State<give_page> {
         ]));
   }
 
-  Widget showGivingBottomSheet(List<String> givingType) {
+  bool get hasData {
+    if(selectedGivingType !=null && selectedGivingType.isNotEmpty && amountController.text !=null && amountController.text.isNotEmpty){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  Widget showGivingBottomSheet(List<String> givingType, BuildContext context) {
+    final _paymentProvider = Provider.of<PaymentProvider>(context, listen: false);
+
     showModalBottomSheet(
         enableDrag: true,
         isDismissible: true,
@@ -279,6 +307,7 @@ class _MyHomePageState extends State<give_page> {
             setState(() {
               if (v != null) {
                 selectedGivingType = v;
+                _paymentProvider.setType(v);
               }
             });
           });

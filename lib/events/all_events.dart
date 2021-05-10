@@ -255,6 +255,7 @@ class EventsGLCLondonState extends State<EventsGLCLondon> {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: Colors.black,
         accentColor: Color(0xFFDBECF1),

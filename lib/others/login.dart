@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:GLC/intro.dart';
 import 'package:GLC/utils/pallet.dart';
+import 'package:GLC/utils/widgets/toast_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
@@ -12,6 +13,7 @@ import 'dart:async';
 //import 'package:path_provider/path_provider.dart';
 //import 'package:path';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:GLC/utils/extensions.dart';
 
 class Post {
   final String email;
@@ -131,8 +133,8 @@ class _MyHomePageState extends State<LoginPage> {
 
   void return_back() async {
     display_result("Loading");
-    String email = email_.text;
-    String password = password_.text;
+    String email = _emailController.text;
+    String password = _passwordController.text;
 
     if (email != "" && password != "") {
       //String login_endpoint = "https://a1in1.com/GLC/user_log_in.php?password="+password+"&email="+email;
@@ -188,9 +190,19 @@ class _MyHomePageState extends State<LoginPage> {
   }
 
   static final Login_url = 'https://app.glclondon.church/api/auth/login/';
-  TextEditingController email_ = TextEditingController();
-  TextEditingController password_ = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
   bool keepMeLoggedIn = false;
+
+
+  final FocusNode myFocusNodePasswordLogin = FocusNode();
+  bool _obscureTextSignUp = true;
+
+  void _toggleLogin() {
+    setState(() {
+      _obscureTextSignUp = !_obscureTextSignUp;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -217,7 +229,7 @@ class _MyHomePageState extends State<LoginPage> {
                   ),
                   TextFormField(
                       maxLines: 1,
-                      controller: email_,
+                      controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                           suffixIcon: Icon(Icons.person_outline,
@@ -232,19 +244,31 @@ class _MyHomePageState extends State<LoginPage> {
                     height: 20,
                   ),
                   TextFormField(
+                    obscureText: _obscureTextSignUp,
+                    focusNode: myFocusNodePasswordLogin,
                       maxLines: 1,
-                      controller: password_,
+                      controller: _passwordController,
                       keyboardType: TextInputType.visiblePassword,
                       decoration: InputDecoration(
-                          suffixIcon: Icon(Icons.remove_red_eye,
-                              color: Colors.grey.shade400),
+                          suffixIcon: GestureDetector(
+                            onTap: _toggleLogin,
+                            child: Icon(
+                              _obscureTextSignUp
+                                  ? Icons.remove_red_eye
+                                  : Icons.remove_red_eye,
+                              color: Colors.grey.shade400
+                              ,
+                            ),
+                          ),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20.0),
                               borderSide: BorderSide(
                                   color: Colors.grey.shade400)),
                           hintText: "Password",
                           hintStyle: TextStyle(color: Colors.grey.shade400))),
-                  Text(
+                  (the_msg=="Loading")? Padding(
+                    padding:EdgeInsets.all(20),
+                      child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Pallet.primaryColor),)):Text(
                     the_msg,
                     style: TextStyle(
                       color: Colors.red,
@@ -291,7 +315,15 @@ class _MyHomePageState extends State<LoginPage> {
                       color: Pallet.primaryColor,
                     ),
                     child: FlatButton(
-                        onPressed: return_back,
+                        onPressed: (){
+                          if(!_emailController.text.isValidEmail){
+                            flutterToast("Please Enter a valid Email", true);
+                          }else if(_passwordController.text.length<= 5){
+                            flutterToast("Password length must be up to 6 characters", true);
+                          }else{
+                            return_back();
+                          }
+                        },
                         child: Text(
                           "LOG IN",
                           style: TextStyle(

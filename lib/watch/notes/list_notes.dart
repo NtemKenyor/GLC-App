@@ -2,6 +2,7 @@ import 'dart:async';
 
 
 import 'package:GLC/ui/media/media.dart';
+import 'package:GLC/utils/pallet.dart';
 import 'package:GLC/utils/widgets/notes_list_item.dart';
 import 'package:GLC/watch/notes/models/note_model.dart';
 import 'package:flutter/material.dart';
@@ -217,7 +218,7 @@ class Notes_Pad_State extends State<Notes_Pad> {
             padding: EdgeInsets.all(12),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.blue[900],
+                color: Pallet.primaryColor,
                 shape: BoxShape.circle,
               ),
               child: IconButton(

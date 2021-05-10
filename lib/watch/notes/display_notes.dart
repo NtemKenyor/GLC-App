@@ -15,6 +15,7 @@ class Display_content extends StatelessWidget {
           width: double.infinity,
           child: Column(
             children: <Widget>[
+              SizedBox(height: 30,),
               Text(
                 title,
                 style: TextStyle(

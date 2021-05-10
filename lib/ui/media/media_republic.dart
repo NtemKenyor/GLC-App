@@ -1,4 +1,5 @@
 
+import 'package:GLC/utils/pallet.dart';
 import 'package:flutter/material.dart';
 //import 'glc_room.dart';
 import 'podcast/media.dart';
@@ -43,6 +44,7 @@ class _MediaReb extends State<media_Republic> {
   @override
   Widget build(BuildContext context) {
     final tab = TabBar(
+
       indicatorColor: Colors.white,
       onTap: (index){
         setState(() {
@@ -53,6 +55,7 @@ class _MediaReb extends State<media_Republic> {
       tabs: [
       //Tab( text: "GLC Chat Room", ),
       Tab( child: Container(
+        padding: EdgeInsets.all(10),
         alignment: Alignment.center,
         height: double.infinity,
           width: double.infinity,
@@ -75,13 +78,13 @@ class _MediaReb extends State<media_Republic> {
         backgroundColor: pure_,
         appBar: PreferredSize(
           child:  Padding(
-            padding:EdgeInsets.symmetric(horizontal: 20),
+            padding:EdgeInsets.symmetric(horizontal: 20, vertical: 12),
             child: Container(
               height: 50,
               color: Colors.white,
               child: tab,
             ),
-          ),  
+          ),
           preferredSize: Size(double.infinity, 80),
         ),
         body: TabBarView(
@@ -106,11 +109,11 @@ class _MediaReb extends State<media_Republic> {
                 child: tab
               ),
             ),
-          ), 
+          ),
           preferredSize: Size(double.infinity, 80),
         ), */
-        
-        
+
+
       ),
     );
   }

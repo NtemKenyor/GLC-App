@@ -65,150 +65,168 @@ class Prayer extends StatefulWidget {
 class _PrayerState extends State<Prayer> {
   TextEditingController prayerHead = TextEditingController();
   TextEditingController prayerDetail = TextEditingController();
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
+        key: _scaffoldKey,
+        appBar: AppBar(
+          //leading: Icon(Icons.menu),
+            automaticallyImplyLeading: false,
+            elevation: 0,
+            backgroundColor: Pallet.appBarColor,
+            title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  IconButton(
+                      icon:
+                      Icon(Icons.arrow_back_ios, color: Pallet.primaryColor),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      }),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical:8.0),
+                      child: Image.asset("assets/glc logo 1.png", width: 120, height: 55,),
+                    ),
+                  ),
+                  SizedBox(width: 40,),
+                  // IconButton(
+                  //   onPressed: ()=> {userSide()},
+                  //   icon: Icon(Icons.person, ),
+                  //   color: dark_,
+                  // )
+                ]
+            )
+        ),
+        resizeToAvoidBottomInset: true,
         backgroundColor: Colors.white,
-        body: Container(
-            //color: Colors.red,
-            child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(children: <Widget>[
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                    icon:
-                        Icon(Icons.arrow_back_ios, color: Pallet.primaryColor),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    }),
-                Image.asset(
-                  "assets/glc logo 1.png",
-                  width: 80,
-                  height: 55,
+        body: SingleChildScrollView(
+          child: Container(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(children: <Widget>[
+                SizedBox(
+                  height: 10,
                 ),
-                Icon(Icons.person_outline, color: Pallet.primaryColor)
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Image.asset("assets/prayer_image.png",width: 100,
-              height: 100,),
-            SizedBox(
-              height: 10,
-            ),
-            Text("Prayer Request.",
-                style: TextStyle(
-                  color: Pallet.textLight,
-                  fontWeight: FontWeight.w800,
-                  fontSize: 40,
-                )),
-            SizedBox(
-              height: 30,
-            ),
-            Padding(
-              padding:EdgeInsets.symmetric(horizontal: 10),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.edit_outlined),
-                    SizedBox(
-                      width: 10,
+
+                SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding:EdgeInsets.symmetric(vertical: 5),
+                  child: Image.asset("assets/prayer_image.png",width: 100,
+                    height: 100,),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text("Prayer Request.",
+                    style: TextStyle(
+                      color: Pallet.textLight,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 40,
+                    )),
+                SizedBox(
+                  height: 30,
+                ),
+                Padding(
+                  padding:EdgeInsets.symmetric(horizontal: 10),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.edit_outlined),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text('Title'),
+                      ],
                     ),
-                    Text('Title'),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(height: 5),
-            Padding(
-              padding:EdgeInsets.symmetric(horizontal: 10),
-              child: TextFormField(
-                  maxLines: 1,
-                  controller: prayerHead,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    disabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide: BorderSide(color: Pallet.primaryColor)),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide: BorderSide(color: Pallet.primaryColor)),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                          borderSide: BorderSide(color: Pallet.primaryColor)),
-                  )),
-            ),
-            SizedBox(height: 20),
-            Padding(
-              padding:EdgeInsets.symmetric(horizontal: 10),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Icon(Icons.edit_outlined),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text('Type your prayer request'),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(height: 5),
-            Padding(
-              padding:EdgeInsets.symmetric(horizontal: 10),
-              child: TextFormField(
-                  minLines: 7,
-                  maxLines: null,
-                  controller: prayerDetail,
-                  keyboardType: TextInputType.multiline,
-                  decoration: InputDecoration(
-                    disabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide: BorderSide(color: Pallet.primaryColor)),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide: BorderSide(color: Pallet.primaryColor)),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                          borderSide: BorderSide(color: Pallet.primaryColor)),
-                      )),
-            ),
-
-
-
-            SizedBox(height: 30,),
-            Center(
-              child: ClipOval(
-                child: Material(
-                  color: Pallet.primaryColor, // button color
-                  child: InkWell(
-                    splashColor: Pallet.white, // inkwell color
-                    child: SizedBox(width: 56, height: 56, child: Icon(Icons.send, color:Pallet.white)),
-                    onTap: () {
-                      makePrayerRequest(context, prayerHead.text, prayerDetail.text);
-                    },
                   ),
                 ),
-              ),
-            ),
+                SizedBox(height: 5),
+                Padding(
+                  padding:EdgeInsets.symmetric(horizontal: 10),
+                  child: TextFormField(
+                      maxLines: 1,
+                      controller: prayerHead,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        disabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                            borderSide: BorderSide(color: Pallet.primaryColor)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                            borderSide: BorderSide(color: Pallet.primaryColor)),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                              borderSide: BorderSide(color: Pallet.primaryColor)),
+                      )),
+                ),
+                SizedBox(height: 20),
+                Padding(
+                  padding:EdgeInsets.symmetric(horizontal: 10),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Icon(Icons.edit_outlined),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text('Type your prayer request'),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 5),
+                Padding(
+                  padding:EdgeInsets.symmetric(horizontal: 10),
+                  child: TextFormField(
+                      minLines: 7,
+                      maxLines: null,
+                      controller: prayerDetail,
+                      keyboardType: TextInputType.multiline,
+                      decoration: InputDecoration(
+                        disabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                            borderSide: BorderSide(color: Pallet.primaryColor)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                            borderSide: BorderSide(color: Pallet.primaryColor)),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                              borderSide: BorderSide(color: Pallet.primaryColor)),
+                          )),
+                ),
 
-          ]),
-        )),
+
+
+                SizedBox(height: 30,),
+                Center(
+                  child: ClipOval(
+                    child: Material(
+                      color: Pallet.primaryColor, // button color
+                      child: InkWell(
+                        splashColor: Pallet.white, // inkwell color
+                        child: SizedBox(width: 56, height: 56, child: Icon(Icons.send, color:Pallet.white)),
+                        onTap: () {
+                          makePrayerRequest(context, prayerHead.text, prayerDetail.text);
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+
+              ])),
+        ),
       ),
     );
   }
