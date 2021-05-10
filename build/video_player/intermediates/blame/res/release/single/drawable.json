@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/home/charmides/Documents/GLC/GLC-App/build/video_player/intermediates/res/merged/release/drawable/notification_bg.xml",
+        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/571ef2e755703100ab58eecfff59fe71/core-1.1.0/res/drawable/notification_bg.xml"
+    },
+    {
+        "merged": "/home/charmides/Documents/GLC/GLC-App/build/video_player/intermediates/res/merged/release/drawable/notification_tile_bg.xml",
+        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/571ef2e755703100ab58eecfff59fe71/core-1.1.0/res/drawable/notification_tile_bg.xml"
+    },
+    {
+        "merged": "/home/charmides/Documents/GLC/GLC-App/build/video_player/intermediates/res/merged/release/drawable/notification_bg_low.xml",
+        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/571ef2e755703100ab58eecfff59fe71/core-1.1.0/res/drawable/notification_bg_low.xml"
+    },
+    {
+        "merged": "/home/charmides/Documents/GLC/GLC-App/build/video_player/intermediates/res/merged/release/drawable/notification_icon_background.xml",
+        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/571ef2e755703100ab58eecfff59fe71/core-1.1.0/res/drawable/notification_icon_background.xml"
+    }
+]

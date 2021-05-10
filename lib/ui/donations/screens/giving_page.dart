@@ -142,11 +142,11 @@ class _MyHomePageState extends State<give_page> {
                 } else if (snapshot.hasError) {
                   return new Container(
                       child: Text(
-                    "Could not connect. Please try again later.",
-                    style: TextStyle(
-                      color: Colors.red,
-                    ),
-                  ));
+                        "Could not connect. Please try again later.",
+                        style: TextStyle(
+                          color: Colors.red,
+                        ),
+                      ));
                 }
                 return CircularProgressIndicator();
               },
@@ -167,11 +167,13 @@ class _MyHomePageState extends State<give_page> {
                     });
                   },
                 ),
-                Text('I am a UK taxpayer so please treat this donations under the gift aid scheme until otherwise notified',
-                    style: TextStyle(
-                        color: Colors.grey.shade600,
-                        fontSize: 14,
-                        fontStyle: FontStyle.italic))
+                Expanded(
+                  child: Text('I am a UK taxpayer so please treat this donations under the gift aid scheme until otherwise notified',
+                      style: TextStyle(
+                          color: Colors.grey.shade600,
+                          fontSize: 14,
+                          fontStyle: FontStyle.italic)),
+                )
               ],
             ),
             SizedBox(
@@ -231,7 +233,7 @@ class _MyHomePageState extends State<give_page> {
                           ],
                           maxLines: 1,
                           controller: amountController,onChanged: (val){
-                            _paymentProvider.setAmount(val);
+                        _paymentProvider.setAmount(val);
                       },
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
@@ -247,7 +249,7 @@ class _MyHomePageState extends State<give_page> {
                               disabledBorder: InputBorder.none,
                               hintText: "Enter amount here",
                               hintStyle:
-                                  TextStyle(color: Colors.grey.shade400))),
+                              TextStyle(color: Colors.grey.shade400))),
                     ),
                   ),
                   SizedBox(
@@ -269,7 +271,7 @@ class _MyHomePageState extends State<give_page> {
                                     OnlinePaymentPage(paymentLink: _paymentProvider.paymentUrl,));
                             Navigator.of(context).push(route);
                           }else{
-                           flutterToast("Oops, Please fill all the fields", true);
+                            flutterToast("Oops, Please fill all the fields", true);
                           }
                         },
                         child: Text(

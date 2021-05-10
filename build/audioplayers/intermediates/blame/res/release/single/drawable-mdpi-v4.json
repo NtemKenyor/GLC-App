@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "/home/charmides/Documents/GLC/GLC-App/build/audioplayers/intermediates/res/merged/release/drawable-mdpi-v4/notification_bg_normal_pressed.9.png",
+        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/f183e9aacc4ca5e955f69ddc867529ce/core-1.6.0-alpha03/res/drawable-mdpi-v4/notification_bg_normal_pressed.9.png"
+    },
+    {
+        "merged": "/home/charmides/Documents/GLC/GLC-App/build/audioplayers/intermediates/res/merged/release/drawable-mdpi-v4/notification_bg_normal.9.png",
+        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/f183e9aacc4ca5e955f69ddc867529ce/core-1.6.0-alpha03/res/drawable-mdpi-v4/notification_bg_normal.9.png"
+    },
+    {
+        "merged": "/home/charmides/Documents/GLC/GLC-App/build/audioplayers/intermediates/res/merged/release/drawable-mdpi-v4/notification_bg_low_normal.9.png",
+        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/f183e9aacc4ca5e955f69ddc867529ce/core-1.6.0-alpha03/res/drawable-mdpi-v4/notification_bg_low_normal.9.png"
+    },
+    {
+        "merged": "/home/charmides/Documents/GLC/GLC-App/build/audioplayers/intermediates/res/merged/release/drawable-mdpi-v4/notification_bg_low_pressed.9.png",
+        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/f183e9aacc4ca5e955f69ddc867529ce/core-1.6.0-alpha03/res/drawable-mdpi-v4/notification_bg_low_pressed.9.png"
+    },
+    {
+        "merged": "/home/charmides/Documents/GLC/GLC-App/build/audioplayers/intermediates/res/merged/release/drawable-mdpi-v4/notify_panel_notification_icon_bg.png",
+        "source": "/home/charmides/.gradle/caches/transforms-2/files-2.1/f183e9aacc4ca5e955f69ddc867529ce/core-1.6.0-alpha03/res/drawable-mdpi-v4/notify_panel_notification_icon_bg.png"
+    }
+]

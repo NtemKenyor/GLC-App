@@ -25,15 +25,15 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
 
   List<IntroductionTiles> introductionList(){
     return [
-      IntroductionTiles(title: "Work with Faith",
-          body: 'ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
+      IntroductionTiles(title: "Welcome To GLC",
+          body: 'Come and discover Jesus as the Light of the world. We want you to develop a personal relationship with God and we will support you to express that bond in your own way. We focus on helping you connect, grow, serve and ultimately go on and impact the world for Christ.',
           imagePath: 'prayer'),
-      IntroductionTiles(title: "Community of God's children",
-          body: "in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur "
-              "sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+      IntroductionTiles(title: "Growing As A Community",
+          body: "Growing is about becoming a disciple and seeing God’s Word come alive in your life."
+              "We want you to take everything you have learnt into every part of your community and the world.",
           imagePath: 'praying hands'),
-      IntroductionTiles(title: "Believe in the Lord",
-          body: 'ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', imagePath: "bible_image")
+      IntroductionTiles(title: "Serve the Lord",
+          body: 'GLC is full of ministries and opportunities to serve alongside fellow believers.', imagePath: "bible_image")
     ];
   }
 
