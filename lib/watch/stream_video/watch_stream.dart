@@ -58,7 +58,7 @@ class watch_page_live extends StatefulWidget {
 
   Future video_source() async {
     String the_video_url = "";
-    String url_ = "http://164.90.139.70/api/content/live_tv/";
+    String url_ = "https://app.glclondon.church/api/content/live_tv/";
     //String url_ = "https://a1in1.com/buye/.php";
     String token = "Bearer " + await read_from_SP("token");
     return get(
@@ -184,19 +184,9 @@ class _MyHomePageState extends State<watch_page_live> {
             //return  a circular progress indicator.
             return new Container(
               child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children : <Widget>[
-                    CircularProgressIndicator(),
-                    Expanded(
-                      child: Text("Processing, Please Wait.", 
-                      style: TextStyle(
-                        color: Colors.green[800],
-                        fontWeight: FontWeight.w800,
-                      ),
-                      )
-                    )
-                  ]
+                child: Padding(
+                  padding: const EdgeInsets.all(17.0),
+                  child: CircularProgressIndicator(strokeWidth: 5, backgroundColor: Colors.orange[600],),
                 ),
               )
             );

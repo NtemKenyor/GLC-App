@@ -41,37 +41,25 @@ class CustomListView extends StatelessWidget {
     if (noteList.isEmpty){
       return Container(
         child: Center(
-          child: Text("You can add notes. You do not any notes.",
+          child: Text("You can add Notes. You do not any Note.",
             style: TextStyle(
               color: Colors.green,
               fontWeight: FontWeight.bold,
+              fontSize: 15,
             ),
           ),
         ),
       );
     }else{
-        return ListView(
-          scrollDirection: Axis.vertical,
-          children: <Widget>[
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 10.0, bottom: 2.0,),
-                child: Text("Notes",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black38)
-                ),
-              ),
-            ),
-
-            ListView.builder(
-              shrinkWrap: true,
-              physics: ScrollPhysics(),
-              itemCount: noteList.length,
-              itemBuilder: (context, int currentIndex) {
-                return list_note( noteList[currentIndex], context);
-              },
-            )
-          ]
-      );
+        return ListView.builder(
+          shrinkWrap: true,
+          physics: ScrollPhysics(),
+          itemCount: noteList.length,
+          itemBuilder: (context, int currentIndex) {
+            return  thenotes( noteList[currentIndex], context);
+            //list_note( noteList[currentIndex], context);
+          },
+        );
     }
     
 
@@ -81,6 +69,68 @@ class CustomListView extends StatelessWidget {
         return List_home(spacecrafts[currentIndex], context);
       },
     );*/
+  }
+
+    Widget thenotes(Notes_out the_notes, BuildContext context) {
+      return  Padding(          
+        padding: const EdgeInsets.all(17.0),
+        child: InkWell(
+          hoverColor: Colors.orange[800],
+          onTap: () {
+            var route = new MaterialPageRoute(
+              builder: (BuildContext context) =>
+              new Display_content(the_notes.title, the_notes.content, the_notes.createDate, the_notes.upDated),
+            );
+            Navigator.of(context).push(route);
+          },
+          child: Container(
+            padding: EdgeInsets.fromLTRB(3, 0, 0, 0),
+              decoration: BoxDecoration(
+                color: Colors.orange,
+                borderRadius: BorderRadius.circular(12),
+              ),
+            //padding: EdgeInsets.all(12),
+            child: Container(
+              height: 110,
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(247, 247, 247, 1),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(the_notes.title,
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon( Icons.calendar_today_outlined, size: 17, color: Colors.orange, ),
+                          Text(the_notes.upDated ,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ]
+                  ),
+
+                  Icon(Icons.edit_outlined, size: 42,),
+                ],
+              )
+            ),
+          ),
+
+      )
+    );
   }
 
   Widget list_note (Notes_out the_notes, BuildContext context) {
@@ -155,7 +205,7 @@ class CustomListView extends StatelessWidget {
 } */
 
 Future<List<Notes_out>> downloadJSON() async {
-  final jsonEndpoint = 'http://164.90.139.70/api/notes';
+  final jsonEndpoint = 'https://app.glclondon.church/api/notes';
   String token = "Bearer " + await read_from_SP("token");
   Response response = await get(
     Uri.parse(jsonEndpoint),
@@ -189,7 +239,7 @@ Future<List<Notes_out>> downloadJSON() async {
 
 /* Future<List<Notes_out>> downloadJSON() async {
 
-  final jsonEndpoint = 'http://164.90.139.70/api/notes/';
+  final jsonEndpoint = 'https://app.glclondon.church/api/notes/';
   String token = "Bearer " + await read_from_SP("token");
 
   final response = await get(
@@ -225,132 +275,112 @@ class Notes_Pad_State extends State<Notes_Pad> {
   List<Notes_out> listedData;
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      theme: ThemeData(
-        primaryColor: Colors.black,
-        accentColor: Color(0xFFDBECF1),
-        scaffoldBackgroundColor: Colors.black45,
-      ),
-      home: new Scaffold(
+    return new Scaffold(
         //appBar: new AppBar(title: const Text('MySQL Images Text')),
-        body: new Center(
-          //FutureBuilder is a widget that builds itself based on the latest snapshot
-          // of interaction with a Future.
-          child: Container(
-            
-            child: new FutureBuilder<List<Notes_out>>(
-              future: downloadJSON(),
-              builder: (context, data ){
-                //return overrideSnapshot();
-                print(data.data);
-                listedData = data.data;
-                if (data.data != null){
-                  return RefreshIndicator(
-                    color: pure_,
-                    backgroundColor: Colors.green[800],
-                    onRefresh: ()  {
-                      return Future.delayed(
-                        Duration(seconds: 3), () async {
-                          var content = await downloadJSON();
-                          setState(() {
-                            listedData = content;
-                          });
-
-                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Page Refreshed'),
-                            ),
-                          );
-                          
-                        }
-                      );
-                    },
-                    child: Container(
-                      child: CustomListView( noteList: listedData,)
-                    ),
-                  );
-                }else{
-                  return CircularProgressIndicator();
-                }
-
-              }
-            ),
-          ),
-          /* new FutureBuilder<List<Notes_out>>(
+        body: Container(
+          child: new FutureBuilder<List<Notes_out>>(
             future: downloadJSON(),
-            //we pass a BuildContext and an AsyncSnapshot object which is an
-            //Immutable representation of the most recent interaction with
-            //an asynchronous computation.
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              print("snap Shoot: ");
-              print(snapshot.data);
-              if (snapshot.hasData) {
-                List<Notes_out> spacecrafts = snapshot.data;
+            builder: (context, data ){
+              //return overrideSnapshot();
+              print(data.data);
+              listedData = data.data;
+
+              if (data.hasData) {
+                return RefreshIndicator(
+                  color: pure_,
+                  backgroundColor: Colors.green[800],
+                  onRefresh: ()  {
+                    return Future.delayed(
+                      Duration(seconds: 3), () async {
+                        var content = await downloadJSON();
+                        setState(() {
+                          listedData = content;
+                        });
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Page Refreshed'),
+                          ),
+                        );
+                        
+                      }
+                    );
+                  },
+                    child: CustomListView( noteList: listedData,),
+                );   
+              } 
+              else if (data.hasError) {
                 return Container(
-                    color: Colors.black,
-                    child: new CustomListView( noteList: spacecrafts,));
-              } else if (snapshot.hasError) {
-                return new Container(
-                  decoration: BoxDecoration(
-                      image: DecorationImage(image: AssetImage("assets/peas-nointernet.gif"), fit: BoxFit.fill)
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('We are having some problems connecting to the server'),
-                        ),
-                    ],
+                  child: Center(
+                    child: Text("No Connection",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 16,
+                      ),
+                    )
                   ),
                 );
               }
-              //return  a circular progress indicator.
-              return new Container(
-                /* decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage("assets/nuesa_background1.gif"), fit: BoxFit.fill)
-                ), */
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CircularProgressIndicator(),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          "Loading...",
-                          style: TextStyle(
-                            color: Colors.blue, fontWeight: FontWeight.w800,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
-          ), */
+              else{
+                return Container(child: Center(child: CircularProgressIndicator()));
+              }
+
+            }
+          ),
         ),
 
-        floatingActionButton: Padding(
-          padding: EdgeInsets.all(12),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.blue[900],
-              shape: BoxShape.circle,
-            ),
-            child: IconButton(
-              color: Colors.white,
-              icon: Icon(Icons.add), 
-              onPressed: ()=>{
+        bottomNavigationBar: Container(
+          height: 150,
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: InkWell(
+              onTap: ()=>{
                 Navigator.of(context).push(MaterialPageRoute(
                 builder: (BuildContext context) => Write_note()))
-              }
+              },
+              child: Padding(
+                padding: EdgeInsets.all(15),
+                child: Container(
+                  padding: EdgeInsets.all(9),
+                  decoration: BoxDecoration(
+                    color: Colors.orange,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.orange.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 4,
+                        offset: Offset(0,3),
+                      )
+                    ]
+                  ),
+                  child: Icon(Icons.add, size: 45, color: Colors.white,),
+                ),
+              ),
             ),
           ),
         ),
-      ),
+
+        /* floatingActionButton: Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: EdgeInsets.all(16),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.orange[900],
+                shape: BoxShape.circle,
+              ),
+              child: IconButton(
+                color: Colors.white,
+                icon: Icon(Icons.add), 
+                onPressed: ()=>{
+                  Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => Write_note()))
+                }
+              ),
+            ),
+          ),
+        ), */
     );
   }
 }

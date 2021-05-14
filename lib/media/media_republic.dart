@@ -42,14 +42,33 @@ class _MediaReb extends State<media_Republic> {
   @override
   Widget build(BuildContext context) {
     final tab = TabBar(
-      labelColor: red_color,
+      labelColor: Colors.white70,
       //indicatorColor: dark_,
-      unselectedLabelColor: Colors.white,
+      unselectedLabelColor: Colors.black38,
+      indicator: BoxDecoration(
+        color: Colors.black87,
+        borderRadius: BorderRadius.circular(12),
+      ),
       labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,),
       tabs: [
       //Tab( text: "GLC Chat Room", ),
-      Tab( text: "Podcast"),
-      Tab( text: "Videos"),
+      Tab( 
+        child: Container(
+          padding: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            //color: Colors.black12,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Text("Podcast"),
+        ), 
+      ),
+      Tab( 
+        child: Container(
+          padding: EdgeInsets.all(8),
+          child: Text("Videos"),
+        ), 
+      ),
+      //Tab( text: "Videos"),
     ]);
 
     return DefaultTabController(length: 2,
@@ -57,48 +76,40 @@ class _MediaReb extends State<media_Republic> {
         backgroundColor: pure_,
         appBar: PreferredSize(
           child:  Padding(
-            padding: const EdgeInsets.all(1.0),
+            padding: const EdgeInsets.all(15.0),
             child: Container(
               height: 60,
-              color: Colors.white70,
-              padding: EdgeInsets.all(3),
-              child: Card(
-                color: Colors.blue[900],
-                elevation: 2,
-                child: tab
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(247, 247, 247, 1),
+                borderRadius: BorderRadius.circular(12),
               ),
+              padding: EdgeInsets.all(3),
+              child: tab,
             ),
           ),  
-          preferredSize: Size(double.infinity, 80),
+          preferredSize: Size(double.infinity, 76),
         ),
         body: TabBarView(
           children: <Widget>[
               media_page(),
               watch_page(),
+              //thevideoSize(),
               /* Container(color: Colors.green),
               Container(color: Colors.yellow), */
+              /* testTool(),
+              thenotes() */
+              //thevideoSize(),
           ]
         ),
 
-       /*  bottomNavigationBar: PreferredSize(
-          child: Padding(
-            padding: const EdgeInsets.all(1.0),
-            child: Container(
-              height: 60,
-              color: Colors.white70,
-              padding: EdgeInsets.all(3),
-              child: Card(
-                color: Colors.green[900],
-                elevation: 2,
-                child: tab
-              ),
-            ),
-          ), 
-          preferredSize: Size(double.infinity, 80),
-        ), */
+       
         
         
       ),
     );
   }
+
+
+ 
+
 }

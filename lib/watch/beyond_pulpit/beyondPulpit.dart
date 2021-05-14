@@ -58,7 +58,7 @@ class pulpit_Live extends StatefulWidget {
 
   Future video_source() async {
     //String the_video_url = "";
-    String url_ = "http://164.90.139.70/api/content/beyond_the_pulpit/";
+    String url_ = "https://app.glclondon.church/api/content/beyond_the_pulpit/";
     //String url_ = "https://a1in1.com/buye/.php";
     String token = "Bearer " + await read_from_SP("token");
     return get(
@@ -123,6 +123,7 @@ class _MyHomePageState extends State<pulpit_Live> {
       body: Container(
       height: MediaQuery.of(context).size.height,
       child: ListView(
+        shrinkWrap: true,
         children: <Widget>[
           Container(
             child: new FutureBuilder (
@@ -186,10 +187,12 @@ class _MyHomePageState extends State<pulpit_Live> {
             return new Container(
               child: Center(
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children : <Widget>[
                     CircularProgressIndicator(),
-                    Expanded(
+                    Flexible(
+                      fit: FlexFit.loose,
                       child: Text("Processing, Please Wait.", 
                       style: TextStyle(
                         color: Colors.green[800],

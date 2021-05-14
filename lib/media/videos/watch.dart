@@ -1,5 +1,6 @@
 //import 'dart:html';
 
+import 'package:GLC/media/podcast/media.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
@@ -9,19 +10,23 @@ import 'package:video_player/video_player.dart';
 
 class VideoCast {
   //final String id;
-  final String name, date, watchIt;
+  final String name, date, watchIt, image, duration;
 
   VideoCast({
     this.name,
+    this.image,
     this.date,
     this.watchIt,
+    this.duration,
   });
 
   factory VideoCast.fromJson(Map<String, dynamic> jsonData) {
     return VideoCast(
       name: jsonData['title'],
+      image: jsonData['photo'],
       date: jsonData['date'],
       watchIt: jsonData['file'],
+      duration: jsonData['videoDuration'],
     );
   }
 }
@@ -46,7 +51,7 @@ class watch_page extends StatefulWidget {
 
 
 Future<List<VideoCast>> video_source() async {
-  final jsonEndpoint = 'http://164.90.139.70/api/content/videos/';
+  final jsonEndpoint = 'https://app.glclondon.church/api/content/videos/';
   String token = "Bearer " + await read_from_SP("token");
   Response response = await get(
     Uri.parse(jsonEndpoint),
@@ -119,105 +124,69 @@ class _MyHomePageState extends State<watch_page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: bright_,
+      backgroundColor: pure_,
       body: Container(
-      child: Column(
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              child: new FutureBuilder<List<VideoCast>> (
-            future: video_source(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                //String goto = snapshot.data;
-                theList = snapshot.data;
-                return RefreshIndicator(
-                  onRefresh: ()  {
-                      return Future.delayed(
-                        Duration(seconds: 3), () async {
-                          var content = await video_source();
-                          setState(() {
-                            theList = content;
-                          });
+      child: RefreshIndicator(
+        onRefresh: ()  {
+          return Future.delayed(
+            Duration(seconds: 3), () async {
+              var content = await video_source();
+              setState(() {
+                theList = content;
+              });
 
-                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Page Refreshed'),
-                            ),
-                          );
-                          
-                        }
-                      );
-                    },
-                  child: Container(
-                    child: VideoListView(thevideoers: theList,)
-                  ),
-                );
-              } else if (snapshot.hasError) {
-                return new Container(
+                ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Page Refreshed'),
+                ),
+              );
+              
+            }
+          );
+        },
+        child: new FutureBuilder<List<VideoCast>> (
+          future: video_source(),
+          builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            //String goto = snapshot.data;
+            theList = snapshot.data;
+            return Container(
+              child: VideoListView(thevideoers: theList,)
+            );
+          } else if (snapshot.hasError) {
+            return Padding(
+              padding: const EdgeInsets.all(21.0),
+              child: new Container(
+                child: Center(
                   child: Text("We are Facing some issues. Try Again Later.",
                     style: TextStyle(color: Colors.red[800], fontWeight: FontWeight.w700,),
                   ),
-                );
-              }
-              //return  a circular progress indicator.
-              return new Container(
-                /* decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage("assets/glc logo 1.png"), fit: BoxFit.fill)
-                ), */
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children : <Widget>[
-                      CircularProgressIndicator(),
-                      Expanded(
-                        child: Text("Processing, Please Wait.", 
-                        style: TextStyle(
-                          color: Colors.green[800],
-                          fontWeight: FontWeight.w800,
-                        ),
-                        )
-                      )
-                    ]
-                  ),
-                )
-              );
-            },
-          ),
-            )
-          ),
-          
-          /* Row(
-            //mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(Icons.person_outline),
-                      Text("BIBLE"),
-                  ],),
-                )
+                ),
               ),
-
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(Icons.note_add),
-                      Text("NOTES"),
-                  ],),
-                )
-              )
-            ],
-          ) */
-
-
-        ],
+            );
+          }
+          //return  a circular progress indicator.
+          return new Container(
+            /* decoration: BoxDecoration(
+              image: DecorationImage(image: AssetImage("assets/glc logo 1.png"), fit: BoxFit.fill)
+            ), */
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children : <Widget>[
+                  CircularProgressIndicator(strokeWidth: 3, backgroundColor: Colors.green[800],),
+                  Text("Processing, Please Wait.", 
+                  style: TextStyle(
+                    color: Colors.green[800],
+                    fontWeight: FontWeight.w800,
+                  ),
+                  )
+                ]
+              ),
+            )
+          );
+      },
+      ),
       ),
       )
     );
@@ -243,7 +212,7 @@ class _VideoListViewState extends State<VideoListView> {
 
 
       
- 
+ /* 
       Widget VideoStructure(url){
         VideoPlayerController _controller = VideoPlayerController.network(url);
         Future<void> _initializeVideoPlayerFuture = _controller.initialize();
@@ -268,8 +237,120 @@ class _VideoListViewState extends State<VideoListView> {
             ],
           ),
         );
+      } */
 
-        
+       Widget thevideoSize(VideoCast theVideo, BuildContext context, int index) {
+         var vidImage =  (theVideo.image != null) ? NetworkImage(theVideo.image) 
+        : AssetImage("assets/glc logo 1.png");
+
+        String videoTime = (theVideo.duration != null) ? theVideo.duration : " ";
+
+        return Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: InkWell(
+            hoverColor: Colors.blue[800],
+            onTap: () {
+              var route = new MaterialPageRoute(
+                builder: (BuildContext context) =>
+                new VideoPlayerApp(url: theVideo.watchIt,),
+              );
+              Navigator.of(context).push(route);
+            },
+            child: Container(
+              height: 320,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: Color.fromRGBO(247, 247, 247, 1),
+                //color: Colors.black12,
+              ),
+              child: Column(
+                children: [
+                  Expanded(
+                    flex: 750,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: vidImage,
+                        )
+                      ),
+
+                      child: Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment.center,
+                            child: Container(
+                              padding: EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                border: Border.all(width: 4, color: Colors.white,),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(Icons.play_arrow, color: Colors.white, size: 34, )
+                            ),
+                          ),
+
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(videoTime, 
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Icon( Icons.calendar_today_outlined, size: 17, color: Colors.white, ),
+                                      Flexible(
+                                        child: Text(theVideo.date,
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ]
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 250,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(
+                          child: Text(theVideo.name,
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
       }
 
       Widget List_video (VideoCast theVideo, BuildContext context, int index) {
@@ -288,7 +369,7 @@ class _VideoListViewState extends State<VideoListView> {
               _controller.dispose();
               super.dispose();
             } */
-                return GestureDetector(
+                /* return GestureDetector(
                   onTap: () async {
                     var route = new MaterialPageRoute(
                       builder: (BuildContext context) =>
@@ -296,13 +377,8 @@ class _VideoListViewState extends State<VideoListView> {
                     );
                     Navigator.of(context).push(route);
                   },
-                  child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        child: VideoStructure(theVideo.watchIt),
-                      ),
-            ),
-        );
+                 // child: 
+        ); */
       }
 
         Widget build(context) {
@@ -310,7 +386,8 @@ class _VideoListViewState extends State<VideoListView> {
           itemCount: thevideoers.length,
           itemBuilder: (context, int currentInd){
             //listenIcon = (currentInd == playingFrom) ? Icons.pause : Icons.headset;
-            return List_video(thevideoers[currentInd], context, currentInd);
+            return thevideoSize(thevideoers[currentInd], context, currentInd);
+            //List_video(thevideoers[currentInd], context, currentInd);
           },
         );
         }

@@ -37,45 +37,56 @@ class GLC_events {
   }
 }
 
-class CustomListView extends StatelessWidget {
-  final List<GLC_events> spacecrafts;
-
-  CustomListView(this.spacecrafts);
+class EventblockDisplay extends StatelessWidget {
+  final List<GLC_events> eventkrafted;
+  String category;
+  EventblockDisplay({this.eventkrafted, this.category});
 
 
   Widget build(context) {
-    return ListView(
+    if(category == null){
+      category = "Events";
+    }
+    return (eventkrafted.isNotEmpty) ? ListView(
+        shrinkWrap: true,
         scrollDirection: Axis.vertical,
         children: <Widget>[
           Center(
             child: Padding(
               padding: const EdgeInsets.only(top: 10.0, bottom: 2.0,),
-              child: Text("Events",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)
+              child: Text(category,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black)
               ),
             ),
           ),
 
-          ListView.builder(
-            shrinkWrap: true,
-            physics: ScrollPhysics(),
-            itemCount: spacecrafts.length,
-            itemBuilder: (context, int currentIndex) {
-              return List_home( spacecrafts[currentIndex], context);
-            },
+          Container(
+            height: 320,
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: ScrollPhysics(),
+              itemCount: eventkrafted.length,
+              itemBuilder: (context, int currentIndex) {
+                return List_vet( eventkrafted[currentIndex], context);
+              },
+            ),
           )
         ]
+    ): Container(
+      height: 120,
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 10.0, bottom: 2.0,),
+          child: Text("No" + category,
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black)
+          ),
+        ),
+      ),
     );
-
-    /* return ListView.builder(
-      itemCount: spacecrafts.length,
-      itemBuilder: (context, int currentIndex) {
-        return List_home(spacecrafts[currentIndex], context);
-      },
-    );*/
   }
 
-  Widget List_home (GLC_events each_event, BuildContext context) {
+  Widget List_vet(GLC_events each_event, BuildContext context) {
+    var netImage = ( each_event.imageUrl != null) ? NetworkImage(each_event.imageUrl) : AssetImage("assets/glc logo 1.jpg");
     return Container(
       height: 210,
       //color: Colors.blue[300],
@@ -90,13 +101,9 @@ class CustomListView extends StatelessWidget {
                     color: Colors.orange,
                     image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: NetworkImage(each_event.imageUrl)
+                      image: netImage,
                     )
                   )
-                  /* child: Image.network(
-                    each_event.imageUrl, 
-                    fit: BoxFit.fitHeight,
-                  ), */
                 ),
               ),
 
@@ -160,94 +167,167 @@ class CustomListView extends StatelessWidget {
           ),
       ),
     );
-    
-    
-    /* InkWell(
-      hoverColor: Colors.orange,
-      onTap: () {
-        //TODO
-        //May be int he
-        /* var route = new MaterialPageRoute(
-          builder: (BuildContext context) =>
-          new SecondScreen(value: nuesa_news),
-        ); */
-        //Navigator.of(context).push(route);
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          height: 240,
-          width: double.infinity,
-          color: Colors.black,
-          child: Card(
-              child: Wrap(
-                //crossAxisAlignment: WrapCrossAlignment.start,
-                children: <Widget>[
-                  Container(
-                    width: double.infinity,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Image.network(
-                              each_event.imageUrl, 
-                              height: 120, 
-                              width: 120,
-                              //fit: BoxFit.contain
-                            ),
-                          ),
-                          Expanded(
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Flexible(child: Text(each_event.title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),)),
-                                  
-                                  Flexible(
-                                    child: Column(
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                            children: [
-                                              Icon(Icons.calendar_today,
-                                                color: Colors.amber,
-                                              ),
-                                              Text(each_event.date),
-                                            ],
-                                          ),
-                                        )
-                                      ]
-                                    )
-                                    
-                                    
-                                    //Text(each_event.venue+ " "+ each_event.startTime+ " "+ each_event.date) 
-                                  ),
-                                ]
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              )
+  }
+}
+
+class EventsideDisplay extends StatelessWidget {
+  final List<GLC_events> theEvents;
+  String category;
+  EventsideDisplay({this.theEvents, this.category});
+
+
+  Widget build(context) {
+    if(category == null){
+      category = "Events";
+    }
+    return (theEvents.isNotEmpty) ?  ListView(
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        children: <Widget>[
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10.0, bottom: 2.0,),
+              child: Text(category,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black)
+              ),
+            ),
+          ),
+
+          Container(
+            height: 320,
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: ScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              itemCount: theEvents.length,
+              itemBuilder: (context, int currentIndex) {
+                return List_home( theEvents[currentIndex], context);
+              },
+            ),
+          )
+        ]
+    ) : Container(
+      height: 120,
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 10.0, bottom: 2.0,),
+          child: Text("No" + category,
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black)
           ),
         ),
       ),
-    ); */
+    );
+    
   }
 
+  Widget List_home (GLC_events each_event, BuildContext context) {
+    var wallpaper = ( each_event.imageUrl != null) ? NetworkImage(each_event.imageUrl) : AssetImage("assets/glc logo 1.jpg");
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 210,
+        width: 230,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: Color.fromRGBO(247, 247, 247, 1),
+          //color: Colors.yellow[500],
+        ),
+        
+
+        child: Column(
+          children: [
+            Expanded(
+              flex: 650,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: wallpaper,
+                  )
+                ),
+
+                child: Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Flexible(
+                              child: Text(each_event.startTime , 
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 9,
+                                ),
+                              ),
+                            ),
+
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Icon( Icons.calendar_today_outlined, size: 17, color: Colors.white, ),
+                                Flexible(
+                                  child: Text( each_event.date ,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 9,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ]
+                ),
+              ),
+            ),
+
+            Expanded(
+              flex: 350,
+              child: Center(
+                child: Container(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(each_event.title, 
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          each_event.desc,
+                          style: TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                      )
+                    ]
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 //Future is n object representing a delayed computation.
-Future<List<GLC_events>> GetEventsJson() async {
+Future<List<GLC_events>> GetEventsJson(String enderP) async {
   //final jsonEndpoint = "https://a1in1.com/GLC/";
-  final enderP = 'http://164.90.139.70/api/events/upcoming/';
+ // final  = 'https://app.glclondon.church/api/events/upcoming/';
   String token = "Bearer " + await read_from_SP("token");
 
   final responseEvents = await get(
@@ -277,7 +357,9 @@ class EventsGLCLondon extends StatefulWidget {
 }
 
 class EventsGLCLondonState extends State<EventsGLCLondon> {
-
+  String upcomingEventy = 'https://app.glclondon.church/api/events/upcoming/';
+  String previousEventer = 'https://app.glclondon.church/api/events/previous/';
+  String currentEventor = 'https://app.glclondon.church/api/events/current/';
   List<GLC_events> eventscarry;
   @override
   Widget build(BuildContext context) {
@@ -289,69 +371,282 @@ class EventsGLCLondonState extends State<EventsGLCLondon> {
       ),
       home: new Scaffold(
         //appBar: new AppBar(title: const Text('MySQL Images Text')),
-        body: new Center(
-          //FutureBuilder is a widget that builds itself based on the latest snapshot
-          // of interaction with a Future.
-          child:  FutureBuilder<List<GLC_events>>(
-            future: GetEventsJson(),
-            //we pass a BuildContext and an AsyncSnapshot object which is an
-            //Immutable representation of the most recent interaction with
-            //an asynchronous computation.
-            builder: (context, gottenshot) {
-              //var constate =  gottenshot.connectionState.done ;
-              switch (gottenshot.connectionState){
-                case ConnectionState.done:
-                if (gottenshot.data != null) {
-                  eventscarry = gottenshot.data;
-                   return RefreshIndicator(
-                     onRefresh: ()  {
-                      return Future.delayed(
-                        Duration(seconds: 3), () async {
-                          var content = await GetEventsJson();
-                          setState(() {
-                            eventscarry = content;
-                          });
+        body: ListView(
+          children: [
 
-                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Page Refreshed'),
-                            ),
+            Padding(
+              padding: const EdgeInsets.all(21.0),
+              child: FutureBuilder<List<GLC_events>>(
+                future: GetEventsJson(upcomingEventy),
+                builder: (context, gottenshot) {
+                  //var constate =  gottenshot.connectionState.done ;
+                  switch (gottenshot.connectionState){
+                    case ConnectionState.done:
+                    if (gottenshot.data != null) {
+                      eventscarry = gottenshot.data;
+                       return RefreshIndicator(
+                         onRefresh: ()  {
+                          return Future.delayed(
+                            Duration(seconds: 3), () async {
+                              var content = await GetEventsJson(upcomingEventy);
+                              setState(() {
+                                eventscarry = content;
+                              });
+
+                               ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Page Refreshed'),
+                                ),
+                              );
+                              
+                            }
                           );
-                          
-                        }
-                      );
-                    },
-                     child: Container(
-                        color: Colors.white,
-                        child: new CustomListView(eventscarry)
-                      ),
-                   );
-                } else if (gottenshot.hasError ) {
-                   return new Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'We are facing some challenges.',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
+                        },
+                         child: Container(
+                            color: Colors.white,
+                            child: new EventsideDisplay(theEvents: eventscarry, category: "Upcoming Events",)
                           ),
-                      ],
-                    ),
-                  );
-                }
-                break;
-                default: return new Container(
-                  child: CircularProgressIndicator( strokeWidth: 6.0, backgroundColor: Colors.teal, ),
-                );
-              }
-              
-            },
-          ),
+                       );
+                    } else if (gottenshot.hasError ) {
+                       return new Container(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'We are facing some challenges.',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
+                      );
+                    }
+                    break;
+                    default: return new Container(
+                      height: 320,
+                      child: Center(
+                        child: CircularProgressIndicator( 
+                            strokeWidth: 6.0, 
+                            backgroundColor: 
+                            Colors.teal,
+                        )
+                      ),
+                    );
+                  }
+                },
+              ),
+            ),
+
+
+            Padding(
+              padding: const EdgeInsets.all(21.0),
+              child: FutureBuilder<List<GLC_events>>(
+                future: GetEventsJson(previousEventer),
+                builder: (context, gottenshot) {
+                  //var constate =  gottenshot.connectionState.done ;
+                  switch (gottenshot.connectionState){
+                    case ConnectionState.done:
+                    if (gottenshot.data != null) {
+                      eventscarry = gottenshot.data;
+                       return RefreshIndicator(
+                         onRefresh: ()  {
+                          return Future.delayed(
+                            Duration(seconds: 3), () async {
+                              var content = await GetEventsJson(previousEventer);
+                              setState(() {
+                                eventscarry = content;
+                              });
+
+                               ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Page Refreshed'),
+                                ),
+                              );
+                              
+                            }
+                          );
+                        },
+                         child: Container(
+                            color: Colors.white,
+                            child: new EventsideDisplay(theEvents: eventscarry, category: "Previous Events",)
+                          ),
+                       );
+                    } else if (gottenshot.hasError ) {
+                       return new Container(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'We are facing some challenges.',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
+                      );
+                    }
+                    break;
+                    default: return new Container(
+                      height: 320,
+                      child: Center(
+                        child: CircularProgressIndicator( 
+                            strokeWidth: 6.0, 
+                            backgroundColor: 
+                            Colors.teal,
+                        )
+                      ),
+                    );
+                  }
+                },
+              ),
+            ),
+
+
+            Padding(
+              padding: const EdgeInsets.all(21.0),
+              child: FutureBuilder<List<GLC_events>>(
+                future: GetEventsJson(currentEventor),
+                builder: (context, gottenshot) {
+                  //var constate =  gottenshot.connectionState.done ;
+                  switch (gottenshot.connectionState){
+                    case ConnectionState.done:
+                    if (gottenshot.data != null) {
+                      eventscarry = gottenshot.data;
+                       return RefreshIndicator(
+                         onRefresh: ()  {
+                          return Future.delayed(
+                            Duration(seconds: 3), () async {
+                              var content = await GetEventsJson(currentEventor);
+                              setState(() {
+                                eventscarry = content;
+                              });
+
+                               ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Page Refreshed'),
+                                ),
+                              );
+                              
+                            }
+                          );
+                        },
+                         child: Container(
+                            color: Colors.white,
+                            child: new EventsideDisplay(theEvents: eventscarry, category: "Current Events",)
+                          ),
+                       );
+                    } else if (gottenshot.hasError ) {
+                       return new Container(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'We are facing some challenges.',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
+                      );
+                    }
+                    break;
+                    default: return new Container(
+                      height: 320,
+                      child: Center(
+                        child: CircularProgressIndicator( 
+                            strokeWidth: 6.0, 
+                            backgroundColor: 
+                            Colors.teal,
+                        )
+                      ),
+                    );
+                  }
+                },
+              ),
+            ),
+
+
+            Padding(
+              padding: const EdgeInsets.all(21.0),
+              child: FutureBuilder<List<GLC_events>>(
+                future: GetEventsJson(upcomingEventy),
+                builder: (context, gottenshot) {
+                  //var constate =  gottenshot.connectionState.done ;
+                  switch (gottenshot.connectionState){
+                    case ConnectionState.done:
+                    if (gottenshot.data != null) {
+                      eventscarry = gottenshot.data;
+                       return RefreshIndicator(
+                         onRefresh: ()  {
+                          return Future.delayed(
+                            Duration(seconds: 3), () async {
+                              var content = await GetEventsJson(upcomingEventy);
+                              setState(() {
+                                eventscarry = content;
+                              });
+
+                               ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Page Refreshed'),
+                                ),
+                              );
+                              
+                            }
+                          );
+                        },
+                         child: Container(
+                            color: Colors.white,
+                            child: new EventblockDisplay(eventkrafted: eventscarry, category: "Upcoming Events",)
+                          ),
+                       );
+                    } else if (gottenshot.hasError ) {
+                       return new Container(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'We are facing some challenges.',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
+                      );
+                    }
+                    break;
+                    default: return new Container(
+                      height: 320,
+                      child: Center(
+                        child: CircularProgressIndicator( 
+                            strokeWidth: 6.0, 
+                            backgroundColor: 
+                            Colors.teal,
+                        )
+                      ),
+                    );
+                  }
+                },
+              ),
+            ),
+
+
+          ],
         ),
       ),
     );

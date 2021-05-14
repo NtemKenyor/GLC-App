@@ -8,40 +8,52 @@ class Display_content extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      theme: ThemeData(
-        primaryColor: Colors.black,
-        accentColor: Color(0xFFDBECF1),
-        scaffoldBackgroundColor: Colors.black45,
-      ),
-      home: new Scaffold(
+    return  Scaffold(
         body: new Container(
           color: Colors.white,
           width: double.infinity,
-          child: Column(
+          child: ListView(
+            //mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              Text(title,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+              SizedBox(height: 60,),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Text(title,
+                    style: TextStyle(
+                      fontSize: 21,
+                      fontWeight: FontWeight.bold,
+                      decorationStyle: TextDecorationStyle.double,
+                    ),
+                  ),
                 ),
               ),
-              Text("Created: " + createdDate + " Updated: "+upDated, 
+              Text("Created: " + createdDate,
                 style: TextStyle(
                   fontSize: 12,
+                  fontStyle: FontStyle.italic,
                 ),
               ),
-              Expanded(
+
+              Text(" Updated: "+upDated,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+               
+              Padding(
+                padding: const EdgeInsets.all(12.0),
                 child: Text(content,
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 17,
                   ),
-                )
+                  textAlign: TextAlign.justify,
+                ),
               ),
             ],
           ),
         ),
-      ),
     );
   }
 }

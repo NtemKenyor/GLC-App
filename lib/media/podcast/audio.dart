@@ -73,7 +73,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerApp> with SingleTickerPro
     });
   }
   Widget displayer(test, context){
-    final snackBar = SnackBar(content: Text(test),);
+    final snackBar = SnackBar(content: Text(test), duration: Duration(seconds: 16),);
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 

@@ -25,13 +25,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Podcast {
   //final String id;
-  final String pod_name, date, imageUrl, listen;
+  final String pod_name, date, imageUrl, listen, duration;
 
   Podcast({
     this.pod_name,
     this.date,
     this.imageUrl,
     this.listen,
+    this.duration
   });
 
   factory Podcast.fromJson(Map<String, dynamic> jsonData) {
@@ -42,6 +43,7 @@ class Podcast {
       //listen: "https://a1in1.com/GLC/media_files/"+jsonData['location'],
       imageUrl: jsonData['photo'],
       listen: jsonData['file'],
+      duration: jsonData['musicDuration'],
     );
   }
 }
@@ -94,7 +96,7 @@ class _MyHomePageState extends State<media_page> {
   }
 
 Future<List<Podcast>> downloadJSON() async {
-  final jsonEndpoint = 'http://164.90.139.70/api/content/podcasts/';
+  final jsonEndpoint = 'https://app.glclondon.church/api/content/podcasts/';
   String token = "Bearer " + await read_from_SP("token");
   Response response = await get(
     Uri.parse(jsonEndpoint),
@@ -144,94 +146,79 @@ Future<List<Podcast>> downloadJSON() async {
       backgroundColor: pure_,
       body: Container(
         //color: Colors.pink,
-        child: Column(
-          //scrollDirection: Axis.vertical,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text("Podcast", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19,),),
-            ),
-            Expanded(
-              //flex: 900,
-              child: FutureBuilder<List<Podcast>>(
-            future: downloadJSON(),
-            //we pass a BuildContext and an AsyncSnapshot object which is an
-            //Immutable representation of the most recent interaction with
-            //an asynchronous computation.
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                spacecrafts = snapshot.data;
-                return RefreshIndicator(
-                    onRefresh: ()  {
-                      return Future.delayed(
-                        Duration(seconds: 3), () async {
-                          var content = await downloadJSON();
-                          setState(() {
-                            spacecrafts = content;
-                          });
+        child: RefreshIndicator(
+          onRefresh: ()  {
+            return Future.delayed(
+              Duration(seconds: 3), () async {
+                var content = await downloadJSON();
+                setState(() {
+                  spacecrafts = content;
+                });
 
-                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Page Refreshed'),
-                            ),
-                          );
-
-                        }
-                      );
-                    },
-                    //enablePullUp: true,
-                    //controller: ,
-                    child: Container(
-                      color: Colors.black,
-                      child: new CustomListView(spacecrafts: spacecrafts,)
-                    ),
-                );
-              } else if (snapshot.hasError) {
-                return new Container(
-                  decoration: BoxDecoration(
-                      image: DecorationImage(image: AssetImage("assets/peas-nointernet.gif"), fit: BoxFit.fill)
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('We are having some problems connecting to the server'),
-                        ),
-                    ],
+                  ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Page Refreshed'),
                   ),
                 );
+
               }
-              //return  a circular progress indicator.
-              return new Container(
-                /* decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage("assets/nuesa_background1.gif"), fit: BoxFit.fill)
-                ), */
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CircularProgressIndicator(),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          "Loading...",
-                          style: TextStyle(
-                            color: Colors.blue, fontWeight: FontWeight.w800,
-                          ),
-                        ),
+            );
+          },
+          child: FutureBuilder<List<Podcast>>(
+          future: downloadJSON(),
+          //we pass a BuildContext and an AsyncSnapshot object which is an
+          //Immutable representation of the most recent interaction with
+          //an asynchronous computation.
+          builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            spacecrafts = snapshot.data;
+            return Container(
+                  color: Colors.white,
+                  child: new CustomListView(spacecrafts: spacecrafts,)
+                );          
+              } 
+          else if (snapshot.hasError) {
+            return new Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(image: AssetImage("assets/peas-nointernet.gif"), fit: BoxFit.fill)
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('We are having some problems connecting to the server'),
+                    ),
+                ],
+              ),
+            );
+          }
+          //return  a circular progress indicator.
+          return new Container(
+            /* decoration: BoxDecoration(
+              image: DecorationImage(image: AssetImage("assets/nuesa_background1.gif"), fit: BoxFit.fill)
+            ), */
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator( backgroundColor: Colors.blue[800], strokeWidth: 7,),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Loading...",
+                      style: TextStyle(
+                        color: Colors.blue, fontWeight: FontWeight.w800,
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              );
-            },
-          ),
-            
+                ],
+              ),
             ),
-
-          ]
+          );
+          },
+            ),
         ),
       ),
     );
@@ -262,7 +249,7 @@ class _CustomListViewState extends State<CustomListView> {
       //AudioPlayer.logEnabled = true;
       String podUrl;
       
-      IconData listenIcon = Icons.headset;
+      IconData listenIcon = Icons.headset_outlined;
         
       int podcastState = 0;
       play(podcast_path, index) async {
@@ -334,6 +321,212 @@ class _CustomListViewState extends State<CustomListView> {
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
 
+      Widget musicTool(Podcast cord, BuildContext context, int index) {
+
+        var theImager =  (cord.imageUrl != null) ? Image.network(cord.imageUrl, fit: BoxFit.cover, height: double.infinity,) 
+        : Image.asset("assets/glc logo 1.png", fit: BoxFit.cover, height: double.infinity,);
+
+        var conImage =  (cord.imageUrl != null) ? NetworkImage(cord.imageUrl) 
+        : AssetImage("assets/glc logo 1.png");
+
+        String durate_serve = (cord.duration != null) ? cord.duration : " ";
+
+
+                return Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: GestureDetector(
+                    onTap: () async {
+                      var route = new MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                        new AudioPlayerApp(audioUrl: cord.listen, audioTitle: cord.pod_name, audioImage: cord.imageUrl, ),
+                      );
+                      Navigator.of(context).push(route);
+                    },
+                    child: Container(
+                      height: 160,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        //color: Colors.black12,
+                        color: Color.fromRGBO(247, 247, 247, 1),
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 550,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  image: DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: conImage,
+                                  )
+                                ),
+
+                                child: Stack(
+                                  children: [
+                                    /* Positioned.fill(
+                                      child: Image.asset("assets/blog_1.png", fit: BoxFit.fill,)
+                                    ), */
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Container(
+                                        padding: EdgeInsets.all(12),
+                                        decoration: BoxDecoration(
+                                          border: Border.all(width: 4, color: Colors.white,),
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Icon(Icons.headset_outlined, color: Colors.white, size: 34, )
+                                      ),
+                                    ),
+
+                                    /* Align(
+                                      alignment: Alignment.bottomLeft,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text("00:00", 
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ), */
+
+                                    Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(durate_serve, 
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 9,
+                                              ),
+                                            ),
+
+                                            Expanded(
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                children: [
+                                                  Icon( Icons.calendar_today_outlined, size: 17, color: Colors.white, ),
+                                                  Flexible(
+                                                    child: Text(cord.date,
+                                                      style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 9,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ]
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 450,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(15.0),
+                                    child: Text(cord.pod_name,
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Card(
+                                        elevation: 6,
+                                        child: Container(
+                                          padding: EdgeInsets.fromLTRB(7, 3, 7, 3),
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(23),
+                                          ),
+                                          child: InkWell(
+                                            hoverColor: Colors.amber[700],
+                                            onTap: () {
+                                              displayer("Processing Audio.", context);
+                                              playingFrom = (playingFrom > 0) ? -1 : playingFrom;
+                                              play(cord.listen, index);
+                                              
+                                            },
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                //Icon(Icons.headset_outlined, color: Colors.orange,), 
+                                                Icon(listenIcon, color: Colors.orange,),
+                                                Text("Listen"),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                         //hoverColor: Colors.green[800],
+                                        onTap: () async {
+                                          WidgetsFlutterBinding.ensureInitialized();
+                                          await FlutterDownloader.initialize();
+                                          String path2Save = await getLocation();
+                                          Directory(path2Save).createSync(recursive: true);
+                                          Directory saveHere = Directory(path2Save);
+                                          if (await saveHere.exists()){
+                                            await FlutterDownloader.enqueue(
+                                              url: cord.listen,
+                                              savedDir: saveHere.path,
+                                              showNotification: true,
+                                              openFileFromNotification: true,
+                                              fileName:cord.pod_name,
+                                            );
+                                          displayer("Processing Download.", context);
+                                          }
+                                        },
+                                        child: Container(
+                                          height: 27,
+                                          width: 27,
+                                          decoration: BoxDecoration(
+                                            color: Colors.orange,
+                                            borderRadius: BorderRadius.circular(12),
+                                          ),
+                                          child: Card(
+                                            color: Colors.orange,
+                                            elevation: 9,
+                                            child: Icon(Icons.download_sharp, color: Colors.white, size: 19,),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              
+        }
+/* 
       Widget List_home (Podcast cord, BuildContext context, int index) {
         var theImager =  (cord.imageUrl != null) ? Image.network(cord.imageUrl, fit: BoxFit.cover, height: double.infinity,) 
         : Image.asset("assets/glc logo 1.png", fit: BoxFit.cover, height: double.infinity,);
@@ -346,171 +539,179 @@ class _CustomListViewState extends State<CustomListView> {
                     );
                     Navigator.of(context).push(route);
                   },
-                  child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        //child: Text("Hello Guys")
-                        height: 160,
-                        color: pure_,
-                        child: Column(
-                          //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(8, 1, 8, 12),
-                              child: Divider(thickness: 2, height: 3, color: dark_,),
-                            ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                        padding: const EdgeInsets.fromLTRB(21, 12, 21, 12),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: Color.fromRGBO(247, 246, 245, 1),
+                          ),
+                          height: 160,
+                          child: Column(
+                            //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              /* Padding(
+                                padding: const EdgeInsets.fromLTRB(8, 1, 8, 12),
+                                child: Divider(thickness: 2, height: 3, color: dark_,),
+                              ), */
         
-                            Expanded(
-                                child: Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    flex: 400,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(12),
-                                          child: theImager,
+                              Expanded(
+                                  child: Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 400,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(12),
+                                            child: theImager,
+                                  ),
+                                  //child: Image.asset("assets/blog_person.jpg", fit: BoxFit.fitHeight,)
                                 ),
-                                //child: Image.asset("assets/blog_person.jpg", fit: BoxFit.fitHeight,)
                               ),
                             ),
-                          ),
 
-                          Expanded(
-                            flex: 600,
-                            child: Container(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  //mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    Expanded(child: Text(cord.pod_name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,),)),
-                                    Expanded(
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: <Widget>[
-                                          Icon(Icons.calendar_today, color: yellow_,),
-                                          Flexible(
-                                            child: Text(cord.date, maxLines: 1, style: TextStyle(fontWeight: FontWeight.w800))
-                                          ),
-                                        ]
-                                        //trailing: Text("Monday, 21st October"),
-                                      ),
-                                    ),
-
-                                    Expanded(
-                                      child: InkWell(
-                                        hoverColor: Colors.amber[700],
-                                        onTap: () {
-                                          displayer("Processing Audio.", context);
-                                          playingFrom = (playingFrom > 0) ? -1 : playingFrom;
-                                          play(cord.listen, index);
-                                          
-                                        },
+                            Expanded(
+                              flex: 600,
+                              child: Container(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    //mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Expanded(child: Text(cord.pod_name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,),)),
+                                      Expanded(
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           children: <Widget>[
-                                            Icon(listenIcon, color: yellow_,),
+                                            Icon(Icons.calendar_today, color: yellow_,),
                                             Flexible(
-                                              child: Text("Listen", maxLines: 1, style: TextStyle(fontWeight: FontWeight.w800))
+                                              child: Text(cord.date, maxLines: 1, style: TextStyle(fontWeight: FontWeight.w800))
                                             ),
                                           ]
                                           //trailing: Text("Monday, 21st October"),
                                         ),
                                       ),
-                                    ),
 
-                                    Expanded(
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: yellow_,
-                                          borderRadius: BorderRadius.circular(12)
+                                      Expanded(
+                                        child: InkWell(
+                                          hoverColor: Colors.amber[700],
+                                          onTap: () {
+                                            displayer("Processing Audio.", context);
+                                            playingFrom = (playingFrom > 0) ? -1 : playingFrom;
+                                            play(cord.listen, index);
+                                            
+                                          },
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: <Widget>[
+                                              Icon(listenIcon, color: yellow_,),
+                                              Flexible(
+                                                child: Text("Listen", maxLines: 1, style: TextStyle(fontWeight: FontWeight.w800))
+                                              ),
+                                            ]
+                                            //trailing: Text("Monday, 21st October"),
+                                          ),
                                         ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: GestureDetector(
-                                            //podUrl = await cord.listen;
-                                            //hoverColor: Colors.green[800],
-                                            onTap: () async {
-                                              WidgetsFlutterBinding.ensureInitialized();
-                                              await FlutterDownloader.initialize();
+                                      ),
 
-                                              /* Directory just_test = await getApplicationDocumentsDirectory();
-                                              print(just_test); */
-                                              
+                                      Expanded(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: yellow_,
+                                            borderRadius: BorderRadius.circular(12)
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: GestureDetector(
+                                              //podUrl = await cord.listen;
+                                              //hoverColor: Colors.green[800],
+                                              onTap: () async {
+                                                WidgetsFlutterBinding.ensureInitialized();
+                                                await FlutterDownloader.initialize();
 
-                                              /* Directory("GLC").createSync(recursive: true);
-                                              String right = Directory("GLC").path;
-                                              print(right); */
-                                              String path2Save = await getLocation();
-                                              Directory(path2Save).createSync(recursive: true);
-                                              Directory saveHere = Directory(path2Save);
-                                              if (await saveHere.exists()){
-                                                await FlutterDownloader.enqueue(
-                                                  url: cord.listen,
-                                                  savedDir: saveHere.path,
-                                                  showNotification: true,
-                                                  openFileFromNotification: true,
-                                                  fileName:cord.pod_name,
-                                                  //cord.listen, saveHere.path, cord.pod_name, null
-                                                //url: cord.listen,
-                                                //savedDir: saveHere.path,
-                                                //showNotification: true, // show download progress in status bar (for Android)
-                                                //openFileFromNotification: true, // click on notification to open downloaded file (for Android)
-                                              );
-                                              displayer("Processing Download.", context);
-                                              }
-                                              
-                                              /* String localPath = await get_location();
+                                                /* Directory just_test = await getApplicationDocumentsDirectory();
+                                                print(just_test); */
+                                                
 
-                                              if (localPath != ""){
-                                                //await ;
-                                                if (DownloadStuffs(cord.listen, localPath)){
-                                                  await playLocal(localPath);
+                                                /* Directory("GLC").createSync(recursive: true);
+                                                String right = Directory("GLC").path;
+                                                print(right); */
+                                                String path2Save = await getLocation();
+                                                Directory(path2Save).createSync(recursive: true);
+                                                Directory saveHere = Directory(path2Save);
+                                                if (await saveHere.exists()){
+                                                  await FlutterDownloader.enqueue(
+                                                    url: cord.listen,
+                                                    savedDir: saveHere.path,
+                                                    showNotification: true,
+                                                    openFileFromNotification: true,
+                                                    fileName:cord.pod_name,
+                                                    //cord.listen, saveHere.path, cord.pod_name, null
+                                                  //url: cord.listen,
+                                                  //savedDir: saveHere.path,
+                                                  //showNotification: true, // show download progress in status bar (for Android)
+                                                  //openFileFromNotification: true, // click on notification to open downloaded file (for Android)
+                                                );
+                                                displayer("Processing Download.", context);
                                                 }
                                                 
-                                              }
-                                              
-                                              //makeHappen(cord.listen); */
-                                            },
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: <Widget>[
-                                                Icon(Icons.file_download, color: pure_,),
-                                                Text("Download", maxLines: 1, style: TextStyle(fontWeight: FontWeight.w800),),
-                                              ]
+                                                /* String localPath = await get_location();
+
+                                                if (localPath != ""){
+                                                  //await ;
+                                                  if (DownloadStuffs(cord.listen, localPath)){
+                                                    await playLocal(localPath);
+                                                  }
+                                                  
+                                                }
+                                                
+                                                //makeHappen(cord.listen); */
+                                              },
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Icon(Icons.file_download, color: pure_,),
+                                                  Text("Download", maxLines: 1, style: TextStyle(fontWeight: FontWeight.w800),),
+                                                ]
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    
-                                  ],
+                                      
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
                 )
               ),
             ),
+                  ),
         );
-      }
+      } */
 
         Widget build(context) {
           return ListView.builder(
           itemCount: spacecrafts.length,
           itemBuilder: (context, int currentInd){
             listenIcon = (currentInd == playingFrom) ? Icons.pause : Icons.headset;
-            return List_home(spacecrafts[currentInd], context, currentInd);
+            return musicTool(spacecrafts[currentInd], context, currentInd);
+            //List_home(spacecrafts[currentInd], context, currentInd);
           },
         );
         }

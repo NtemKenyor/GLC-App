@@ -10,6 +10,7 @@ import 'dart:async';
 //import 'package:path_provider/path_provider.dart';
 //import 'package:path';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:GLC/webview_screen.dart';
 
 class Post {
   final String email;
@@ -136,7 +137,7 @@ class _MyHomePageState extends State<log_in> {
 
   
 
-  Future userLogin(String url, String email, String password) async {
+Future userLogin(String url, String email, String password) async {
     Map maper = Post(email: email, password: password).toMap();
   return http.post(
     Uri.parse(url),
@@ -145,7 +146,8 @@ class _MyHomePageState extends State<log_in> {
     final int statusCode = response.statusCode;
     
     if (statusCode < 200 || statusCode > 400) {
-      throw new Exception("Error while fetching data");
+      display_result(" Problem connecting to the Server with this Credentials");
+      //throw new Exception("Error while fetching data");
     }else if (response.body != ""){
       var json_received = json.decode(response.body);
       print(json_received);
@@ -155,12 +157,14 @@ class _MyHomePageState extends State<log_in> {
           display_result(json_received["msg"]);
           bool email_sta = await check_in_SP("email");
           bool pass_sta = await check_in_SP("password");
-          if( email_sta == false && pass_sta == false  ){
-            add_string_2_SP("email", email);
-            add_string_2_SP("password", password);
-            add_string_2_SP("token", json_received["token"]);
-            add_string_2_SP("refreshToken", json_received["refresh"]);
+
+          add_string_2_SP("email", email);
+          add_string_2_SP("password", password);
+          if( email_sta == false && pass_sta == false && checksValue == true  ){
+            add_string_2_SP("checkValue", "true");
           }
+          add_string_2_SP("token", json_received["token"]);
+          add_string_2_SP("refreshToken", json_received["refresh"]);
   //add_string_2_SP(key, value)  //read_from_SP(key) //check_in_SP(key)
 
           Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -178,10 +182,15 @@ class _MyHomePageState extends State<log_in> {
     //return json_received;
   });
 }
- static final Login_url = 'http://164.90.139.70/api/auth/login/';
+ static final Login_url = 'https://app.glclondon.church/api/auth/login/';
   TextEditingController email_ = TextEditingController();
   TextEditingController password_ = TextEditingController();
+  bool checksValue = true;
+  bool visiblityPassword = true;
 
+
+  String previousMail = "";
+  String previousPassword = "";
 
   @override
   Widget build(BuildContext context) {
@@ -198,48 +207,108 @@ class _MyHomePageState extends State<log_in> {
             children: <Widget>[
               Column(
                 children:  <Widget> [
-                  SizedBox(
-                    height: 50,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(width: 2, color: Colors.black,)
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text("Sign in to continue",
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
                     ),
-                    child: IconButton(iconSize: 70, icon: Icon(Icons.person), onPressed: null),
                   ),
-                  Text("Log-in"),
 
                   Padding(
                     padding: EdgeInsets.fromLTRB(17, 9, 17, 9),
-                    child: TextField(
+                    child: TextFormField(
                       maxLines: 1,
                       controller: email_,
+                      //initialValue: ,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         hintText: "Email Address",
+                        
+                        suffixIcon: Icon(Icons.email_outlined),
+                        border:OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors. white, width: 2.0),
+                          borderRadius: BorderRadius. circular(15.0),
+                        ),
                       )
+                        
                     ),
                   ),
 
                   Padding(
                     padding: EdgeInsets.fromLTRB(17, 9, 17, 9),
-                    child: TextField(
+                    child: TextFormField(
                       maxLines: 1,
                       controller: password_,
                       keyboardType: TextInputType.visiblePassword,
+                      obscureText: visiblityPassword,
                       decoration: InputDecoration(
                         hintText: "Password",
-                        suffixIcon: Icon(Icons.remove_red_eye)
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                              setState(() {
+                                //this would toggle the visiblity from faslse to true and verse versa
+                                visiblityPassword = !visiblityPassword;
+
+                              });
+                            }, 
+                            icon: new Icon( (visiblityPassword) ? Icons.visibility_off : Icons.visibility ),
+                          ),
+                        border:OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors. white, width: 2.0),
+                          borderRadius: BorderRadius. circular(15.0),
+                        ),
                       )
                     ),
                   ),
 
-                  Text(
-                    the_msg,
-                    style: TextStyle(
-                      color: Colors.red,
-                      fontWeight: FontWeight.w600,
+                  Padding(
+                     padding: EdgeInsets.fromLTRB(17, 8, 17, 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Checkbox(
+                              activeColor: Colors.blue[800],
+                              checkColor: Colors.white,
+
+                              //backgroundColor: Colors.green[700],
+                              value: checksValue,
+                              onChanged: (value) {
+                                setState(() {
+                                  checksValue = value;
+                                });
+                              }
+                            ),
+                            Text("Keep me Signed in")
+                          ],
+                        ),
+                        InkWell(
+                          splashColor: Colors.blue[800],
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                            builder: (BuildContext context) => GLCWebview(url: "https://app.glclondon.church/auth/reset_password",)));
+                          },
+                          child: Text("Forgot Password",
+                            style: TextStyle(
+                              color: Colors.red,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+
+                  Center(
+                    child: Text(
+                      the_msg,
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
 
@@ -249,13 +318,15 @@ class _MyHomePageState extends State<log_in> {
                       width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all( width: 1)
+                        gradient: LinearGradient(
+                          colors: <Color>[Colors.orange[400], Colors.orange[500], Colors.orange[700]]
+                        ),
                       ),
-                      child: FlatButton(
+                      child: TextButton(
                         onPressed: return_back, 
                         child: Text(
                           "LOG IN",
-                          style: TextStyle( fontWeight: FontWeight.w800, ),
+                          style: TextStyle( fontWeight: FontWeight.w800, color: Colors.white),
                         )
                       ),
                     ),

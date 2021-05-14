@@ -28,13 +28,6 @@ class __ extends State<user_connect> {
   Color dark_ = Color.fromRGBO(119, 102, 102, 1);
   //Color.fromRGBO(255, 255, 255, 1)
   Color pure_ = Color.fromRGBO(255, 255, 255, 1);
-
-  /* void swap(int unused){
-    double temp = mr_small;
-    mr_small = mr_big;
-    mr_big = temp;
-
-  } */
   
   @override
   Widget build(BuildContext context) {
@@ -50,23 +43,21 @@ class __ extends State<user_connect> {
           posColor = (posColor == upColor) ? inColor : upColor;
         });
       },
+      indicatorColor: Color.fromRGBO(242, 133, 56, 1),
       labelColor: Colors.black,
-      //indicatorColor: dark_,
-      //unselectedLabelColor: Colors.black,
       labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,),
       tabs: [
       Tab( 
-        child: Text("Sign Up", style: TextStyle(fontWeight: FontWeight.bold, fontSize: mr_big),),
+        child: Text("Sign up", style: TextStyle(fontWeight: FontWeight.bold, fontSize: mr_big),),
         
       ),
       Tab( 
-        child: Text("Log in", style: TextStyle(fontWeight: FontWeight.bold, fontSize: mr_small),),
+        child: Text("Sign in", style: TextStyle(fontWeight: FontWeight.bold, fontSize: mr_small),),
       )
     ]);
 
     return DefaultTabController(length: 2,
         child: Scaffold(
-        //backgroundColor: Color(0xFEFEFEFE),
         backgroundColor: Color(0xFEFEFEFE),
         appBar: 
         
@@ -74,29 +65,24 @@ class __ extends State<user_connect> {
           child: Padding(
             padding: const EdgeInsets.all(2.0),
             child: Align(
-              alignment: Alignment.centerLeft,
+              alignment: Alignment.center,
               child: Container(
-                height: 100,
-                padding: EdgeInsets.all(7),
-                child: IconButton(
-                  icon: Icon(Icons.arrow_back), iconSize: 27,
-                  onPressed: (){
-                    Navigator.of(context).pop();
-                  },
-                )
+                //color: Colors.amber,
+                height: 60,
               ),
             ),
           ), 
-          preferredSize: Size(double.infinity, 80),
+          preferredSize: Size(double.infinity, 50),
         ),
         body: Container(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Expanded(
-                flex: 1500,
+                flex: 1300,
                 child: Container(
-                  padding: EdgeInsets.all(7),
+                  //color: Colors.green,
+                  padding: EdgeInsets.all(3),
                   child: tab,
                 ),
               ),
@@ -104,16 +90,16 @@ class __ extends State<user_connect> {
               Expanded(
                 flex: 8500,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 1.0, 20.0, 2),
+                  padding: const EdgeInsets.fromLTRB(10.0, 1.0, 10.0, 2),
                   child: Container(
-                    decoration: BoxDecoration(
+                    /* decoration: BoxDecoration(
                       boxShadow: [BoxShadow(
                       color: posColor, 
                       offset: Offset(1, 2), 
                       blurRadius: 3,
                       spreadRadius: 4,          
                     )],
-                    ) ,
+                    ) , */
                     child: TabBarView(
                       children: <Widget>[
                         sign_up(),

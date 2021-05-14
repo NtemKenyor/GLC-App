@@ -1,5 +1,7 @@
 //import 'dart:html';
 
+import 'package:GLC/generals.dart';
+import 'package:GLC/media/podcast/media.dart';
 import 'package:GLC/others/user_part.dart';
 import 'package:flutter/material.dart';
 import 'connect/connect.dart';
@@ -32,7 +34,7 @@ class _Intro_MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.orange[600],
         // This makes the visual density adapt to the platform that you run
         // the app on. For desktop platforms, the controls will be smaller and
         // closer together (more dense) than on mobile platforms.
@@ -71,11 +73,12 @@ class _MyHomePageState extends State<first_sides> {
   Color red_color = Color.fromRGBO(241, 89, 34, 1);
   //Color bright = Color(0xC4C4C4);
   Color bright_ = Color.fromRGBO(196, 196, 196, 1);
+  //Color reworked_bright_ = Color.fromRGBO(196, 196, 196, 1);
   //Color dark = Color(0x776666);
   Color dark_ = Color.fromRGBO(119, 102, 102, 1);
   //Color.fromRGBO(255, 255, 255, 1)
   Color pure_ = Color.fromRGBO(255, 255, 255, 1);
-  Color background_color = Color.fromRGBO(196, 196, 196, 1);
+  Color background_color = Color.fromRGBO(255, 255, 255, 1);
 
   //Color white = Color(0xFF)
   /* void goto_page(){
@@ -87,12 +90,12 @@ class _MyHomePageState extends State<first_sides> {
 
   void _onItemTapped(int where_index){
     setState(() {
-      if (where_index != 0 ){
+      /* if (where_index != 0 ){
         background_color = Color.fromRGBO(255, 255, 255, 1);
       }else{
         background_color = Color.fromRGBO(196, 196, 196, 1);
-      }
-      //background_color = Color.fromRGBO(255, 255, 255, 1);
+      } */
+      
       _selectedIndex = where_index;
       
     });
@@ -119,6 +122,9 @@ class _MyHomePageState extends State<first_sides> {
     //bool state = await pref.clear();
     bool state = await pref.remove("email");
     bool pass = await pref.remove("password");
+    if (await check_in_SP("checkValue") == true){
+      await pref.remove("checkValue");
+    }
     if (state == true && pass == true){
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (BuildContext context) => user_connect() ),
@@ -132,40 +138,43 @@ class _MyHomePageState extends State<first_sides> {
     showDialog(
       context: context, 
       builder: (BuildContext context){
-        return Scaffold(
-          body: Center(
-            child: Container(
-              height: 220,
-              decoration: BoxDecoration(
-                color: Colors.indigo,
-                borderRadius: BorderRadius.circular(21),
-              ),
-              
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Icon(Icons.person, size: 42,),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("Hello, You are logged in as " + email_  ,
-                      style: TextStyle(
-                        fontSize: 21,
+        return Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: Scaffold(
+            body: Center(
+              child: Container(
+                height: 220,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(247, 247, 247, 1),
+                  borderRadius: BorderRadius.circular(21),
+                ),
+                
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Icon(Icons.person, size: 42,),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("Hello, You are logged in as " + email_  ,
+                        style: TextStyle(
+                          fontSize: 19,
+                        ),
                       ),
                     ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    padding: EdgeInsets.all(9),
-                    child: TextButton(
-                      onPressed: getMeOut, 
-                      child: Text("Logout"),
-                    ),
-                  )
-                  
-                ]
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.indigo,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: EdgeInsets.all(9),
+                      child: TextButton(
+                        onPressed: getMeOut, 
+                        child: Text("Logout"),
+                      ),
+                    )
+                    
+                  ]
+                ),
               ),
             ),
           ),
@@ -193,12 +202,12 @@ class _MyHomePageState extends State<first_sides> {
             borderRadius: BorderRadius.circular(17)
           ),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(8.0, 40, 8.0, 10),
-              child: Column(
+              padding: const EdgeInsets.fromLTRB(8.0, 10, 8.0, 10),
+              child: ListView(
                 //Navigator.of(context).pop();
                 children: <Widget>[
                   Padding(
-                  padding: EdgeInsets.fromLTRB(4, 10, 4, 10),
+                  padding: EdgeInsets.fromLTRB(4, 3, 4, 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -223,14 +232,16 @@ class _MyHomePageState extends State<first_sides> {
                   ),
                 ),
 
+                Divider(color: Colors.black12, thickness: 1, endIndent: 7, indent: 7, ),
+
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(1, 10, 1, 10),
+                    padding: const EdgeInsets.fromLTRB(1, 5, 1, 5),
                     child: Container(
                       child: Row(
                         //mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          FlatButton.icon(
+                          TextButton.icon(
                             onPressed: (){
                               _onItemTapped(0);
                               Navigator.of(context).pop();
@@ -242,15 +253,19 @@ class _MyHomePageState extends State<first_sides> {
                             }, 
                             icon: Container(
                               decoration: BoxDecoration(
-                                color: bright_,
+                                color: Colors.black12,
                                 borderRadius: BorderRadius.circular(12)
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Icon(Icons.home),
+                                child: Icon(Icons.home, color: Colors.black,),
                               )
                             ), 
-                            label: Text("Home")
+                            label: Text("Home",
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
                           ),
 
                           IconButton(icon: Icon(Icons.arrow_forward_ios, color: bright_,), onPressed: null)
@@ -259,29 +274,35 @@ class _MyHomePageState extends State<first_sides> {
                     ),
                   ),
 
+                  Divider(color: Colors.black12, thickness: 1, endIndent: 7, indent: 7, ),
+
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(1, 10, 1, 10),
+                    padding: const EdgeInsets.fromLTRB(1, 5, 1, 5),
                     child: Container(
                       child: Row(
                         //mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          FlatButton.icon(
+                          TextButton.icon(
                             onPressed: (){
                               _onItemTapped(1);
                               Navigator.of(context).pop();
                             }, 
                             icon: Container(
                               decoration: BoxDecoration(
-                                color: bright_,
+                                color: Colors.black12,
                                 borderRadius: BorderRadius.circular(12)
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Icon(Icons.perm_camera_mic),
+                                child: Icon(Icons.perm_camera_mic, color: Colors.black,),
                               )
                             ), 
-                            label: Text("Media")
+                            label: Text("Media",
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
                           ),
 
                           IconButton(icon: Icon(Icons.arrow_forward_ios, color: bright_,), onPressed: null)
@@ -290,29 +311,35 @@ class _MyHomePageState extends State<first_sides> {
                     ),
                   ),
 
+                  Divider(color: Colors.black12, thickness: 1, endIndent: 7, indent: 7, ),
+
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(1, 10, 1, 10),
+                    padding: const EdgeInsets.fromLTRB(1, 5, 1, 5),
                     child: Container(
                       child: Row(
                         //mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          FlatButton.icon(
+                          TextButton.icon(
                             onPressed: (){
                               _onItemTapped(2);
                               Navigator.of(context).pop();
                             }, 
                             icon: Container(
                               decoration: BoxDecoration(
-                                color: bright_,
+                                color: Colors.black12,
                                 borderRadius: BorderRadius.circular(12)
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Icon(Icons.live_tv),
+                                child: Icon(Icons.live_tv, color: Colors.black,),
                               )
                             ), 
-                            label: Text("Watch Live")
+                            label: Text("Watch Live",
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
                           ),
 
                           IconButton(icon: Icon(Icons.arrow_forward_ios, color: bright_,), onPressed: null)
@@ -321,29 +348,36 @@ class _MyHomePageState extends State<first_sides> {
                     ),
                   ),
 
+                  Divider(color: Colors.black12, thickness: 1, endIndent: 7, indent: 7, ),
+
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(1, 10, 1, 10),
+                    padding: const EdgeInsets.fromLTRB(1, 5, 1, 5),
                     child: Container(
                       child: Row(
                         //mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          FlatButton.icon(
+                          TextButton.icon(
                             onPressed: (){
                               _onItemTapped(3);
                               Navigator.of(context).pop();
                             }, 
                             icon: Container(
                               decoration: BoxDecoration(
-                                color: bright_,
+                                color: Colors.black12,
+                                //color: Color.fromRGBO(247, 247, 247, 1),
                                 borderRadius: BorderRadius.circular(12)
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Icon(Icons.payment),
+                                child: Icon(Icons.payment, color: Colors.black,),
                               )
                             ), 
-                            label: Text("Giving")
+                            label: Text("Giving",
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            )
                           ),
 
                           IconButton(icon: Icon(Icons.arrow_forward_ios, color: bright_,), onPressed: null)
@@ -352,14 +386,16 @@ class _MyHomePageState extends State<first_sides> {
                     ),
                   ),
 
+                  Divider(color: Colors.black12, thickness: 1, endIndent: 7, indent: 7, ),
+
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(1, 10, 1, 10),
+                    padding: const EdgeInsets.fromLTRB(1, 5, 1, 5),
                     child: Container(
                       child: Row(
                         //mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          FlatButton.icon(
+                          TextButton.icon(
                             onPressed: (){
                               Navigator.of(context).pop();
                               Navigator.of(context).push(MaterialPageRoute(
@@ -368,15 +404,19 @@ class _MyHomePageState extends State<first_sides> {
                             }, 
                             icon: Container(
                               decoration: BoxDecoration(
-                                color: bright_,
+                                color: Colors.black12,
                                 borderRadius: BorderRadius.circular(12)
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Icon(Icons.notifications,),
+                                child: Icon(Icons.notifications, color: Colors.black,),
                               )
                             ), 
-                            label: Text("Prayer Request")
+                            label: Text("Prayer Request",
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
                           ),
 
                           IconButton(icon: Icon(Icons.arrow_forward_ios, color: bright_,), onPressed: null)
@@ -385,14 +425,16 @@ class _MyHomePageState extends State<first_sides> {
                     ),
                   ),
 
+                  Divider(color: Colors.black12, thickness: 1, endIndent: 7, indent: 7, ),
+
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(1, 10, 1, 10),
+                    padding: const EdgeInsets.fromLTRB(1, 5, 1, 5),
                     child: Container(
                       child: Row(
                         //mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          FlatButton.icon(
+                          TextButton.icon(
                             onPressed: (){
                               Navigator.of(context).pop();
                               Navigator.of(context).push(MaterialPageRoute(
@@ -400,15 +442,19 @@ class _MyHomePageState extends State<first_sides> {
                             }, 
                             icon: Container(
                               decoration: BoxDecoration(
-                                color: bright_,
+                                color: Colors.black12,
                                 borderRadius: BorderRadius.circular(12)
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Icon(Icons.event),
+                                child: Icon(Icons.event, color: Colors.black,),
                               )
                             ), 
-                            label: Text("Events")
+                            label: Text("Events",
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
                           ),
 
                           IconButton(icon: Icon(Icons.arrow_forward_ios, color: bright_,), onPressed: null)
@@ -417,14 +463,16 @@ class _MyHomePageState extends State<first_sides> {
                     ),
                   ),
 
+                  Divider(color: Colors.black12, thickness: 1, endIndent: 7, indent: 7, ),
+
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(1, 10, 1, 10),
+                    padding: const EdgeInsets.fromLTRB(1, 5, 1, 5),
                     child: Container(
                       child: Row(
                         //mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          FlatButton.icon(
+                          TextButton.icon(
                             onPressed: (){
                               Navigator.of(context).pop();
                               Navigator.of(context).push(MaterialPageRoute(
@@ -433,15 +481,19 @@ class _MyHomePageState extends State<first_sides> {
                               ,
                             icon: Container(
                               decoration: BoxDecoration(
-                                color: bright_,
+                                color: Colors.black12,
                                 borderRadius: BorderRadius.circular(12)
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Icon(Icons.person_add),
+                                child: Icon(Icons.person_add, color: Colors.black,),
                               )
                             ), 
-                            label: Text("Log In / Log Out")
+                            label: Text("Log In / Log Out",
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
                           ),
 
                           IconButton(icon: Icon(Icons.arrow_forward_ios, color: bright_,), onPressed: null)
@@ -449,6 +501,10 @@ class _MyHomePageState extends State<first_sides> {
                       ),
                     ),
                   ),
+
+                  Divider(color: Colors.black12, thickness: 1, endIndent: 7, indent: 7, ),
+
+
                 ]
               ),
             ),
@@ -458,7 +514,7 @@ class _MyHomePageState extends State<first_sides> {
         //leading: Icon(Icons.menu),
         automaticallyImplyLeading: false,
         elevation: 0,
-        backgroundColor: background_color,
+        backgroundColor: Color.fromRGBO(255, 255, 255, 1),
         title: Padding(
           padding: EdgeInsets.fromLTRB(4, 10, 4, 10),
           child: Row(

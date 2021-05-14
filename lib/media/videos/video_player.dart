@@ -9,7 +9,7 @@ import 'package:video_player/video_player.dart';
 
 
 class VideoPlayerApp extends StatefulWidget {
-  final String url;
+  String url;
   VideoPlayerApp({Key key, this.url}) : super(key: key);
   
   @override
