@@ -131,6 +131,7 @@ class _MyHomePageState extends State<SignUpPage> {
   TextEditingController confirmPasswordController = TextEditingController();
 
   final FocusNode myFocusNodePasswordLogin = FocusNode();
+  final FocusNode myFocusNodePasswordLogin1 = FocusNode();
   bool _obscureTextSignUp = true;
 
   void _toggleLogin() {
@@ -220,7 +221,7 @@ class _MyHomePageState extends State<SignUpPage> {
               TextField(
                   maxLines: 1,
                   obscureText: _obscureTextSignUp,
-                  focusNode: myFocusNodePasswordLogin,
+                  focusNode: myFocusNodePasswordLogin1,
                   controller: confirmPasswordController,
                   keyboardType: TextInputType.visiblePassword,
                   decoration: InputDecoration(
@@ -283,13 +284,13 @@ class _MyHomePageState extends State<SignUpPage> {
               SizedBox(
                 height: 30,
               ),
-              Text(
-                "Or continue With",
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
+              // Text(
+              //   "Or continue With",
+              //   style: TextStyle(
+              //     color: Colors.grey,
+              //     fontWeight: FontWeight.w800,
+              //   ),
+              // ),
               SizedBox(
                 height: 20,
               ),

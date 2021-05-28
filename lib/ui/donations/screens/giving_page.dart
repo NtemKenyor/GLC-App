@@ -167,11 +167,13 @@ class _MyHomePageState extends State<give_page> {
                     });
                   },
                 ),
-                Text('I am a UK taxpayer so please treat this donations under the gift aid scheme until otherwise notified',
-                    style: TextStyle(
-                        color: Colors.grey.shade600,
-                        fontSize: 14,
-                        fontStyle: FontStyle.italic))
+                Expanded(
+                  child: Text('I am a UK taxpayer so please treat this donations under the gift aid scheme until otherwise notified',
+                      style: TextStyle(
+                          color: Colors.grey.shade600,
+                          fontSize: 14,
+                          fontStyle: FontStyle.italic)),
+                )
               ],
             ),
             SizedBox(

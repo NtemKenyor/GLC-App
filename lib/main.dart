@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:GLC/ui/donations/data/payment_utils.dart';
 import 'package:GLC/ui/intro_screen/screens/intro_screen.dart';
+import 'package:GLC/widgets/splash_screen_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -175,28 +176,9 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
-  // Timer(Duration(seconds: 5), () => Navigator.of(context).pop('/home'));
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    return SplashWidget();
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Container(
-          width: double.infinity,
-          height: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              Image.asset(
-                "assets/glc logo 1.png",
-                width: 185,
-                height: 185,
-              ),
-              CircularProgressIndicator(),
-            ],
-          )),
-    );
   }
 }
