@@ -1,25 +1,21 @@
-//import 'dart:html';
 import 'dart:convert';
 import 'package:GLC/home_page/model/event_model.dart';
 import 'package:GLC/home_page/upcoming_widget.dart';
-import 'package:GLC/utils/constants.dart';
+import 'package:GLC/prayer/prayer_request.dart';
 import 'package:GLC/utils/pallet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:http/http.dart';
-//import 'package:path_provider/path_provider.dart';
-import 'dart:io';
 import 'dart:async';
-import 'package:flutter/services.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:GLC/others/user_part.dart';
 
 
 
 
-class home_page extends StatefulWidget {
-  home_page({Key key, this.title}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  HomeScreen({Key key, this.title}) : super(key: key);
 
   final String title;
 
@@ -27,7 +23,7 @@ class home_page extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<home_page> {
+class _MyHomePageState extends State<HomeScreen> {
   int _counter = 0;
   int _selectedIndex = 0;
 
@@ -212,7 +208,7 @@ Widget upcoming01(imageLink, date, time, venue) {
 
   read_from_SP(key) async{
     SharedPreferences pref = await SharedPreferences.getInstance();
-    String content = pref.getString(key);
+    String content = pref.getString(key) ?? "";
     return content;
   }
 
@@ -226,10 +222,10 @@ checkers() async {
   if(await check_in_SP("token") == true){
     return await read_from_SP("token");
   }else{
-      Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (BuildContext context) => user_connect() ),
-        (Route<dynamic> route ) => false
-      );
+      // Navigator.of(context).pushAndRemoveUntil(
+      //   MaterialPageRoute(builder: (BuildContext context) => AuthenticationPage() ),
+      //   (Route<dynamic> route ) => false
+      // );
   }
 }
 
@@ -237,14 +233,16 @@ checkers() async {
 Future carouselLoader() async {
   String urlToday = "https://app.glclondon.church/api/content/carousel/";
   //String urlToday = "https://app.glclondon.church/api/events/current";
-  String token = "Bearer " + await checkers();
+  //String token = "Bearer " + await checkers();
 
   Response response = await get(
     Uri.parse(urlToday),
-    headers: {
-      "authorization": token,
-      "accept": "application/json"
-    }
+
+
+    // headers: {
+    //   "authorization": token,
+    //   "accept": "application/json"
+    // }
   );
   int statusCode = response.statusCode;
 
@@ -266,14 +264,14 @@ Future carouselLoader() async {
 Future upcomingEventsSide() async {
   String urlToday = "https://app.glclondon.church/api/events/upcoming/";
   //String urlToday = "https://app.glclondon.church/api/events/current";
-  String token = "Bearer " + await checkers();
+  //String token = "Bearer " + await checkers();
 
   Response response = await get(
     Uri.parse(urlToday),
-    headers: {
-      "authorization": token,
-      "accept": "application/json"
-    }
+    // headers: {
+    //   "authorization": token,
+    //   "accept": "application/json"
+    // }
   );
   int statusCode = response.statusCode;
 
@@ -393,16 +391,13 @@ Future Todays_verse() async {
                     SizedBox(
                       height: 30,
                     ),
-                    Row(
-                      children: [
-                        Icon(Icons.home_outlined,color:Pallet.primaryColor),
-                        SizedBox(width: 10,),
-                        Text(Constants.dummyAddress, style:TextStyle(color:Pallet.textLight)),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
+                    // Row(
+                    //   children: [
+                    //     Icon(Icons.home_outlined,color:Pallet.primaryColor),
+                    //     SizedBox(width: 10,),
+                    //     Text(Constants.dummyAddress, style:TextStyle(color:Pallet.textLight)),
+                    //   ],
+                    // ),
 
                     Align(
                       alignment:Alignment.topLeft,
@@ -419,7 +414,7 @@ Future Todays_verse() async {
 
                           if ( EventList.isNotEmpty ){
                             return SizedBox(
-                              height: 370,
+                              height: 220.h,
                               width: double.infinity,
                               child: EventWidget(EventList)
                               //upcoming01(EventList[0].imageUrl ,EventList[0].date ,EventList[0].startTime, EventList[0].venue),
@@ -454,22 +449,68 @@ Future Todays_verse() async {
                         );
                       },
                     ),
+
+                    AboutUsWidget(),
                   ],
                 ),
               ),
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.orange,
+        onPressed:_navigateToPrayerRequestPage,
+        tooltip: 'Prayer Request Screen',
+        child: Image.asset('assets/prayer_request_icon.png'),
+      ), // This trailing comma makes auto-formatting nicer for build ,
      
     );
   }
 
+  void _navigateToPrayerRequestPage(){
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (BuildContext context) => Prayer()));
+  }
+Widget AboutUsWidget(){
+  return Container(
+      margin:EdgeInsets.only(top:20.h, bottom:10.h, right:10.w, left:10.w),
+      padding:EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(.5),
+            blurRadius: 5.0,
+            spreadRadius: 0.0,
+            offset: Offset(
+              1.0,
+              1.0,
+            ),
+          )
+        ],
+        borderRadius: BorderRadius.circular(10),
+
+      ),
+      width:double.infinity,
+
+      child:Column(
+        mainAxisSize:MainAxisSize.min,
+        crossAxisAlignment:CrossAxisAlignment.center,
+        children: [
+          Text("About Us", style:TextStyle(fontSize:16, fontWeight: FontWeight.bold, color: Colors.grey)),
+          SizedBox(height: 10.h,),
+          Text("Great Light Church is a dynamic, vibrant, global ministry located in London Docklands. \n We aim to build a network of believers - impacting and influencing for Christ.",
+            style:TextStyle(fontSize:14.sp,  color: Colors.grey), textAlign: TextAlign.center,),
+        ],
+      )
+  );
+}
   Widget EventWidget(List<EventModel> eventList){
    return  ListView.builder(
        shrinkWrap:true,
        scrollDirection: Axis.horizontal,
        itemCount: eventList.length,
-       padding: EdgeInsets.only(top: 20),
+       padding: EdgeInsets.only(top: 20.h),
        itemBuilder: (context, index)=>
            UpcomingWidget(
              event: eventList[index]

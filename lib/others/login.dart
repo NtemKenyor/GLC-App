@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:GLC/intro.dart';
+import 'package:GLC/ui/donations/screens/payment_web_page.dart';
 import 'package:GLC/utils/pallet.dart';
 import 'package:GLC/utils/widgets/toast_message.dart';
 import 'package:flutter/material.dart';
@@ -232,7 +233,7 @@ class _MyHomePageState extends State<LoginPage> {
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
-                          suffixIcon: Icon(Icons.person_outline,
+                          prefixIcon: Icon(Icons.person_outline,
                               color: Colors.grey.shade400),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20.0),
@@ -244,8 +245,8 @@ class _MyHomePageState extends State<LoginPage> {
                     height: 20,
                   ),
                   TextFormField(
-                    obscureText: _obscureTextSignUp,
-                    focusNode: myFocusNodePasswordLogin,
+                      obscureText: _obscureTextSignUp,
+                      focusNode: myFocusNodePasswordLogin,
                       maxLines: 1,
                       controller: _passwordController,
                       keyboardType: TextInputType.visiblePassword,
@@ -266,9 +267,11 @@ class _MyHomePageState extends State<LoginPage> {
                                   color: Colors.grey.shade400)),
                           hintText: "Password",
                           hintStyle: TextStyle(color: Colors.grey.shade400))),
-                  (the_msg=="Loading")? Padding(
-                    padding:EdgeInsets.all(20),
-                      child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Pallet.primaryColor),)):Text(
+                  (the_msg == "Loading") ? Padding(
+                      padding: EdgeInsets.all(20),
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                            Pallet.primaryColor),)) : Text(
                     the_msg,
                     style: TextStyle(
                       color: Colors.red,
@@ -295,14 +298,20 @@ class _MyHomePageState extends State<LoginPage> {
                               });
                             },
                           ),
-                          Text('Keep Me Logged In', style:TextStyle(color:Colors.grey, fontSize:12))
+                          Text('Keep Me Logged In', style: TextStyle(
+                              color: Colors.grey, fontSize: 12))
 
                         ],
                       ),
-                      Text("Forgot Password?", style: TextStyle(
-                          color: Pallet.primaryColor,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700))
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder:(_)=> OnlinePaymentPage(paymentLink: 'https://app.glclondon.church/auth/reset_password/',)));
+                        },
+                        child: Text("Forgot Password?", style: TextStyle(
+                            color: Pallet.primaryColor,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700)),
+                      )
                     ],
                   ),
 
@@ -315,12 +324,14 @@ class _MyHomePageState extends State<LoginPage> {
                       color: Pallet.primaryColor,
                     ),
                     child: FlatButton(
-                        onPressed: (){
-                          if(!_emailController.text.isValidEmail){
+                        onPressed: () {
+                          if (!_emailController.text.isValidEmail) {
                             flutterToast("Please Enter a valid Email", true);
-                          }else if(_passwordController.text.length<= 5){
-                            flutterToast("Password length must be up to 6 characters", true);
-                          }else{
+                          } else if (_passwordController.text.length <= 5) {
+                            flutterToast(
+                                "Password length must be up to 6 characters",
+                                true);
+                          } else {
                             return_back();
                           }
                         },

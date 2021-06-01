@@ -12,7 +12,7 @@ class DrawCircle extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.drawCircle(Offset(10, 10), 25.0, _paint);
+    canvas.drawCircle(Offset(10, 10), 20.0, _paint);
   }
 
   @override

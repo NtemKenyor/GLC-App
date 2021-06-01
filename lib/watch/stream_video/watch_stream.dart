@@ -1,11 +1,10 @@
-//import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 import 'streaming_player.dart';
 import 'dart:math';
-import 'package:GLC/generals.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 class VideoOrg {
@@ -38,36 +37,19 @@ class VideoOrg {
 }
 
 
-class watch_page_live extends StatefulWidget {
-  watch_page_live({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
+class WatchLiveWidget extends StatelessWidget {
   Future video_source() async {
     String the_video_url = "";
     String url_ = "https://app.glclondon.church/api/content/live_tv/";
     //String url_ = "https://a1in1.com/buye/.php";
-    String token = "Bearer " + await read_from_SP("token");
+   // String token = "Bearer " + await read_from_SP("token");
     return get(
       Uri.parse(url_),
-        headers: {
-          "authorization": token,
-          "accept": "application/json"
-        },
-      ).then((Response response) {
+      // headers: {
+      //   "authorization": token,
+      //   "accept": "application/json"
+      // },
+    ).then((Response response) {
       final int statusCode = response.statusCode;
       //print(response.body);
       if (statusCode < 200 || statusCode > 400) {
@@ -77,12 +59,12 @@ class watch_page_live extends StatefulWidget {
         print(json_received);
         if ((response.body).contains("results")){
           //if (int.parse(json_received["count"]) >= 1){
-              //the_video_url = json_received["video"]["url"];
-              //print(the_video_url);
-              List Event = json_received["results"];
-              print("Events stage");
-              return Event.map((Event) => new VideoOrg.fromJson(Event)).toList();
-              //return the_video_url;
+          //the_video_url = json_received["video"]["url"];
+          //print(the_video_url);
+          List Event = json_received["results"];
+          print("Events stage");
+          return Event.map((Event) => new VideoOrg.fromJson(Event)).toList();
+          //return the_video_url;
           /* }else{
             print("You may need to check the data format of count.");
             throw new Exception(" We are facing some challenges.");
@@ -94,13 +76,12 @@ class watch_page_live extends StatefulWidget {
       }else{
         //return the_video_url;
       }
-      
+
       //return json_received;
     });
 
-}
+  }
 
-class _MyHomePageState extends State<watch_page_live> {
   int _counter = 0;
   int _selectedIndex = 0;
 
@@ -118,94 +99,93 @@ class _MyHomePageState extends State<watch_page_live> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: pure_,
-      body: Container(
-      height: MediaQuery.of(context).size.height,
-      child: ListView(
-        children: <Widget>[
-          Container(
-            child: new FutureBuilder (
-          future: video_source(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              List<VideoOrg> theListedVideo = snapshot.data;
-              if (theListedVideo.isEmpty) {
-                return Center(
-                  child: Text(" No Live broadcast yet. ",
-                    style: TextStyle(color: Colors.blue[800], fontWeight: FontWeight.w700,),
-                  ),
-                );
-              }else{
-              VideoOrg pickRand = theListedVideo[Random().nextInt(theListedVideo.length)];
-              return new Container(
-                height: MediaQuery.of(context).size.height,
-                child: Column(
-                  //shrinkWrap: true,
-                  //scrollDirection: Axis.vertical,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Center(child: VideoPlayerApp_Live(url: pickRand.url,)),
+    return Container(
+          height: 200.h,
+          child: ListView(
+            children: <Widget>[
+              Container(
+                child: new FutureBuilder (
+                  future: video_source(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      List<VideoOrg> theListedVideo = snapshot.data;
+                      if (theListedVideo.isEmpty) {
+                        return Center(
+                          child: Text(" No Live broadcast yet. ",
+                            style: TextStyle(color: Colors.blue[800], fontWeight: FontWeight.w700,),
+                          ),
+                        );
+                      }else{
+                        VideoOrg pickRand = theListedVideo[Random().nextInt(theListedVideo.length)];
+                        return new Container(
+                          height: MediaQuery.of(context).size.height,
+                          child: Column(
+                            mainAxisSize:MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Center(child: VideoPlayerApp_Live(url: pickRand.url,)),
 
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget> [
-                        Text(pickRand.title,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                              Column(
+                                mainAxisSize:MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget> [
+                                    Text(pickRand.title,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20.sp,
+                                      ),
+                                    ),
+                                    Text("From: "+ pickRand.tv, textAlign: TextAlign.left,),
+                                    Text(pickRand.message,
+                                      style: TextStyle(
+                                        //fontWeight: FontWeight.bold,
+                                        fontSize: 18.sp,
+                                      ),
+                                    ),
+                                  ]
+                              )
+
+                            ],
+                          ),
+                        );
+                      }
+                    } else if (snapshot.hasError) {
+                      return new Container(
+                        //height: MediaQuery.of(context).size.height,
+                        child: Center(
+                          child: Text(" We Could not connect to the Server. ",
+                            style: TextStyle(color: Colors.blue[800], fontWeight: FontWeight.w700,),
                           ),
                         ),
-                        Text("From: "+ pickRand.tv, textAlign: TextAlign.left,),
-                        Text(pickRand.message, 
-                          style: TextStyle(
-                            //fontWeight: FontWeight.bold,
-                            fontSize: 18,
+                      );
+                    }
+                    //return  a circular progress indicator.
+                    return new Container(
+                        child: Center(
+                          child: Column(
+                              mainAxisSize:MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children : <Widget>[
+                                CircularProgressIndicator(),
+                                Text("Processing, Please Wait.",
+                                  style: TextStyle(
+                                    color: Colors.green[800],
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                )
+                              ]
                           ),
-                        ),
-                      ]
-                    )
-                    
-                  ],
+                        )
+                    );
+                  },
                 ),
-              );
-              }
-            } else if (snapshot.hasError) {
-              return new Container(
-                //height: MediaQuery.of(context).size.height,
-                child: Center(
-                  child: Text(" We Could not connect to the Server. ",
-                    style: TextStyle(color: Colors.blue[800], fontWeight: FontWeight.w700,),
-                  ),
-                ),
-              );
-            }
-            //return  a circular progress indicator.
-            return new Container(
-              child: Center(
-                child: Column(
-                  mainAxisSize:MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children : <Widget>[
-                    CircularProgressIndicator(),
-                    Text("Processing, Please Wait.",
-                    style: TextStyle(
-                      color: Colors.green[800],
-                      fontWeight: FontWeight.w800,
-                    ),
-                    )
-                  ]
-                ),
-              )
-            );
-          },
-          ),
+              ),
+
+            ],
           ),
 
-        ],
-      ),
-      )
     );
   }
 }
+

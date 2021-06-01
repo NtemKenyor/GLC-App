@@ -164,6 +164,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "dartz",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/dartz-0.8.9",
+      "packageUri": "lib/",
+      "languageVersion": "1.24"
+    },
+    {
       "name": "dio",
       "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/dio-4.0.0",
       "packageUri": "lib/",
@@ -218,6 +224,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_screenutil",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_screenutil-5.0.0+2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///C:/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -234,6 +246,12 @@
       "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/fluttertoast-7.1.8",
       "packageUri": "lib/",
       "languageVersion": "2.7"
+    },
+    {
+      "name": "get",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/get-4.1.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "glob",
@@ -638,7 +656,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-05-14T11:22:08.320877Z",
+  "generated": "2021-05-29T16:15:05.739218Z",
   "generator": "pub",
   "generatorVersion": "2.12.3"
 }

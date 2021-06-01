@@ -41,13 +41,13 @@ class VideosPage extends StatefulWidget {
 
 Future<List<VideoCast>> video_source() async {
   final jsonEndpoint = 'https://app.glclondon.church/api/content/videos/';
-  String token = "Bearer " + await read_from_SP("token");
+  //String token = "Bearer " + await read_from_SP("token");
   Response response = await get(
     Uri.parse(jsonEndpoint),
-    headers: {
-      "authorization": token,
-      "accept": "application/json"
-    }
+    // headers: {
+    //   "authorization": token,
+    //   "accept": "application/json"
+    // }
   );
   int statusCode = response.statusCode;
   print( jsonDecode(response.body ) );

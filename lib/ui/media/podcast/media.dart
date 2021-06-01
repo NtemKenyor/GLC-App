@@ -1,6 +1,6 @@
 //import 'dart:html';
 
-import 'package:GLC/ui/media/widgets/custom_circle_widget.dart';
+import 'package:GLC/watch/model/podcast_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
@@ -12,7 +12,7 @@ import 'package:path_provider/path_provider.dart';
 import 'audio.dart';
 import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
-//import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 //Color yellow = Color(0xFFC50C);
 Color yellow_ = Color.fromRGBO(255, 197, 12, 1);
@@ -25,80 +25,26 @@ Color dark_ = Color.fromRGBO(119, 102, 102, 1);
 //Color.fromRGBO(255, 255, 255, 1)
 Color pure_ = Color.fromRGBO(255, 255, 255, 1);
 
-class Podcast {
-  //final String id;
-  final String pod_name, date, imageUrl, listen;
 
-  Podcast({
-    this.pod_name,
-    this.date,
-    this.imageUrl,
-    this.listen,
-  });
 
-  factory Podcast.fromJson(Map<String, dynamic> jsonData) {
-    return Podcast(
-      pod_name: jsonData['title'],
-      date: jsonData['date'],
-      //imageUrl: "https://a1in1.com/GLC/images/"+jsonData['image'],
-      //listen: "https://a1in1.com/GLC/media_files/"+jsonData['location'],
-      imageUrl: jsonData['photo'],
-      listen: jsonData['file'],
-    );
-  }
-}
-
-class PodcastPage extends StatefulWidget {
-  PodcastPage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
+class PodCastPage extends StatefulWidget {
   @override
-  _PodcastPageState createState() => _PodcastPageState();
+  _PodCastPageState createState() => _PodCastPageState();
 }
 
-class _PodcastPageState extends State<PodcastPage> {
-  int _counter = 0;
-  int _selectedIndex = 0;
-
-/*   //Color yellow = Color(0xFFC50C);
-  Color yellow_ = Color.fromRGBO(255, 197, 12, 1);
-  //Color red = Color(0xF15922);
-  Color red_color = Color.fromRGBO(241, 89, 34, 1);
-  //Color bright = Color(0xC4C4C4);
-  Color bright_ = Color.fromRGBO(196, 196, 196, 1);
-  //Color dark = Color(0x776666);
-  Color dark_ = Color.fromRGBO(119, 102, 102, 1);
-  //Color.fromRGBO(255, 255, 255, 1)
-  Color pure_ = Color.fromRGBO(255, 255, 255, 1); */
-
-  /* takeHome(){
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (BuildContext context) => user_connect() ),
-        (Route<dynamic> route ) => false
-      );
-  } */
-
+class _PodCastPageState extends State<PodCastPage> {
   read_from_SP(key) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String content = pref.getString(key);
     return content;
   }
 
-  Future<List<Podcast>> downloadJSON() async {
+  Future<List<Podcast>> fetchPodcasts() async {
     final jsonEndpoint = 'https://app.glclondon.church/api/content/podcasts/';
-    String token = "Bearer " + await read_from_SP("token");
+    //String token = "Bearer " + await read_from_SP("token");
     Response response = await get(Uri.parse(jsonEndpoint),
-        headers: {"authorization": token, "accept": "application/json"});
+      // headers: {"authorization": token, "accept": "application/json"}
+    );
     int statusCode = response.statusCode;
     print(jsonDecode(response.body));
     if (statusCode < 200 || statusCode > 400) {
@@ -142,11 +88,11 @@ class _PodcastPageState extends State<PodcastPage> {
       body: Container(
         //color: Colors.pink,
         child: Column(
-            //scrollDirection: Axis.vertical,
+          //scrollDirection: Axis.vertical,
             children: <Widget>[
               Expanded(
                 child: FutureBuilder<List<Podcast>>(
-                  future: downloadJSON(),
+                  future: fetchPodcasts(),
                   //we pass a BuildContext and an AsyncSnapshot object which is an
                   //Immutable representation of the most recent interaction with
                   //an asynchronous computation.
@@ -156,7 +102,7 @@ class _PodcastPageState extends State<PodcastPage> {
                       return RefreshIndicator(
                         onRefresh: () {
                           return Future.delayed(Duration(seconds: 3), () async {
-                            var content = await downloadJSON();
+                            var content = await fetchPodcasts();
                             setState(() {
                               spacecrafts = content;
                             });
@@ -172,8 +118,8 @@ class _PodcastPageState extends State<PodcastPage> {
                         //controller: ,
                         child: Container(
                             child: new CustomListView(
-                          spacecrafts: spacecrafts,
-                        )),
+                              spacecrafts: spacecrafts,
+                            )),
                       );
                     } else if (snapshot.hasError) {
                       return new Container(
@@ -227,6 +173,7 @@ class _PodcastPageState extends State<PodcastPage> {
   }
 }
 
+
 class CustomListView extends StatefulWidget {
   CustomListView({Key key, this.title, this.spacecrafts}) : super(key: key);
 
@@ -247,7 +194,7 @@ class _CustomListViewState extends State<CustomListView> {
   //AudioPlayer.logEnabled = true;
   String podUrl;
 
-  IconData listenIcon = Icons.headset;
+  IconData listenIcon = Icons.play_arrow_rounded;
 
   int podcastState = 0;
 
@@ -331,35 +278,41 @@ class _CustomListViewState extends State<CustomListView> {
             borderRadius: BorderRadius.circular(12),
             child: theImager,
           ),
-          Align(
-            alignment: Alignment.center,
+          Positioned(
+            left: 40,
+            top: 40,
             child: Container(
-                child: CustomPaint(
-              painter: DrawCircle(),
-              child: Icon(listenIcon, color: Colors.white),
-            )),
+              // /margin:EdgeInsets.only(right: 50),
+              height: 40.h,
+              width: 40.w,
+                decoration: BoxDecoration(
+                  color:Colors.white,
+                    shape: BoxShape.circle,),
+                child: Icon(Icons.play_arrow_rounded, color: Colors.black,size:25)),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: EdgeInsets.all(5),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Icon(
-                      Icons.calendar_today,
-                      color: Colors.white,
-                    ),
-                    SizedBox(width:5),
-                    Flexible(
-                        child: Text(date,
-                            maxLines: 1,
-                            style: TextStyle(color: Colors.white))),
-                  ]
-                  //trailing: Text("Monday, 21st October"),
-                  ),
-            ),
-          )
+          // Align(
+          //   alignment: Alignment.bottomCenter,
+          //   child: Padding(
+          //     padding: EdgeInsets.all(5),
+          //     child: Row(
+          //         mainAxisAlignment: MainAxisAlignment.start,
+          //         children: <Widget>[
+          //           Icon(
+          //             Icons.calendar_today,
+          //             color: Colors.white,
+          //             size: 18,
+          //           ),
+          //           SizedBox(width: 2),
+          //           Flexible(
+          //               child: Text(date,
+          //                   maxLines: 1,
+          //
+          //                   style: TextStyle(color: Colors.white,fontSize: 12))),
+          //         ]
+          //         //trailing: Text("Monday, 21st October"),
+          //         ),
+          //   ),
+          // )
         ],
       ),
     );
@@ -369,7 +322,7 @@ class _CustomListViewState extends State<CustomListView> {
     var theImager = (cord.imageUrl != null)
         ? Image.network(
             cord.imageUrl,
-            fit: BoxFit.cover,
+            fit: BoxFit.fitWidth,
             height: double.infinity,
           )
         : Image.asset(
@@ -393,10 +346,10 @@ class _CustomListViewState extends State<CustomListView> {
         padding: const EdgeInsets.all(8.0),
         child: Container(
             decoration: BoxDecoration(
-              color: Colors.grey.shade200,
+              //color: Colors.grey.shade200,
               borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
-            height: 160,
+            height: 140.h,
             child: Column(
               //mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
@@ -404,35 +357,40 @@ class _CustomListViewState extends State<CustomListView> {
                   child: Row(
                     children: <Widget>[
                       Expanded(
-                          flex: 500, child: imageWidget(theImager, cord.date)),
+                          flex: 400, child: imageWidget(theImager, cord.date)),
                       Expanded(
-                        flex: 400,
+                        flex: 500,
                         child: Container(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               mainAxisSize: MainAxisSize.min,
-                              //mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
-                                SizedBox(
-                                  height: 20,
+                                Text(
+                                  cord.date,
+                                  style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16.sp,
+                                  ),
                                 ),
-                                Center(
-                                    child: Text(
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                Text(
                                   cord.pod_name,
                                   style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14.sp,
                                   ),
-                                )),
+                                ),
                                 SizedBox(
-                                  height: 30,
+                                  height: 20.h,
                                 ),
                                 Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.start,
                                   children: [
                                     InkWell(
                                       hoverColor: Colors.amber[700],
@@ -444,23 +402,23 @@ class _CustomListViewState extends State<CustomListView> {
                                         play(cord.listen, index);
                                       },
                                       child: Container(
-                                        width: 100,
+                                        width: 100.w,
                                         padding: EdgeInsets.all(5),
                                         decoration: BoxDecoration(
                                             color: Colors.white,
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(10))),
                                         child: Row(
-                                            mainAxisSize: MainAxisSize.max,
+                                           // mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
+                                                MainAxisAlignment.spaceBetween,
                                             children: <Widget>[
                                               Icon(
                                                 listenIcon,
                                                 color: yellow_,
                                               ),
                                               Flexible(
-                                                  child: Text("Listen",
+                                                  child: Text("Play Audio",
                                                       maxLines: 1,
                                                       style: TextStyle(
                                                           fontWeight: FontWeight
@@ -470,6 +428,7 @@ class _CustomListViewState extends State<CustomListView> {
                                             ),
                                       ),
                                     ),
+                                    SizedBox(width: 20,),
                                     Container(
                                       decoration: BoxDecoration(
                                           color: yellow_,

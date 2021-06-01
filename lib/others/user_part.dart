@@ -5,8 +5,8 @@ import 'sign_up.dart';
 import 'login.dart';
 
 
-class user_connect extends StatefulWidget {
-  user_connect({Key key, this.title}) : super(key: key);
+class AuthenticationPage extends StatefulWidget {
+  AuthenticationPage({Key key, this.title}) : super(key: key);
 
   final String title;
 
@@ -14,7 +14,7 @@ class user_connect extends StatefulWidget {
   __ createState() => __();
 }
 
-class __ extends State<user_connect> {
+class __ extends State<AuthenticationPage> {
   double mr_small = 18;
   double mr_big = 25;
   Color posColor = Colors.blue[800];

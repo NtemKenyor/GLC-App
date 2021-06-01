@@ -5,25 +5,31 @@ import 'package:GLC/widgets/splash_screen_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'intro.dart';
 import 'others/user_part.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 
-var isFirstTime;
+//var isFirstTime;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  var prefs = await SharedPreferences.getInstance();
-  var boolKey = 'isFirstTime';
-  isFirstTime = prefs.getBool(boolKey) ?? true;
+  // var prefs = await SharedPreferences.getInstance();
+  // var boolKey = 'isFirstTime';
+  // isFirstTime = prefs.getBool(boolKey) ?? true;
 
   runApp(ChangeNotifierProvider(
     create: (_) => PaymentProvider(),
-    child: MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: !isFirstTime ? MyApp() : IntroductionScreen(prefs, boolKey),
+    child: ScreenUtilInit(
+        designSize: Size(392, 850),
+      builder:()=>MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: //!isFirstTime ?
+         MyApp()
+              //: IntroductionScreen(prefs, boolKey),
+      )
     ),
   ));
 }
@@ -87,6 +93,8 @@ class _SplashScreenState extends State<SplashScreen> {
       //userLogin(String url, String email, String password)
       String password = await read_from_SP("password");
       String email = await read_from_SP("email");
+      print(email);
+      print(password);
       //String login_endpoint = "https://a1in1.com/GLC/user_log_in.php?password="+password+"&email="+email;
       userLogin(Login_url, email, password);
     } else {
@@ -94,7 +102,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Timer(
           Duration(seconds: 7),
           () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (BuildContext context) => user_connect())));
+              builder: (BuildContext context) => AuthenticationPage())));
     }
   }
 
@@ -118,7 +126,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   divert() {
     Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (BuildContext context) => user_connect()));
+        MaterialPageRoute(builder: (BuildContext context) => AuthenticationPage()));
   }
 
   Future userLogin(String url, String email, String password) async {
@@ -178,6 +186,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(MediaQuery.of(context).size.height);
+    print(MediaQuery.of(context).size.width);
     return SplashWidget();
 
   }

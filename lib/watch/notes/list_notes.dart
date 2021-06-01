@@ -9,18 +9,23 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 import 'write_notes.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'display_notes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
 
-class CustomListView extends StatelessWidget {
+class CustomListView extends StatefulWidget {
   final List<NoteModel> noteList;
   CustomListView({Key key, this.noteList});
 
+  @override
+  _CustomListViewState createState() => _CustomListViewState();
+}
 
+class _CustomListViewState extends State<CustomListView> {
   Widget build(context) {
-    if (noteList.isEmpty){
+    if (widget.noteList.isEmpty){
       return Container(
         child: Center(
           child: Text("You can add notes. You do not any notes.",
@@ -37,7 +42,7 @@ class CustomListView extends StatelessWidget {
           children: <Widget>[
             Center(
               child: Padding(
-                padding: const EdgeInsets.only(top: 10.0, bottom: 2.0,),
+                padding: EdgeInsets.only(top: 10.0.h, bottom: 2.0.h,),
                 child: Text("Notes",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black38)
                 ),
@@ -47,9 +52,9 @@ class CustomListView extends StatelessWidget {
             ListView.builder(
               shrinkWrap: true,
               physics: ScrollPhysics(),
-              itemCount: noteList.length,
+              itemCount: widget.noteList.length,
               itemBuilder: (context, index) {
-                return NotesListItem(noteList[index]);
+                return NotesListItem(widget.noteList[index]);
               },
             )
           ]
@@ -57,73 +62,73 @@ class CustomListView extends StatelessWidget {
     }
 
   }
-
-
-
-
 }
 
 
+
+
+
+class NotedPadWidget extends StatefulWidget {
+  @override
+  _NotedPadWidgetState createState() => _NotedPadWidgetState();
+}
+
+class _NotedPadWidgetState extends State<NotedPadWidget> {
+  List<NoteModel> listedData;
   read_from_SP(key) async{
     SharedPreferences pref = await SharedPreferences.getInstance();
-    String content = pref.getString(key);
+    String content = pref.getString(key)??"";
     return content;
   }
 
-
-Future<List<NoteModel>> downloadJSON() async {
-  final jsonEndpoint = 'https://app.glclondon.church/api/notes';
-  String token = "Bearer " + await read_from_SP("token");
-  Response response = await get(
-    Uri.parse(jsonEndpoint),
-    headers: {
-      "authorization": token,
-      "accept": "application/json"
-    }
-  );
-  int statusCode = response.statusCode;
-  print( jsonDecode(response.body ) );
-  if (statusCode < 200 || statusCode > 400) {
+  bool loginState;
+  Future<List<NoteModel>> downloadJSON() async {
+    final jsonEndpoint = 'https://app.glclondon.church/api/notes';
+    String token = "Bearer " + await read_from_SP("token")??"";
     print("jobs fix");
-    throw Exception('We were not able to successfully download the json data.');
-  }else {
-    print("here");
-    var content = json.decode(response.body);
-   // print(content);
-   List nuesa_news = content["results"] as List;
-   List<NoteModel> realDeal = nuesa_news.map((nuesa_news) => new NoteModel.fromJson(nuesa_news)).toList();
+    Response response = await get(
+        Uri.parse(jsonEndpoint),
+        headers: {
+          "authorization": token,
+          "accept": "application/json"
+        }
+    );
 
-    print(realDeal);
-    return realDeal;
-    //return nuesa_news.map((nuesa_news) => new Notes_out.fromJson(nuesa_news)).toList();
+    int statusCode = response.statusCode;
+    print( jsonDecode(response.body ) );
+    if (statusCode < 200 || statusCode > 400) {
+      Map responsee = json.decode(response.body);
+     setState(() {
+       loginState = responsee['is_logged_in'];
+     });
+
+      throw Exception('We were not able to successfully download the json data.');
+    }else {
+      print("here");
+      var content = json.decode(response.body);
+      // print(content);
+      List nuesa_news = content["results"] as List;
+      List<NoteModel> realDeal = nuesa_news.map((nuesa_news) => new NoteModel.fromJson(nuesa_news)).toList();
+
+      print(realDeal);
+      return realDeal;
+      //return nuesa_news.map((nuesa_news) => new Notes_out.fromJson(nuesa_news)).toList();
+    }
   }
-}
 
-
-class Notes_Pad extends StatefulWidget {
-  Notes_Pad({Key key}) : super(key: key);
-
- @override
-  Notes_Pad_State createState() => Notes_Pad_State();
-}
-
-class Notes_Pad_State extends State<Notes_Pad> {
-  List<NoteModel> listedData;
   @override
   Widget build(BuildContext context) {
-    return  SafeArea(
-      child: Scaffold(
-          //appBar: new AppBar(title: const Text('MySQL Images Text')),
-          body: new Center(
-            //FutureBuilder is a widget that builds itself based on the latest snapshot
-            // of interaction with a Future.
-            child: Container(
-                padding:EdgeInsets.all(10),
-              child: new FutureBuilder<List<NoteModel>>(
+    return  Scaffold(
+        //appBar: new AppBar(title: const Text('MySQL Images Text')),
+        body:  Container(
+          height: 300.h,
+            padding:EdgeInsets.all(10),
+            child: new FutureBuilder<List<NoteModel>>(
                 future: downloadJSON(),
                 builder: (context, data ){
                   //return overrideSnapshot();
                   print(data.data);
+                  print(data);
                   listedData = data.data;
                   if (data.data != null){
                     return RefreshIndicator(
@@ -131,33 +136,39 @@ class Notes_Pad_State extends State<Notes_Pad> {
                       backgroundColor: Colors.green[800],
                       onRefresh: ()  {
                         return Future.delayed(
-                          Duration(seconds: 3), () async {
-                            var content = await downloadJSON();
-                            setState(() {
-                              listedData = content;
-                            });
+                            Duration(seconds: 3), () async {
+                          var content = await downloadJSON();
+                          setState(() {
+                            listedData = content;
+                          });
 
-                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('Page Refreshed'),
-                              ),
-                            );
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Page Refreshed'),
+                            ),
+                          );
 
-                          }
+                        }
                         );
                       },
                       child: Container(
-                        child: CustomListView( noteList: listedData,)
+                          child: CustomListView( noteList: listedData,)
                       ),
                     );
-                  }else{
-                    return CircularProgressIndicator();
+                  }else if (loginState!=null && loginState == false){
+                    return SizedBox(
+                        height: 50.h,
+                        child: Center(child: Text('You Need to Log in to Continue')));
+                  }{
+                    return SizedBox(
+                      height: 50.h,
+                        child: Center(child: CircularProgressIndicator()));
                   }
 
                 }
-              ),
             ),
-            /* new FutureBuilder<List<Notes_out>>(
+          ),
+          /* new FutureBuilder<List<Notes_out>>(
               future: downloadJSON(),
               //we pass a BuildContext and an AsyncSnapshot object which is an
               //Immutable representation of the most recent interaction with
@@ -212,27 +223,26 @@ class Notes_Pad_State extends State<Notes_Pad> {
                 );
               },
             ), */
-          ),
 
-          floatingActionButton: Padding(
-            padding: EdgeInsets.all(12),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Pallet.primaryColor,
-                shape: BoxShape.circle,
-              ),
-              child: IconButton(
+        floatingActionButton: (loginState!=null && loginState == false)? SizedBox.shrink():Padding(
+          padding: EdgeInsets.all(12),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Pallet.primaryColor,
+              shape: BoxShape.circle,
+            ),
+            child: IconButton(
                 color: Colors.white,
                 icon: Icon(Icons.add),
                 onPressed: ()=>{
                   Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) => Write_note()))
+                      builder: (BuildContext context) => Write_note()))
                 }
-              ),
             ),
           ),
         ),
     );
   }
 }
+
 //end

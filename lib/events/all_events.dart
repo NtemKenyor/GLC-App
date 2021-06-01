@@ -221,14 +221,14 @@ class CustomListView extends StatelessWidget {
 Future<List<EventModel>> GetEventsJson() async {
   //final jsonEndpoint = "https://a1in1.com/GLC/";
   final enderP = 'https://app.glclondon.church/api/events/upcoming/';
-  String token = "Bearer " + await read_from_SP("token");
+  //String token = "Bearer " + await read_from_SP("token");
 
   final responseEvents = await get(
     Uri.parse(enderP),
-    headers: {
-      "authorization": token,
-      "accept": "application/json"
-    }
+    // headers: {
+    //   "authorization": token,
+    //   "accept": "application/json"
+    // }
   );
   int statusCode = responseEvents.statusCode;
   if (statusCode < 200 || statusCode > 400) {

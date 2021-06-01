@@ -2,7 +2,7 @@ import 'package:GLC/home_page/model/event_model.dart';
 import 'package:GLC/utils/constants.dart';
 import 'package:GLC/utils/pallet.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class UpcomingWidget extends StatelessWidget {
   final EventModel event;
 
@@ -25,8 +25,8 @@ class UpcomingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 240,
-      margin: EdgeInsets.symmetric(horizontal: 5),
+      width: 240.w,
+      margin: EdgeInsets.symmetric(horizontal: 5.w),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
         child: Column(
@@ -38,8 +38,8 @@ class UpcomingWidget extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: Container(
-                      height: 150,
-                      width: 230,
+                      height: 150.h,
+                      width: 230.w,
                       child: theImager,
                     ),
                   ),
@@ -57,12 +57,12 @@ class UpcomingWidget extends StatelessWidget {
                               color: Colors.white,
                               size: 12,
                             ),
-                            SizedBox(width: 5),
+                            SizedBox(width: 5.w),
                             Flexible(
-                                child: Text(event.date ?? '12/4/2021',
+                                child: Text(event.date ?? '',
                                     maxLines: 1,
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 10))),
+                                        color: Colors.white, fontSize: 10.sp))),
                           ]
                           //trailing: Text("Monday, 21st October"),
                           ),
@@ -72,16 +72,16 @@ class UpcomingWidget extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 5,
+              height: 5.h,
             ),
             Padding(
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.all(5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(event.title ?? "Blessings of God in Him",
+                  Text(event.title ?? "",
                       style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.w700,
                           color: Colors.grey.shade700)),
                   Icon(Icons.more_vert, color: Pallet.primaryColor, size: 16)
@@ -89,10 +89,13 @@ class UpcomingWidget extends StatelessWidget {
               ),
             ),
             Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Text(event.desc ?? Constants.dummyText,
-                    style:
-                        TextStyle(color: Colors.grey.shade500, fontSize: 13))),
+                padding: EdgeInsets.symmetric(horizontal: 5.w,),
+                child: Align(
+                  alignment:Alignment.topLeft,
+                  child: Text(event.desc ?? Constants.dummyText,
+                      style:
+                          TextStyle(color: Colors.grey.shade500, fontSize: 13.sp)),
+                )),
           ],
         ),
       ),

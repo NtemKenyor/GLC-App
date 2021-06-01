@@ -82,9 +82,11 @@ class _VideoPlayerScreenState extends State<VideoPlayerApp_Live> {
             //mainAxisAlignment: MainAxisAlignment.center,
             //children: [
               child: Center(
-                child: YoutubePlayer(
-                  controller: youtube(),
-                  
+                child: Expanded(
+                  child: YoutubePlayer(
+                    controller: youtube(),
+
+                  ),
                 ),
                 
                 /* YoutubePlayerBuilder(

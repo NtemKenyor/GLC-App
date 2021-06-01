@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 class SplashWidget extends StatelessWidget {
@@ -11,9 +12,9 @@ class SplashWidget extends StatelessWidget {
         body: Stack(
           // mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(height: ss.height / 1.8, decoration: BoxDecoration(
+            Container(height: ss.height/1.2.h, decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage("assets/praying hands.jpg"),
+                  image: AssetImage("assets/raising_hands.jpg"),
                   fit: BoxFit.cover,
                 ),
                 color:Colors.black
@@ -21,7 +22,7 @@ class SplashWidget extends StatelessWidget {
             Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                    height: ss.height / 2,
+                    height: ss.height/2.h,
                     decoration: BoxDecoration(
                       color: Colors.white,
 
@@ -29,31 +30,32 @@ class SplashWidget extends StatelessWidget {
                           topLeft: Radius.circular(70),
                           topRight: Radius.circular(70)),
                     ),
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Welcome to",style:TextStyle(fontSize: 24, color: Colors.black,fontWeight: FontWeight.w300 )),
-                        SizedBox(height:10),
-                        Text("GREAT LIGHT",style:TextStyle(fontSize: 30, color: Colors.black,fontWeight: FontWeight.w900 )),
-                        SizedBox(height:10),
-                        Text("CHURCH",style:TextStyle(fontSize: 28, color: Colors.black,fontWeight: FontWeight.w300  )),
-                        SizedBox(height:10),
-                        SizedBox(height:10),SizedBox(height:10),
+                        SizedBox(height: 10.h,),
+                        Text("Welcome to",style:TextStyle(fontSize: 24.sp, color: Colors.black,fontWeight: FontWeight.w300 )),
+                        SizedBox(height:5.h),
+                        Text("GREAT LIGHT",style:TextStyle(fontSize: 30.sp, color: Colors.black,fontWeight: FontWeight.w900 )),
+                        SizedBox(height:5.h),
+                        Text("CHURCH",style:TextStyle(fontSize: 28.sp, color: Colors.black,fontWeight: FontWeight.w300  )),
+
+                        SizedBox(height:10),SizedBox(height:10.h),
                         Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eu ru metus, sit amet laoreet odio sodales sit amet",
-                          style:TextStyle(fontSize: 14, color: Colors.grey, ),textAlign: TextAlign.center,),
+                          style:TextStyle(fontSize: 14.sp, color: Colors.grey, ),textAlign: TextAlign.center,),
                         SizedBox(height: 30,),
                         CircularProgressIndicator()
                       ],
                     )
                 )),
             Positioned(
-              right: 50,
-              left:50,
-              top: 330,
+              right: 50.w,
+              left:50.w,
+              top: 330.h,
               child: Container(
-                  height: 100,
-                  width: 100,
+                  height: 100.h,
+                  width: 100.w,
                   padding: EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -69,8 +71,8 @@ class SplashWidget extends StatelessWidget {
                   ),
 
                   child: Container(
-                    height: 70,
-                    width: 70,
+                    height: 70.h,
+                    width: 70.w,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       shape: BoxShape.circle,

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:GLC/generals.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Comms {
   //final int id;
@@ -64,21 +65,32 @@ class ComsListView extends StatelessWidget {
     return  Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-          decoration: BoxDecoration(
-            color: Colors.red.withOpacity(0.2),
-            //borderRadius: BorderRadius.circular(12),
-            //would drop an error...
-            border: Border(
-                left: BorderSide(
-                  color: Color.fromRGBO(241, 89, 34, 1),
-                  width: 5,
-                )
-            ),
+          decoration: new BoxDecoration(
 
-          ),
-          height: 130,
+              gradient: new LinearGradient(
+                  stops: [0.02, 0.02],
+                  colors: [Colors.red, Colors.red.withOpacity(0.2)]
+              ),
+              borderRadius: new BorderRadius.all(const Radius.circular(10))),
+          // decoration: BoxDecoration(
+          //   color: Colors.red.withOpacity(0.2),
+          //   //borderRadius: BorderRadius.circular(12),
+          //   // borderRadius: BorderRadius.only(
+          //   //     topLeft: Radius.circular(20.0),
+          //   //     bottomLeft: Radius.circular(20.0)),
+          //   border: Border(
+          //       left: BorderSide(
+          //         color: Color.fromRGBO(241, 89, 34, 1),
+          //         width: 5,
+          //       )
+          //   ),
+          //
+          // ),
+          padding:EdgeInsets.all(10),
+          height: 130.h,
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment:CrossAxisAlignment.start,
               children : <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -92,7 +104,7 @@ class ComsListView extends StatelessWidget {
                 Expanded(
                     child:
                     Padding(
-                      padding: EdgeInsets.fromLTRB(14, 8, 8, 9),
+                      padding: EdgeInsets.fromLTRB(8, 8, 8, 9),
                       child:  Text(get1Comms.desc),
                     )
                 ),
@@ -114,14 +126,14 @@ class ComsListView extends StatelessWidget {
 Future<List<Comms>> GetEventsJson() async {
   //final jsonEndpoint = "https://a1in1.com/GLC/";
   final enderP = 'https://app.glclondon.church/api/GLC/connect';
-  String token = "Bearer " + await read_from_SP("token");
+  ///String token = "Bearer " + await read_from_SP("token")??"";
 
   final responseEvents = await get(
     Uri.parse(enderP),
-    headers: {
-      "authorization": token,
-      "accept": "application/json"
-    }
+    // headers: {
+    //   "authorization": token,
+    //   "accept": "application/json"
+    // }
   );
   int statusCode = responseEvents.statusCode;
   if (statusCode < 200 || statusCode > 400) {

@@ -1,12 +1,16 @@
 //import 'dart:html';
 
-import 'package:GLC/others/user_part.dart' hide user_connect;
+import 'package:GLC/others/user_part.dart' hide AuthenticationPage;
+import 'package:GLC/ui/media/media_republic.dart';
+import 'package:GLC/ui/media/media_republic.dart';
 import 'package:GLC/utils/pallet.dart';
 import 'package:flutter/material.dart';
 import 'connect/connect.dart';
+import 'home_page/appbar.dart';
 import 'ui/donations/screens/giving_page.dart';
 import 'home_page/home.dart';
 import 'package:GLC/ui/media/media_republic.dart';
+import 'ui/media/media_republic.dart';
 import 'watch/anything_video.dart';
 import 'others/user_part.dart';
 import 'events/all_events.dart';
@@ -86,10 +90,10 @@ class _MyHomePageState extends State<HomePage> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   List<Widget> tabs_show_side = [
-    home_page(),
-    media_Republic(),
+    HomeScreen(),
+    MediaPage(),
     all_videos(),
-    give_page(),
+    GivingPage(),
     ConnectPage(),
   ];
 
@@ -106,7 +110,7 @@ class _MyHomePageState extends State<HomePage> {
     bool pass = await pref.remove("password");
     if (state == true && pass == true){
       Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (BuildContext context) => user_connect() ),
+        MaterialPageRoute(builder: (BuildContext context) => AuthenticationPage() ),
         (Route<dynamic> route ) => false
       );
     }
@@ -414,7 +418,7 @@ class _MyHomePageState extends State<HomePage> {
                               onPressed: (){
                                 Navigator.of(context).pop();
                                 Navigator.of(context).push(MaterialPageRoute(
-                                builder: (BuildContext context) => user_connect()));
+                                builder: (BuildContext context) => AuthenticationPage()));
                               }
                                 ,
                               icon: Container(
@@ -440,38 +444,58 @@ class _MyHomePageState extends State<HomePage> {
               ),
             ),
         ),
-        appBar: AppBar(
-          //leading: Icon(Icons.menu),
-          automaticallyImplyLeading: false,
-          elevation: 0,
-          backgroundColor: Pallet.appBarColor,
-          title: Padding(
-            padding: EdgeInsets.all(14),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.menu, color: dark_,),
-                  onPressed: (){
-                    _scaffoldKey.currentState.openDrawer();
-                  },
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 30),
-                    child: Image.asset("assets/glc logo 1.png", width: 120, height: 55,),
-                  ),
-                ),
-                // IconButton(
-                //   onPressed: ()=> {userSide()},
-                //   icon: Icon(Icons.power, color:Colors.red ),
-                //   color: dark_,
-                // )
-              ]
-            ),
-          )
-        ),
+        appBar:CustomAppBarFull( openMenuCallback: (){
+          _scaffoldKey.currentState.openDrawer();
+        },),
+        // AppBar(
+        //   //leading: Icon(Icons.menu),
+        //   automaticallyImplyLeading: false,
+        //   elevation: 0,
+        //   backgroundColor: Pallet.primaryColor,
+        //   bottom: PreferredSize(
+        //     preferredSize: Size(double.infinity, 79),
+        //     child: Container(
+        //       decoration:BoxDecoration(color:Colors.white),
+        //       child: Column(
+        //         children: [
+        //           Container(
+        //               height: 30,
+        //               width:double.infinity,
+        //               decoration: BoxDecoration(
+        //                 color:Colors.orange,
+        //                 borderRadius: BorderRadius.only(
+        //                     bottomRight: Radius.circular(20.0),
+        //                     bottomLeft: Radius.circular(20.0)),
+        //               )
+        //           ),
+        //           Row(
+        //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //               crossAxisAlignment: CrossAxisAlignment.center,
+        //               children: <Widget>[
+        //                 IconButton(
+        //                   icon: Icon(Icons.menu, color: dark_,),
+        //                   onPressed: (){
+        //                     _scaffoldKey.currentState.openDrawer();
+        //                   },
+        //                 ),
+        //                 Expanded(
+        //                   child: Padding(
+        //                     padding: const EdgeInsets.only(right: 30),
+        //                     child: Image.asset("assets/glc logo 1.png", width: 120, height: 55,),
+        //                   ),
+        //                 ),
+        //                 // IconButton(
+        //                 //   onPressed: ()=> {userSide()},
+        //                 //   icon: Icon(Icons.power, color:Colors.red ),
+        //                 //   color: dark_,
+        //                 // )
+        //               ]
+        //           ),
+        //         ],
+        //       ),
+        //     ),
+        //   ),
+        // ),
 
         body: Container(
           child: tabs_show_side[_selectedIndex]

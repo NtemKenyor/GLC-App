@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\share\\intermediates\\res\\merged\\release\\layout-v21\\notification_action_tombstone.xml",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\f368fa15b97e8c1b70bc41a2fca953ea\\core-1.3.1\\res\\layout-v21\\notification_action_tombstone.xml"
+    },
+    {
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\share\\intermediates\\res\\merged\\release\\layout-v21\\notification_template_icon_group.xml",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\f368fa15b97e8c1b70bc41a2fca953ea\\core-1.3.1\\res\\layout-v21\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\share\\intermediates\\res\\merged\\release\\layout-v21\\notification_template_custom_big.xml",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\f368fa15b97e8c1b70bc41a2fca953ea\\core-1.3.1\\res\\layout-v21\\notification_template_custom_big.xml"
+    },
+    {
+        "merged": "C:\\newFlutterProjects\\GLC-App\\build\\share\\intermediates\\res\\merged\\release\\layout-v21\\notification_action.xml",
+        "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\f368fa15b97e8c1b70bc41a2fca953ea\\core-1.3.1\\res\\layout-v21\\notification_action.xml"
+    }
+]

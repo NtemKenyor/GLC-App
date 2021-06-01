@@ -4,6 +4,7 @@ import 'package:GLC/utils/pallet.dart';
 import 'package:GLC/watch/notes/display_notes.dart';
 import 'package:GLC/watch/notes/models/note_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 class NotesListItem extends StatelessWidget {
@@ -24,15 +25,15 @@ class NotesListItem extends StatelessWidget {
               Navigator.of(context).push(route);
             },
             child: Container(
-              padding:EdgeInsets.symmetric(horizontal: 20),
-              height: 80,
+              padding:EdgeInsets.symmetric(horizontal: 20.w),
+              height: 80.h,
               decoration: BoxDecoration(
 
                 color: Colors.grey.shade200,
                 border: Border(
                     left: BorderSide(
                       color: Color.fromRGBO(241, 89, 34, 1),
-                      width: 5,
+                      width: 5.h,
                     )
                 ),
 
@@ -50,11 +51,11 @@ class NotesListItem extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 10,),
+                          SizedBox(height: 10.h,),
                           Row(
                             children: [
-                              Icon(Icons.calendar_today,color:Pallet.primaryColor, size:16),
-                              SizedBox(width: 10,),
+                              Icon(Icons.calendar_today,color:Pallet.primaryColor, size:16.sp),
+                              SizedBox(width: 10.w,),
                               Text(DateUtil.format(
                                   DateTime.parse(note.createDate ??
                                       ""),), style:TextStyle(color:Pallet.textLight)),

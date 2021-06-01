@@ -1,6 +1,4 @@
-//import 'dart:html';
 import 'dart:convert';
-import 'package:GLC/others/user_part.dart';
 import 'package:GLC/utils/pallet.dart';
 import 'package:GLC/utils/widgets/toast_message.dart';
 import 'package:http/http.dart' as http;
@@ -8,6 +6,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:GLC/utils/extensions.dart';
 
+import '../intro.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class Post {
   final String email;
   final String password;
@@ -91,7 +91,11 @@ class _MyHomePageState extends State<SignUpPage> {
     }
   }
 
+  bool isLoading = false;
   Future userRegister(String url, mrMap) async {
+    setState(() {
+      isLoading = true;
+    });
     return http
         .post(
       Uri.parse(url),
@@ -101,8 +105,15 @@ class _MyHomePageState extends State<SignUpPage> {
       final int statusCode = response.statusCode;
 
       if (statusCode < 200 || statusCode > 400) {
+        setState(() {
+          isLoading = false;
+        });
+        flutterToast("Error while Fetching Data", true);
         throw new Exception("Error while fetching data");
       } else if (response.body != "") {
+        setState(() {
+          isLoading = false;
+        });
         var json_received = json.decode(response.body);
         print(json_received);
         if ((response.body).contains("status")) {
@@ -111,6 +122,7 @@ class _MyHomePageState extends State<SignUpPage> {
             display_result(json_received["msg"]);
           } else if (json_received["status"] == "false") {
             print(json_received["msg"]);
+            flutterToast((json_received["msg"]), true);
             display_result(json_received["msg"]);
           }
           //display_result(error_gotten);
@@ -118,7 +130,11 @@ class _MyHomePageState extends State<SignUpPage> {
 
         }
       } else {
+        setState(() {
+          isLoading = false;
+        });
         display_result("Connection Problem: Try Again later.");
+        flutterToast('Connection Problem: Try Again Later', true);
       }
     });
   }
@@ -164,9 +180,9 @@ class _MyHomePageState extends State<SignUpPage> {
               TextFormField(
                   maxLines: 1,
                   controller: nameController,
-                  keyboardType: TextInputType.emailAddress,
+                  keyboardType: TextInputType.name,
                   decoration: InputDecoration(
-                      suffixIcon: Icon(Icons.person_outline,
+                      prefixIcon: Icon(Icons.person_outline,
                           color: Colors.grey.shade400),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20.0),
@@ -181,7 +197,7 @@ class _MyHomePageState extends State<SignUpPage> {
                   controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
-                      suffixIcon:
+                      prefixIcon:
                           Icon(Icons.mail_outline, color: Colors.grey.shade400),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20.0),
@@ -241,7 +257,7 @@ class _MyHomePageState extends State<SignUpPage> {
                         ),
                       ))),
 
-              (the_msg=="Loading")? Padding(
+              isLoading? Padding(
                   padding:EdgeInsets.all(20),
                   child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Pallet.primaryColor))):Text(
                 the_msg,
@@ -282,7 +298,7 @@ class _MyHomePageState extends State<SignUpPage> {
                     )),
               ),
               SizedBox(
-                height: 30,
+                height: 10,
               ),
               // Text(
               //   "Or continue With",
@@ -291,9 +307,9 @@ class _MyHomePageState extends State<SignUpPage> {
               //     fontWeight: FontWeight.w800,
               //   ),
               // ),
-              SizedBox(
-                height: 20,
-              ),
+              // SizedBox(
+              //   height: 20,
+              // ),
               // Row(
               //   mainAxisSize: MainAxisSize.min,
               //   children: [
@@ -333,7 +349,9 @@ class _MyHomePageState extends State<SignUpPage> {
               //   ],
               // ),
 
-              SizedBox(height:20,),
+
+              skipAuthentication(),
+              SizedBox(height:20.h,),
               Padding(
                 padding:EdgeInsets.all(10),
                 child: RichText(
@@ -360,5 +378,24 @@ class _MyHomePageState extends State<SignUpPage> {
         ),
       ),
     ));
+  }
+
+
+  Widget skipAuthentication(){
+    return InkWell(
+      onTap: (){
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (BuildContext context) => HomePage()));
+      },
+      child: Container(
+        height: 40,
+        width: 100,
+        decoration:BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: Pallet.appBarColor,
+        ),
+        child: Center(child:Text('Skip',style:TextStyle(color:Pallet.white)), ),
+      ),
+    );
   }
 }
